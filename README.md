@@ -5,7 +5,7 @@
 
 <!-- Typing SVG -->
 <a href="https://github.com/Adityakeerti">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&duration=3000&pause=1000&color=C9A96E&center=true&vCenter=true&multiline=true&repeat=true&width=600&height=80&lines=Building+scalable+systems+with+code+%26+curiosity;From+REST+APIs+to+Reinforcement+Learning" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&duration=3000&pause=1000&color=C9A96E&center=true&vCenter=true&multiline=true&repeat=true&width=700&height=80&lines=Building+scalable+systems+with+code+%26+curiosity;From+REST+APIs+to+Reinforcement+Learning" alt="Typing SVG" />
 </a>
 
 <br/>
