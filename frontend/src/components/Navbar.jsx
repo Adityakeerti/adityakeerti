@@ -11,6 +11,12 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        document.body.style.overflow = open ? 'hidden' : ''
+        return () => { document.body.style.overflow = '' }
+    }, [open])
+
     const links = [
         { label: 'Projects', href: '#projects' },
         { label: 'Achievements', href: '#achievements' },
@@ -21,7 +27,7 @@ export default function Navbar() {
 
     return (
         <motion.nav
-            className={`navbar ${scrolled ? 'scrolled' : ''}`}
+            className={`navbar ${scrolled ? 'scrolled' : ''} ${open ? 'menu-open' : ''}`}
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -47,7 +53,7 @@ export default function Navbar() {
                 </ul>
 
                 <button
-                    className="navbar-mobile-toggle"
+                    className={`navbar-mobile-toggle ${open ? 'active' : ''}`}
                     onClick={() => setOpen(!open)}
                     aria-label="Toggle navigation menu"
                     aria-expanded={open}
