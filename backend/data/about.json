@@ -1,0 +1,17 @@
+{
+  "name": "Adityakeerti",
+  "role": "Full-Stack Developer & AI/ML Engineer",
+  "bio": "Final-year Computer Science student specializing in Full-Stack Development and AI/ML. I build scalable REST APIs, microservices, and production-ready automation pipelines. Strong foundation in DSA, OOPs, and system design. Proven track record of optimizing workflows by 30x and achieving 99%+ accuracy in computer vision tasks.",
+  "email": "adityacodes404@gmail.com",
+  "phone": "+91 88096 91824",
+  "location": "Dehradun, Uttarakhand",
+  "github": "https://github.com/Adityakeerti",
+  "linkedin": "https://linkedin.com/in/adityakeerti",
+  "resume": "/resume.pdf",
+  "education": {
+    "degree": "B.Tech CSE (AI-ML)",
+    "university": "Graphic Era Hill University, Dehradun",
+    "year": "2023 – 2027",
+    "result": "7.43 CGPA"
+  }
+}

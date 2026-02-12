@@ -1,0 +1,62 @@
+{
+    "categories": [
+        {
+            "name": "Languages & Core",
+            "skills": [
+                "Java",
+                "Python",
+                "SQL",
+                "TypeScript",
+                "Dart",
+                "DSA",
+                "OOPs"
+            ]
+        },
+        {
+            "name": "Backend",
+            "skills": [
+                "Spring Boot",
+                "FastAPI",
+                "Flask",
+                "REST APIs",
+                "Microservices",
+                "Kafka",
+                "Redis"
+            ]
+        },
+        {
+            "name": "Frontend",
+            "skills": [
+                "React.js",
+                "Flutter",
+                "HTML/CSS",
+                "JavaScript (ES6+)",
+                "Vite"
+            ]
+        },
+        {
+            "name": "AI / ML",
+            "skills": [
+                "PyTorch",
+                "Reinforcement Learning",
+                "OpenCV",
+                "YOLO",
+                "FAISS",
+                "HuggingFace",
+                "Google Document AI"
+            ]
+        },
+        {
+            "name": "Tools & Cloud",
+            "skills": [
+                "Git/GitHub",
+                "Docker",
+                "Postman",
+                "MySQL",
+                "SQLite",
+                "n8n",
+                "Google Cloud Platform"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+[
+    {
+        "id": "peerprep",
+        "company": "Peerprep",
+        "role": "Software Engineering Intern",
+        "period": "Sep 2025 – Nov 2025",
+        "type": "Internship",
+        "highlights": [
+            "Engineered an OpenCV + OCR pipeline with document detection, perspective correction, and text extraction to digitize academic marksheets across multiple education boards",
+            "Automated conversion of scanned PDFs/images into validated digital records, significantly reducing manual data entry effort"
+        ]
+    },
+    {
+        "id": "ime-deployment",
+        "company": "Integrated Maritime Exchange",
+        "role": "Commercial Deployment",
+        "period": "Aug 2025 – Oct 2025",
+        "type": "Work Experience",
+        "highlights": [
+            "Solution (Cargo Laytime) achieved 100% accuracy and is currently deployed in production by Integrated Maritime Exchange"
+        ]
+    }
+]

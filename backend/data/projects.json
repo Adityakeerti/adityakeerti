@@ -1,0 +1,160 @@
+[
+    {
+        "id": "credit-limit-rl",
+        "title": "Advanzia AutoLend",
+        "subtitle": "AI-Driven Dynamic Credit Limit Optimization",
+        "date": "Jan 2026",
+        "problem": "Traditional credit limit adjustments rely on static rules that fail to adapt to real-time risk signals, leaving portfolio profit on the table while exposing lenders to uncontrolled default rates.",
+        "approach": "Implemented an offline Double DQN policy with Dueling Architecture in PyTorch to dynamically adjust credit limits. Integrated a Cox Proportional Hazard Model for default probability estimation and built a FastAPI decision gateway for real-time inference.",
+        "outcomes": [
+            "5000+ real-time evaluations/min with sub-second latency",
+            "Portfolio risk maintained below 7%",
+            "8% increase in spending efficiency via n8n workflow automation",
+            "Auditable inference logs for regulatory compliance"
+        ],
+        "techStack": [
+            "Python",
+            "PyTorch",
+            "Reinforcement Learning",
+            "FastAPI",
+            "n8n",
+            "MySQL",
+            "Redis",
+            "Kafka",
+            "Java",
+            "Spring Boot",
+            "React"
+        ],
+        "github": "https://github.com/Adityakeerti/Credit_Limit_Adjust_RL",
+        "demo": null,
+        "featured": true
+    },
+    {
+        "id": "campusintel",
+        "title": "CampusIntel Phase 2",
+        "subtitle": "Unified Campus Intelligence System",
+        "date": "2025",
+        "problem": "Educational institutions lack unified platforms that combine campus automation, AI-powered student assistance, and document processing into a single, accessible system.",
+        "approach": "Built a comprehensive multi-service platform with AI chat powered by FAISS-based RAG, smart library management, automated OCR-based document processing, and a real-time communication layer — all deployed as containerized microservices.",
+        "outcomes": [
+            "Live production deployment on Render",
+            "Multi-service architecture (4 backend services)",
+            "AI-powered campus assistant with RAG retrieval",
+            "Top 3 in HackTheWinter offline final round"
+        ],
+        "techStack": [
+            "JavaScript",
+            "React",
+            "Python",
+            "FastAPI",
+            "Java",
+            "Spring Boot",
+            "FAISS",
+            "Docker",
+            "MySQL"
+        ],
+        "github": "https://github.com/Adityakeerti/CampusIntel-Phase2",
+        "demo": "https://campusintel-phase2.onrender.com/",
+        "featured": true
+    },
+    {
+        "id": "doc-oc",
+        "title": "DOC-OC",
+        "subtitle": "Automated Marksheet Extraction System",
+        "date": "Sept – Oct 2025",
+        "problem": "Manual transcription of academic marksheets across different education boards is slow, error-prone, and doesn't scale — taking ~10 minutes per document.",
+        "approach": "Engineered a multi-board extraction pipeline using YOLO for document region detection and Table Transformers (HuggingFace) for structured data parsing. Built scalable REST APIs with FastAPI and a React frontend for the processing workflow.",
+        "outcomes": [
+            "99.98% extraction accuracy across multiple boards",
+            "30x processing speedup (10 min → ~30s per marksheet)",
+            "Developed under guidance of Dr. Prof. Ashish Garg",
+            "Production-ready pipeline with CLI and web interface"
+        ],
+        "techStack": [
+            "Python",
+            "FastAPI",
+            "React",
+            "TypeScript",
+            "YOLO",
+            "HuggingFace",
+            "MySQL",
+            "Microservices"
+        ],
+        "github": "https://github.com/Adityakeerti/DOC-OC",
+        "demo": null,
+        "featured": true
+    },
+    {
+        "id": "cargo-laytime",
+        "title": "Cargo Laytime",
+        "subtitle": "SOF Document Processing & Laytime Calculator",
+        "date": "2025",
+        "problem": "Maritime professionals manually parse Statement of Facts (SOF) documents for vessel/voyage data and laytime calculations — a tedious, error-prone process critical to shipping logistics.",
+        "approach": "Built a web application combining Google Document AI for OCR, Generative AI for intelligent text extraction, and maritime-specific calculation logic. FastAPI backend with a responsive HTML/CSS/JS frontend.",
+        "outcomes": [
+            "Winner — MariTHON National Hackathon",
+            "Commercially deployed by Integrated Maritime Exchange",
+            "100% accuracy on production SOF documents",
+            "Full OCR → structured data → laytime calculation pipeline"
+        ],
+        "techStack": [
+            "Python",
+            "FastAPI",
+            "Google Cloud AI",
+            "Document AI",
+            "Generative AI",
+            "HTML/CSS/JS"
+        ],
+        "github": "https://github.com/Adityakeerti/TeamAAAM",
+        "demo": null,
+        "featured": true
+    },
+    {
+        "id": "pustak-tracker",
+        "title": "Pustak Tracker",
+        "subtitle": "Library Management System",
+        "date": "Aug – Nov 2025",
+        "problem": "Small and institutional libraries need affordable, mobile-friendly management systems that don't require expensive barcode hardware.",
+        "approach": "Architected a full-stack library solution using Flutter for mobile and Flask for backend. Integrated mobile-vision barcode scanning to replace hardware scanners, with secure JWT authentication and automated fine calculation.",
+        "outcomes": [
+            "Replaced hardware barcode scanners, saving ₹4,000 in infrastructure",
+            "Secure JWT-based authentication",
+            "Real-time book tracking and automated fine calculation",
+            "Mobile-first design with Flutter"
+        ],
+        "techStack": [
+            "Flutter",
+            "Dart",
+            "Python",
+            "Flask",
+            "SQLite",
+            "REST APIs",
+            "System Design"
+        ],
+        "github": "https://github.com/Adityakeerti/Pustak-Tracker",
+        "demo": null,
+        "featured": false
+    },
+    {
+        "id": "livana",
+        "title": "LivAna 3.0",
+        "subtitle": "Health & Lifestyle Companion App",
+        "date": "2025",
+        "problem": "People struggle to maintain consistent health habits without a unified platform that tracks, motivates, and adapts to their lifestyle patterns.",
+        "approach": "Developed across three iterations (LivAna → 2.0 → 3.0), progressively improving the architecture and feature set. Built with Flutter for cross-platform mobile support, focusing on clean UI and reliable data persistence.",
+        "outcomes": [
+            "3 major iterations demonstrating iterative engineering",
+            "Cross-platform mobile app (iOS + Android)",
+            "Clean Flutter architecture with state management",
+            "Focus on user engagement and habit formation"
+        ],
+        "techStack": [
+            "Flutter",
+            "Dart",
+            "Firebase"
+        ],
+        "github": "https://github.com/Adityakeerti/LivAna-3.0",
+        "demo": null,
+        "featured": false
+    }
+]

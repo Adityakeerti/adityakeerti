@@ -1,0 +1,16 @@
+[
+    {
+        "id": "marathon-win",
+        "title": "Winner — MariTHON National Hackathon",
+        "description": "Led team to build a commercialized SOF event extraction tool using Gen AI. Secure JWT authentication, Google Cloud AI integration, and production deployment.",
+        "type": "hackathon",
+        "mediaPlaceholder": true
+    },
+    {
+        "id": "hackthewinter",
+        "title": "Top 3 — HackTheWinter (Offline Round 2)",
+        "description": "Reached Top 3 in the offline final round of HackTheWinter. Built CampusIntel Phase 2 — a unified campus intelligence system with AI-powered chat, smart library, and document processing.",
+        "type": "hackathon",
+        "mediaPlaceholder": true
+    }
+]
