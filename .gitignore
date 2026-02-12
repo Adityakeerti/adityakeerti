@@ -2,6 +2,7 @@
 node_modules/
 __pycache__/
 *.pyc
+Context/
 
 # Build output
 frontend/dist/

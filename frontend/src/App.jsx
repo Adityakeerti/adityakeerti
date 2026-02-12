@@ -8,7 +8,7 @@ import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 
-const API_BASE = '/api'
+const API_BASE = import.meta.env.VITE_API_URL || '/api'
 
 function useFetch(endpoint) {
     const [data, setData] = useState(null)
