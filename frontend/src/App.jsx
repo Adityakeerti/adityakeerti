@@ -150,30 +150,108 @@ function MatrixRain() {
     return <canvas ref={canvasRef} className="matrix-canvas" />
 }
 
+function ScrollIndicator() {
+    return (
+        <div className="scroll-indicator">
+            {/* Mouse icon — desktop only */}
+            <div className="scroll-mouse">
+                <svg width="28" height="44" viewBox="0 0 28 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="26" height="42" rx="13" stroke="rgba(201,169,110,0.6)" strokeWidth="2" />
+                    <circle className="scroll-mouse-dot" cx="14" cy="12" r="3" fill="rgba(201,169,110,0.9)" />
+                </svg>
+            </div>
+            {/* Chevron — mobile only */}
+            <div className="scroll-touch">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 8L12 16L20 8" stroke="rgba(201,169,110,0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginTop: '-10px' }}>
+                    <path d="M4 8L12 16L20 8" stroke="rgba(201,169,110,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+            </div>
+        </div>
+    )
+}
+
 function LoadingScreen({ onComplete }) {
     const { display, resolved, done } = useTextScramble(TARGET, GLYPHS, 100)
-    const [exiting, setExiting] = useState(false)
+    const [showIndicator, setShowIndicator] = useState(false)
+    const [slidingUp, setSlidingUp] = useState(false)
+    const hasTriggered = useRef(false)
+    const touchStartY = useRef(null)
 
+    // Show scroll indicator after scramble finishes
     useEffect(() => {
-        if (done && !exiting) {
-            setExiting(true)
-            setTimeout(onComplete, 2200)
+        if (done && !showIndicator) {
+            const timer = setTimeout(() => setShowIndicator(true), 600)
+            return () => clearTimeout(timer)
         }
-    }, [done, exiting, onComplete])
+    }, [done, showIndicator])
+
+    // Trigger slide-up
+    const triggerReveal = useCallback(() => {
+        if (hasTriggered.current || !done) return
+        hasTriggered.current = true
+        setSlidingUp(true)
+        setTimeout(onComplete, 900) // matches CSS transition duration
+    }, [done, onComplete])
+
+    // Listen for scroll (desktop) and touch (mobile)
+    useEffect(() => {
+        if (!done) return
+
+        const handleWheel = (e) => {
+            e.preventDefault() // Stop page scroll
+            if (e.deltaY > 0) triggerReveal()
+        }
+
+        const handleTouchStart = (e) => {
+            touchStartY.current = e.touches[0].clientY
+        }
+
+        const handleTouchMove = (e) => {
+            e.preventDefault() // Stop page scroll
+        }
+
+        const handleTouchEnd = (e) => {
+            if (touchStartY.current === null) return
+            const diff = touchStartY.current - e.changedTouches[0].clientY
+            if (diff > 40) triggerReveal() // swipe up
+            touchStartY.current = null
+        }
+
+        const handleKey = (e) => {
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault()
+                triggerReveal()
+            }
+        }
+
+        // Use passive: false to allow preventDefault
+        window.addEventListener('wheel', handleWheel, { passive: false })
+        window.addEventListener('touchstart', handleTouchStart, { passive: true })
+        window.addEventListener('touchmove', handleTouchMove, { passive: false })
+        window.addEventListener('touchend', handleTouchEnd, { passive: true })
+        window.addEventListener('keydown', handleKey)
+
+        return () => {
+            window.removeEventListener('wheel', handleWheel)
+            window.removeEventListener('touchstart', handleTouchStart)
+            window.removeEventListener('touchmove', handleTouchMove)
+            window.removeEventListener('touchend', handleTouchEnd)
+            window.removeEventListener('keydown', handleKey)
+        }
+    }, [done, triggerReveal])
 
     return (
-        <motion.div
-            className="loader-screen"
-            animate={exiting ? { opacity: 0, scale: 1.05 } : { opacity: 1, scale: 1 }}
-            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div className={`loader-screen${slidingUp ? ' sliding-up' : ''}`}>
             <MatrixRain />
 
             {/* Scan line */}
             <div className="loader-scanline" />
 
             <div className="loader-content">
-                {/* Scrambling name — fades out after fully decoded */}
+                {/* Scrambling name — stays visible */}
                 <div className="loader-decode-text">
                     {display.split('').map((char, i) => (
                         <span
@@ -205,7 +283,10 @@ function LoadingScreen({ onComplete }) {
                     />
                 </div>
             </div>
-        </motion.div>
+
+            {/* Scroll indicator */}
+            {showIndicator && !slidingUp && <ScrollIndicator />}
+        </div>
     )
 }
 
@@ -304,35 +385,42 @@ export default function App() {
     const { data: achievements } = useFetch('/achievements')
     const [showLoader, setShowLoader] = useState(true)
 
+    // Lock body scroll while loader is visible
+    useEffect(() => {
+        if (showLoader) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
+        return () => { document.body.style.overflow = '' }
+    }, [showLoader])
+
     const handleLoadComplete = useCallback(() => {
+        window.scrollTo(0, 0)
         setShowLoader(false)
     }, [])
 
     return (
         <>
-            <AnimatePresence mode="wait">
-                {showLoader && <LoadingScreen key="loader" onComplete={handleLoadComplete} />}
-            </AnimatePresence>
+            {/* Main content renders underneath the loader */}
+            <CustomCursor />
+            <Navbar />
+            <main>
+                <Hero data={about} />
+                <hr className="section-divider" />
+                <Projects data={projects} />
+                <hr className="section-divider" />
+                <Experience data={experience} />
+                <hr className="section-divider" />
+                <Achievements data={achievements} />
+                <hr className="section-divider" />
+                <Skills data={skills} />
+                <hr className="section-divider" />
+                <Contact data={about} />
+            </main>
 
-            {!showLoader && (
-                <AnimatePresence>
-                    <CustomCursor />
-                    <Navbar />
-                    <main>
-                        <Hero data={about} />
-                        <hr className="section-divider" />
-                        <Projects data={projects} />
-                        <hr className="section-divider" />
-                        <Experience data={experience} />
-                        <hr className="section-divider" />
-                        <Achievements data={achievements} />
-                        <hr className="section-divider" />
-                        <Skills data={skills} />
-                        <hr className="section-divider" />
-                        <Contact data={about} />
-                    </main>
-                </AnimatePresence>
-            )}
+            {/* Loader overlay on top — slides up to reveal */}
+            {showLoader && <LoadingScreen onComplete={handleLoadComplete} />}
         </>
     )
 }
