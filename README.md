@@ -11,7 +11,7 @@
 <br/>
 
 <!-- Quick Links -->
-[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-adityakeerti.dev-c9a96e?style=for-the-badge&labelColor=0d0d0d)](https://adityakeerti.dev)
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-adityakeerti.vercel-c9a96e?style=for-the-badge&labelColor=0d0d0d)](https://adityakeerti.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-adityakeerti-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0d0d0d)](https://linkedin.com/in/adityakeerti)
 [![Email](https://img.shields.io/badge/Email-adityacodes404-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d0d0d)](mailto:adityacodes404@gmail.com)
 
