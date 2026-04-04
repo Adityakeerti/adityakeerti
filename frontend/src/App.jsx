@@ -340,7 +340,7 @@ function CustomCursor() {
 
         // Scale ring on hoverable elements
         const addHover = () => {
-            document.querySelectorAll('a, button, .project-card, .tech-tag, .skill-item').forEach((el) => {
+            document.querySelectorAll('a, button, .project-card, .tech-tag, .skill-item, .resume-showcase').forEach((el) => {
                 el.addEventListener('mouseenter', () => {
                     if (ringRef.current) ringRef.current.classList.add('cursor-hover')
                 })

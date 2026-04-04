@@ -2,13 +2,16 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const RESUME_PDF = '/ResumeAdityakeerti.pdf'
+const RESUME_SRC = `${RESUME_PDF}#view=FitH`
 
 export default function Resume() {
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true, margin: '-100px' })
 
     return (
-        <section id="resume" ref={ref}>
+        <section id="resume" className="resume-section" ref={ref}>
+            <div className="resume-section-glow" aria-hidden />
+
             <div className="container">
                 <motion.span
                     className="section-label"
@@ -16,7 +19,7 @@ export default function Resume() {
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5 }}
                 >
-                    CV
+                    Credentials
                 </motion.span>
                 <motion.h2
                     className="section-title"
@@ -24,44 +27,75 @@ export default function Resume() {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                    Resume
+                    Résumé
                 </motion.h2>
 
-                <motion.div
-                    className="resume-toolbar"
-                    initial={{ opacity: 0, y: 16 }}
+                <motion.article
+                    className="resume-showcase"
+                    initial={{ opacity: 0, y: 36 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.15 }}
+                    transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ y: -4, transition: { duration: 0.35 } }}
                 >
-                    <a
-                        href={RESUME_PDF}
-                        download="ResumeAdityakeerti.pdf"
-                        className="resume-action"
-                    >
-                        Download PDF
-                    </a>
-                    <a
-                        href={RESUME_PDF}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="resume-action resume-action-secondary"
-                    >
-                        Open in new tab
-                    </a>
-                </motion.div>
+                    <div className="resume-showcase-inner">
+                        <div className="resume-showcase-copy">
+                            <span className="resume-file-tag">
+                                <span className="resume-file-dot" aria-hidden />
+                                PDF · Adityakeerti
+                            </span>
+                            <p className="resume-lead">
+                                Experience, projects, internships, and education in one place.
+                                Open in a new tab for the sharpest view, or grab the file for
+                                applications.
+                            </p>
+                            <ul className="resume-mini-list">
+                                <li>Production projects & hackathon wins</li>
+                                <li>Peerprep internship &amp; technical stack</li>
+                                <li>Education &amp; contact</li>
+                            </ul>
+                            <div className="resume-showcase-actions">
+                                <a
+                                    href={RESUME_PDF}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hero-link primary"
+                                >
+                                    Open full PDF
+                                </a>
+                                <a
+                                    href={RESUME_PDF}
+                                    download="ResumeAdityakeerti.pdf"
+                                    className="hero-link"
+                                >
+                                    Download
+                                </a>
+                            </div>
+                        </div>
 
-                <motion.div
-                    className="resume-panel"
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                >
-                    <iframe
-                        title="Adityakeerti resume PDF"
-                        src={RESUME_PDF}
-                        className="resume-frame"
-                    />
-                </motion.div>
+                        <div className="resume-showcase-preview">
+                            <div className="resume-preview-shell">
+                                <div className="resume-preview-chrome" aria-hidden>
+                                    <span className="resume-preview-dot" />
+                                    <span className="resume-preview-dot" />
+                                    <span className="resume-preview-dot" />
+                                    <span className="resume-preview-url">resume.pdf</span>
+                                </div>
+                                <div className="resume-preview-viewport">
+                                    <iframe
+                                        title="Résumé PDF preview"
+                                        src={RESUME_SRC}
+                                        className="resume-frame"
+                                        loading="lazy"
+                                    />
+                                    <div className="resume-preview-fade" aria-hidden />
+                                </div>
+                            </div>
+                            <p className="resume-preview-hint">
+                                Preview — use <strong>Open full PDF</strong> if this looks cramped.
+                            </p>
+                        </div>
+                    </div>
+                </motion.article>
             </div>
         </section>
     )
