@@ -22,6 +22,7 @@ export default function Navbar() {
         { label: 'Achievements', href: '#achievements' },
         { label: 'Skills', href: '#skills' },
         { label: 'Experience', href: '#experience' },
+        { label: 'Resume', href: '#resume' },
         { label: 'Contact', href: '#contact' },
     ]
 

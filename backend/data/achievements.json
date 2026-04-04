@@ -2,7 +2,7 @@
     {
         "id": "marathon-win",
         "title": "Winner — MariTHON National Hackathon",
-        "description": "Led team to build a commercialized SOF event extraction tool using Gen AI. Secure JWT authentication, Google Cloud AI integration, and production deployment.",
+        "description": "Led team to build a commercialized SOF event extraction tool using Gen AI. Secure JWT authentication, Google Cloud AI integration, and production deployment. Solution (Cargo Laytime) achieved 100% accuracy and is currently deployed in production by Integrated Maritime Exchange.",
         "type": "hackathon",
         "mediaPlaceholder": true
     },

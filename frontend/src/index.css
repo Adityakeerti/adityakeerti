@@ -1392,6 +1392,72 @@ section {
 }
 
 /* ============================================
+   RESUME
+   ============================================ */
+
+.resume-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.resume-action {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  background: var(--accent-dim);
+  color: var(--accent-light);
+  transition: border-color var(--duration) var(--ease), background var(--duration) var(--ease),
+    color var(--duration) var(--ease);
+}
+
+.resume-action:hover {
+  border-color: var(--accent);
+  background: rgba(201, 169, 110, 0.12);
+  color: var(--text-primary);
+}
+
+.resume-action-secondary {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.resume-action-secondary:hover {
+  border-color: rgba(201, 169, 110, 0.3);
+  color: var(--accent-light);
+}
+
+.resume-panel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(22, 20, 18, 0.9), rgba(14, 13, 12, 0.95));
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.resume-frame {
+  display: block;
+  width: 100%;
+  min-height: 72vh;
+  border: none;
+  background: var(--bg-secondary);
+}
+
+@media (max-width: 768px) {
+  .resume-frame {
+    min-height: 60vh;
+  }
+}
+
+/* ============================================
    CONTACT
    ============================================ */
 

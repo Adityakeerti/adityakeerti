@@ -7,6 +7,7 @@ import Achievements from './components/Achievements'
 import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
+import Resume from './components/Resume'
 
 const API_BASE = import.meta.env.VITE_API_URL || '/api'
 
@@ -415,6 +416,8 @@ export default function App() {
                 <Achievements data={achievements} />
                 <hr className="section-divider" />
                 <Skills data={skills} />
+                <hr className="section-divider" />
+                <Resume />
                 <hr className="section-divider" />
                 <Contact data={about} />
             </main>
