@@ -2,7 +2,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const RESUME_PDF = '/ResumeAdityakeerti.pdf'
-const RESUME_SRC = `${RESUME_PDF}#view=FitH`
+const RESUME_SRC = `${RESUME_PDF}#view=FitH&toolbar=0`
 
 export default function Resume() {
     const ref = useRef(null)
@@ -37,7 +37,7 @@ export default function Resume() {
                     transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     whileHover={{ y: -4, transition: { duration: 0.35 } }}
                 >
-                    <div className="resume-showcase-inner">
+                    <div className="resume-showcase-header">
                         <div className="resume-showcase-copy">
                             <span className="resume-file-tag">
                                 <span className="resume-file-dot" aria-hidden />
@@ -50,50 +50,50 @@ export default function Resume() {
                             </p>
                             <ul className="resume-mini-list">
                                 <li>Production projects & hackathon wins</li>
-                                <li>Peerprep internship &amp; technical stack</li>
-                                <li>Education &amp; contact</li>
+                                <li>Peerprep internship & technical stack</li>
+                                <li>Education & contact</li>
                             </ul>
-                            <div className="resume-showcase-actions">
-                                <a
-                                    href={RESUME_PDF}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hero-link primary"
-                                >
-                                    Open full PDF
-                                </a>
-                                <a
-                                    href={RESUME_PDF}
-                                    download="ResumeAdityakeerti.pdf"
-                                    className="hero-link"
-                                >
-                                    Download
-                                </a>
-                            </div>
                         </div>
+                        <div className="resume-showcase-actions">
+                            <a
+                                href={RESUME_PDF}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hero-link primary"
+                            >
+                                Open full PDF
+                            </a>
+                            <a
+                                href={RESUME_PDF}
+                                download="ResumeAdityakeerti.pdf"
+                                className="hero-link"
+                            >
+                                Download
+                            </a>
+                        </div>
+                    </div>
 
-                        <div className="resume-showcase-preview">
-                            <div className="resume-preview-shell">
-                                <div className="resume-preview-chrome" aria-hidden>
-                                    <span className="resume-preview-dot" />
-                                    <span className="resume-preview-dot" />
-                                    <span className="resume-preview-dot" />
-                                    <span className="resume-preview-url">resume.pdf</span>
-                                </div>
-                                <div className="resume-preview-viewport">
-                                    <iframe
-                                        title="Résumé PDF preview"
-                                        src={RESUME_SRC}
-                                        className="resume-frame"
-                                        loading="lazy"
-                                    />
-                                    <div className="resume-preview-fade" aria-hidden />
-                                </div>
+                    <div className="resume-showcase-preview-bleed">
+                        <div className="resume-preview-shell">
+                            <div className="resume-preview-chrome" aria-hidden>
+                                <span className="resume-preview-dot" />
+                                <span className="resume-preview-dot" />
+                                <span className="resume-preview-dot" />
+                                <span className="resume-preview-url">resume.pdf</span>
                             </div>
-                            <p className="resume-preview-hint">
-                                Preview — use <strong>Open full PDF</strong> if this looks cramped.
-                            </p>
+                            <div className="resume-preview-viewport">
+                                <iframe
+                                    title="Résumé PDF preview"
+                                    src={RESUME_SRC}
+                                    className="resume-frame"
+                                    loading="lazy"
+                                />
+                                <div className="resume-preview-fade" aria-hidden />
+                            </div>
                         </div>
+                        <p className="resume-preview-hint">
+                            Preview — use <strong>Open full PDF</strong> for zoom and print.
+                        </p>
                     </div>
                 </motion.article>
             </div>
