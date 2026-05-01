@@ -64,6 +64,14 @@ export default function Experience({ data }) {
                                             <li key={j}>{highlight}</li>
                                         ))}
                                     </ul>
+
+                                    {item.tools && item.tools.length > 0 && (
+                                        <div className="experience-tools">
+                                            {item.tools.map((tool) => (
+                                                <span key={tool} className="tech-tag">{tool}</span>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </motion.article>
                         ))}

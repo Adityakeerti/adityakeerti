@@ -1,0 +1,17 @@
+{
+  "name": "Adityakeerti",
+  "role": "Full-Stack Developer & AI/ML Engineer",
+  "bio": "Final-year B.Tech Computer Science (AI/ML) student with hands-on experience in full-stack development and production-grade machine learning systems. Architected 58 REST API endpoints and designed BCNF-normalized database schemas in Spring Boot; built computer vision pipelines achieving near-perfect data extraction precision and significantly accelerating inference throughput. National hackathon winner with deployed solutions in active commercial use.",
+  "email": "adityacodes404@gmail.com",
+  "phone": "+91 88096 91824",
+  "location": "Dehradun, Uttarakhand",
+  "github": "https://github.com/Adityakeerti",
+  "linkedin": "https://linkedin.com/in/adityakeerti",
+  "resume": "/ResumeAdityakeerti.pdf",
+  "education": {
+    "degree": "B.Tech CSE (AI-ML)",
+    "university": "Graphic Era Hill University, Dehradun",
+    "year": "2023 – 2027",
+    "result": "7.48 CGPA"
+  }
+}

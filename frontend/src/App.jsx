@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Projects from './components/Projects'
@@ -8,28 +8,12 @@ import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Resume from './components/Resume'
-
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
-
-function useFetch(endpoint) {
-    const [data, setData] = useState(null)
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        fetch(`${API_BASE}${endpoint}`)
-            .then((res) => res.json())
-            .then((json) => {
-                setData(json)
-                setLoading(false)
-            })
-            .catch((err) => {
-                console.error(`Failed to fetch ${endpoint}:`, err)
-                setLoading(false)
-            })
-    }, [endpoint])
-
-    return { data, loading }
-}
+import PeseAssessment from './components/PeseAssessment'
+import about from './data/about.json'
+import projects from './data/projects.json'
+import skills from './data/skills.json'
+import experience from './data/experience.json'
+import achievements from './data/achievements.json'
 
 /* ─── Cinematic Text-Decode Loading Screen ─── */
 
@@ -379,11 +363,6 @@ function CustomCursor() {
 }
 
 export default function App() {
-    const { data: about, loading: aboutLoading } = useFetch('/about')
-    const { data: projects, loading: projectsLoading } = useFetch('/projects')
-    const { data: skills } = useFetch('/skills')
-    const { data: experience } = useFetch('/experience')
-    const { data: achievements } = useFetch('/achievements')
     const [showLoader, setShowLoader] = useState(true)
 
     // Lock body scroll while loader is visible
@@ -408,6 +387,8 @@ export default function App() {
             <Navbar />
             <main>
                 <Hero data={about} />
+                <hr className="section-divider" />
+                <PeseAssessment />
                 <hr className="section-divider" />
                 <Projects data={projects} />
                 <hr className="section-divider" />

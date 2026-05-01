@@ -35,13 +35,20 @@
             ]
         },
         {
+            "name": "Databases",
+            "skills": [
+                "PostgreSQL",
+                "MySQL",
+                "SQLite"
+            ]
+        },
+        {
             "name": "AI / ML",
             "skills": [
                 "PyTorch",
                 "Reinforcement Learning",
                 "OpenCV",
                 "YOLO",
-                "FAISS",
                 "HuggingFace",
                 "Google Document AI"
             ]
@@ -52,8 +59,6 @@
                 "Git/GitHub",
                 "Docker",
                 "Postman",
-                "MySQL",
-                "SQLite",
                 "n8n",
                 "Google Cloud Platform"
             ]
