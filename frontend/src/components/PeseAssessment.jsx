@@ -1,10 +1,9 @@
-﻿import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 
 const ESSAY_PAGES = [
-    '/pese/essay-page-1.jpg',
-    '/pese/essay-page-2.jpg',
-    '/pese/essay-page-3.jpg',
+    '/pese/essay-page-1.png',
+    '/pese/essay-page-2.png'
 ]
 
 const YOUTUBE_ID = 'WB-ZcsfY2JY'
@@ -36,6 +35,7 @@ function BookViewer() {
         ESSAY_PAGES.forEach((src, i) => {
             const img = new Image()
             img.crossOrigin = 'anonymous'
+            img.decoding = 'sync'
             img.src = src
             images.current[i] = img
         })
@@ -44,7 +44,9 @@ function BookViewer() {
     const draw = useCallback(() => {
         const canvas = canvasRef.current
         if (!canvas) return
-        const ctx = canvas.getContext('2d')
+        const ctx = canvas.getContext('2d', { alpha: false })
+        ctx.imageSmoothingEnabled = true
+        ctx.imageSmoothingQuality = 'high'
         const W = canvas.width
         const H = canvas.height
         const fs = flipState.current
@@ -214,8 +216,11 @@ function BookViewer() {
         if (!canvas) return
         const ro = new ResizeObserver(() => {
             const rect = canvas.parentElement.getBoundingClientRect()
-            canvas.width = rect.width
-            canvas.height = rect.width * (4 / 3) // 3:4 portrait ratio
+            const dpr = window.devicePixelRatio || 1
+            canvas.width = rect.width * dpr
+            canvas.height = rect.width * (4 / 3) * dpr
+            canvas.style.width = rect.width + 'px'
+            canvas.style.height = (rect.width * (4 / 3)) + 'px'
             draw()
         })
         ro.observe(canvas.parentElement)
@@ -242,8 +247,8 @@ function BookViewer() {
             }}>
                 <canvas ref={canvasRef} className="book-canvas" />
                 {/* Hover hint arrows */}
-                <div className="book-hint book-hint-left">â€¹</div>
-                <div className="book-hint book-hint-right">â€º</div>
+                <div className="book-hint book-hint-left">&#8249;</div>
+                <div className="book-hint book-hint-right">&#8250;</div>
             </div>
 
             <div className="book-controls">
