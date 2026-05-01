@@ -31,11 +31,19 @@ function BookViewer() {
 
     // Preload all images
     const images = useRef([])
+    const [imagesLoaded, setImagesLoaded] = useState(false)
     useEffect(() => {
+        let loadedCount = 0
         ESSAY_PAGES.forEach((src, i) => {
             const img = new Image()
             img.crossOrigin = 'anonymous'
             img.decoding = 'sync'
+            img.onload = () => {
+                loadedCount++
+                if (loadedCount === ESSAY_PAGES.length) {
+                    setImagesLoaded(true)
+                }
+            }
             img.src = src
             images.current[i] = img
         })
@@ -203,12 +211,12 @@ function BookViewer() {
         rafRef.current = requestAnimationFrame(tick)
     }, [draw])
 
-    // Redraw when page changes
+    // Redraw when page changes or images load
     useEffect(() => {
-        // Wait a tick for images to be ready
+        if (!imagesLoaded) return
         const id = setTimeout(draw, 30)
         return () => clearTimeout(id)
-    }, [currentPage, draw])
+    }, [currentPage, draw, imagesLoaded])
 
     // Resize canvas to match container
     useEffect(() => {
@@ -221,11 +229,11 @@ function BookViewer() {
             canvas.height = rect.width * (4 / 3) * dpr
             canvas.style.width = rect.width + 'px'
             canvas.style.height = (rect.width * (4 / 3)) + 'px'
-            draw()
+            if (imagesLoaded) draw()
         })
         ro.observe(canvas.parentElement)
         return () => ro.disconnect()
-    }, [draw])
+    }, [draw, imagesLoaded])
 
     useEffect(() => () => cancelAnimationFrame(rafRef.current), [])
 
