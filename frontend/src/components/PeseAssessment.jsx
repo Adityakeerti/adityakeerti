@@ -6,7 +6,7 @@ const ESSAY_PAGES = [
     '/pese/essay-page-2.png'
 ]
 
-const YOUTUBE_ID = 'WB-ZcsfY2JY'
+const YOUTUBE_ID = 'TTQccQYBPGg'
 
 /* Canvas Page-Curl Book Viewer */
 function useImage(src) {
@@ -352,7 +352,7 @@ export default function PeseAssessment() {
                             <span className="pese-tag">B</span>
                             <div>
                                 <h3 className="pese-card-title">Self Introduction</h3>
-                                <p className="pese-card-sub">Recorded for Career Opportunity Â· 1 min</p>
+                                <p className="pese-card-sub">Recorded for Career Opportunity · 1 min</p>
                             </div>
                         </div>
                         <VideoPlayer />
