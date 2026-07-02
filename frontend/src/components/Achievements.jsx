@@ -55,7 +55,11 @@ export default function Achievements({ data }) {
                                 <h3 className="achievement-title">{item.title}</h3>
                                 <p className="achievement-desc">{item.description}</p>
 
-                                {item.mediaPlaceholder && (
+                                {item.media ? (
+                                    <div className="achievement-media-container">
+                                        <img src={item.media} alt={item.title} className="achievement-media" />
+                                    </div>
+                                ) : item.mediaPlaceholder && (
                                     <div className="achievement-media-placeholder">
                                         📷 Photo / Video placeholder
                                     </div>

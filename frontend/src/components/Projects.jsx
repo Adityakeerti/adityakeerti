@@ -70,6 +70,12 @@ export default function Projects({ data }) {
                                     <span className="project-date">{project.date}</span>
                                 </div>
 
+                                {project.image && (
+                                    <div className="project-image-container">
+                                        <img src={project.image} alt={project.title} className="project-image" />
+                                    </div>
+                                )}
+
                                 <p className="project-section-label">Problem</p>
                                 <p className="project-text">{project.problem}</p>
 
