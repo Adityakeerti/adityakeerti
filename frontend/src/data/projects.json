@@ -56,7 +56,8 @@
         "demo": "https://autocreditrl.vercel.app/",
         "media": [
             "https://youtu.be/bsDh1WjEw9s",
-            "/projects/autolend-1.png"
+            "/projects/Advanzia AutoLend/architecture.png",
+            "/projects/Advanzia AutoLend/simulation.png"
         ],
         "featured": true
     },
@@ -87,7 +88,8 @@
         "demo": "https://adityacodes404-doc-oc.hf.space/",
         "media": [
             "https://youtu.be/FT0ZPkmyE1o",
-            "/projects/dococ-1.png"
+            "/projects/DOCOC/landing.png",
+            "/projects/DOCOC/result.png"
         ],
         "featured": true
     },
@@ -150,7 +152,12 @@
         "demo": "https://campusintel-phase2.onrender.com/",
         "media": [
             "https://youtu.be/RIfFyF_utRg",
-            "/projects/campusintel-1.png"
+            "/projects/campus-intel/student-home.png",
+            "/projects/campus-intel/student-login.png",
+            "/projects/campus-intel/students-marksheets.png",
+            "/projects/campus-intel/raise-makrs-correction-req.png",
+            "/projects/campus-intel/mgmt-approve-reject-req.png",
+            "/projects/campus-intel/mobiile-barcode-scanner.png"
         ],
         "featured": false
     }
