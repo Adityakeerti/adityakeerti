@@ -1031,7 +1031,7 @@ section {
 }
 
 .project-outcomes li::before {
-  content: 'â–¸';
+  content: '\25B8';
   position: absolute;
   left: 8px;
   color: var(--accent);
@@ -1157,7 +1157,7 @@ section {
 }
 
 .achievement-type::before {
-  content: 'â—†';
+  content: '\25C6';
   font-size: 0.5rem;
 }
 
@@ -1384,7 +1384,7 @@ section {
 }
 
 .experience-highlights li::before {
-  content: 'â–¸';
+  content: '\25B8';
   position: absolute;
   left: 0;
   color: var(--accent);
@@ -1539,7 +1539,7 @@ section {
 }
 
 .resume-mini-list li::before {
-  content: 'â–¸';
+  content: '\25B8';
   position: absolute;
   left: 0;
   color: var(--accent);
