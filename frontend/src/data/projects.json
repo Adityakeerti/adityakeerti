@@ -90,39 +90,7 @@
         ],
         "featured": true
     },
-    {
-        "id": "cargo-laytime",
-        "title": "Cargo Laytime",
-        "subtitle": "SOF Document Processing & Laytime Calculator",
-        "date": "2025",
-        "problem": "Maritime professionals manually parse Statement of Facts (SOF) documents for vessel/voyage data and laytime calculations — a tedious, error-prone process critical to shipping logistics.",
-        "approach": "Built a web application combining Google Document AI for OCR, Generative AI for intelligent text extraction, and maritime-specific calculation logic. FastAPI backend with a responsive HTML/CSS/JS frontend.",
-        "outcomes": [
-            "Winner — MariTHON National Hackathon",
-            "Commercially deployed by Integrated Maritime Exchange",
-            "100% accuracy on production SOF documents",
-            "Full OCR → structured data → laytime calculation pipeline"
-        ],
-        "techStack": [
-            "Python",
-            "FastAPI",
-            "Google Cloud AI",
-            "Document AI",
-            "Generative AI",
-            "HTML/CSS/JS"
-        ],
-        "github": "https://github.com/Adityakeerti/TeamAAAM",
-        "demo": null,
-        "media": [
-            "/achievements/Marithon/Team.jpg",
-            "/achievements/Marithon/WithIMECoFounders.jpg",
-            "/achievements/Marithon/WithMentor.jpg",
-            "/achievements/Marithon/WithHOD.JPG",
-            "/achievements/Marithon/NewsPaper.jpg",
-            "/achievements/Marithon/NewsPaper2.jpg"
-        ],
-        "featured": true
-    },
+
     {
         "id": "pustak-tracker",
         "title": "Pustak Tracker",
