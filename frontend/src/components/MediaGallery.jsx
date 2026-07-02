@@ -124,6 +124,7 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
                                         src={item.url} 
                                         className="gallery-video" 
                                         controls 
+                                        autoPlay
                                         loop 
                                         muted 
                                         playsInline

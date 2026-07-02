@@ -24,6 +24,7 @@
         "github": "https://github.com/Adityakeerti/desktop-ai-agent",
         "demo": "https://tryrageai.vercel.app/",
         "media": [
+            "/projects/rage/demo-rage.mp4",
             "/projects/rage/image.png"
         ],
         "featured": true
