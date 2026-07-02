@@ -19,9 +19,9 @@ export default function Navbar() {
 
     const links = [
         { label: 'Projects', href: '#projects' },
+        { label: 'Experience', href: '#experience' },
         { label: 'Achievements', href: '#achievements' },
         { label: 'Skills', href: '#skills' },
-        { label: 'Experience', href: '#experience' },
         { label: 'Resume', href: '#resume' },
         { label: 'Contact', href: '#contact' },
     ]
