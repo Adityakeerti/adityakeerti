@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import MediaGallery from './MediaGallery'
 
 const cardVariants = {
     hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -56,9 +57,17 @@ export default function Achievements({ data }) {
                                 <p className="achievement-desc">{item.description}</p>
 
                                 {item.media ? (
-                                    <div className="achievement-media-container">
-                                        <img src={item.media} alt={item.title} className="achievement-media" />
-                                    </div>
+                                    Array.isArray(item.media) ? (
+                                        <MediaGallery items={item.media} alt={item.title} />
+                                    ) : (
+                                        <div className="achievement-media-container">
+                                            {/\.(mp4|webm|ogg|mov)$/i.test(item.media.split('?')[0].split('#')[0]) ? (
+                                                <video src={item.media} controls className="achievement-media" loop muted playsInline />
+                                            ) : (
+                                                <img src={item.media} alt={item.title} className="achievement-media" />
+                                            )}
+                                        </div>
+                                    )
                                 ) : item.mediaPlaceholder && (
                                     <div className="achievement-media-placeholder">
                                         📷 Photo / Video placeholder

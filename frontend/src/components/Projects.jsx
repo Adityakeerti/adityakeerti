@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import MediaGallery from './MediaGallery'
 
 const cardVariants = {
     hidden: { opacity: 0, y: 60 },
@@ -70,7 +71,9 @@ export default function Projects({ data }) {
                                     <span className="project-date">{project.date}</span>
                                 </div>
 
-                                {project.image && (
+                                {(project.media && project.media.length > 0) ? (
+                                    <MediaGallery items={project.media} alt={project.title} />
+                                ) : project.image && (
                                     <div className="project-image-container">
                                         <img src={project.image} alt={project.title} className="project-image" />
                                     </div>

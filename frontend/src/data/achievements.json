@@ -4,20 +4,27 @@
         "title": "1st Place — MariTHON National Hackathon",
         "description": "SOF extraction pipeline built and deployed using Google Cloud Vertex AI for the Integrated Maritime Exchange.",
         "type": "hackathon",
-        "mediaPlaceholder": true
+        "media": [
+            "/achievements/marithon-1.png",
+            "/achievements/marithon-demo.mp4"
+        ]
     },
     {
         "id": "hackthewinter",
         "title": "Finalist — HackTheWinter National Hackathon",
         "description": "AI-driven dynamic credit limit optimization system using reinforcement learning.",
         "type": "hackathon",
-        "mediaPlaceholder": true
+        "media": [
+            "/achievements/hackthewinter-1.png"
+        ]
     },
     {
         "id": "india-innovates-2026",
         "title": "Finalist — India Innovates 2026",
         "description": "Qualified for the Physical Finale of the World’s Largest Civic Tech Hackathon (Top 500 Teams) | Bharat Mandapam, New Delhi, India.",
         "type": "hackathon",
-        "mediaPlaceholder": true
+        "media": [
+            "/achievements/india-innovates-1.png"
+        ]
     }
 ]
