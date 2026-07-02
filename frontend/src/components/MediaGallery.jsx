@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useRef } from 'react'
 
 function isVideo(url) {
     if (typeof url !== 'string') return false
@@ -9,6 +8,7 @@ function isVideo(url) {
 
 export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
     const [activeIndex, setActiveIndex] = useState(0)
+    const [failedItems, setFailedItems] = useState({})
     const scrollRef = useRef(null)
 
     // Normalize items to array of objects { type: 'image'|'video', url: string }
@@ -58,6 +58,10 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
         }
     }
 
+    const handleMediaError = (index) => {
+        setFailedItems(prev => ({ ...prev, [index]: true }))
+    }
+
     return (
         <div className="media-gallery">
             {/* Main scroll track */}
@@ -66,30 +70,51 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
                 ref={scrollRef} 
                 onScroll={handleScroll}
             >
-                {normalizedItems.map((item, index) => (
-                    <div key={index} className="gallery-slide">
-                        {item.type === 'video' ? (
-                            <div className="gallery-video-wrapper">
-                                <video 
+                {normalizedItems.map((item, index) => {
+                    const isFailed = failedItems[index]
+                    
+                    return (
+                        <div key={index} className="gallery-slide">
+                            {isFailed ? (
+                                <div className="gallery-fallback-card">
+                                    <div className="gallery-fallback-glow" />
+                                    <div className="gallery-fallback-content">
+                                        <span className="gallery-fallback-icon">
+                                            {item.type === 'video' ? '🎥' : '📷'}
+                                        </span>
+                                        <p className="gallery-fallback-title">
+                                            {item.type === 'video' ? 'Video Showcase' : 'Image Showcase'}
+                                        </p>
+                                        <p className="gallery-fallback-sub">
+                                            {alt} · {item.type === 'video' ? 'Demo Coming Soon' : 'Media Coming Soon'}
+                                        </p>
+                                    </div>
+                                </div>
+                            ) : item.type === 'video' ? (
+                                <div className="gallery-video-wrapper">
+                                    <video 
+                                        src={item.url} 
+                                        className="gallery-video" 
+                                        controls 
+                                        loop 
+                                        muted 
+                                        playsInline
+                                        preload="metadata"
+                                        onError={() => handleMediaError(index)}
+                                    />
+                                </div>
+                            ) : (
+                                <img 
                                     src={item.url} 
-                                    className="gallery-video" 
-                                    controls 
-                                    loop 
-                                    muted 
-                                    playsInline
-                                    preload="metadata"
+                                    alt={`${alt} - Slide ${index + 1}`} 
+                                    className="gallery-image" 
+                                    loading="lazy"
+                                    onError={() => handleMediaError(index)}
                                 />
-                            </div>
-                        ) : (
-                            <img 
-                                src={item.url} 
-                                alt={`${alt} - Slide ${index + 1}`} 
-                                className="gallery-image" 
-                                loading="lazy"
-                            />
-                        )}
-                    </div>
-                ))}
+                            )}
+                        </div>
+                    )
+                })}
             </div>
 
             {/* Navigation arrows — only show if more than 1 item */}
