@@ -2,14 +2,21 @@
     {
         "id": "marathon-win",
         "title": "1st Place — MariTHON National Hackathon",
-        "description": "Engineered an AI-powered Statement of Facts (SOF) extraction tool utilizing Google Cloud Document AI; successfully parsed complex maritime logs and challenging handwritten add-ons with 100% accuracy, leading to an active deployment by the Integrated Maritime Exchange.",
+        "description": "SOF extraction pipeline built and deployed using Google Cloud Vertex AI for the Integrated Maritime Exchange.",
         "type": "hackathon",
         "mediaPlaceholder": true
     },
     {
         "id": "hackthewinter",
         "title": "Finalist — HackTheWinter National Hackathon",
-        "description": "Developed an AI-driven credit limit optimization engine using Deep Q-Networks that achieved sub-second latency for 5,000+ requests/min while driving an 8% gain in capital utilization efficiency and capping portfolio risk at <7%.",
+        "description": "AI-driven dynamic credit limit optimization system using reinforcement learning.",
+        "type": "hackathon",
+        "mediaPlaceholder": true
+    },
+    {
+        "id": "india-innovates-2026",
+        "title": "Finalist — India Innovates 2026",
+        "description": "Qualified for the Physical Finale of the World’s Largest Civic Tech Hackathon (Top 500 Teams) | Bharat Mandapam, New Delhi, India.",
         "type": "hackathon",
         "mediaPlaceholder": true
     }

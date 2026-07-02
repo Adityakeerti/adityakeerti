@@ -3,11 +3,11 @@
         "id": "peerprep",
         "company": "Peerprep",
         "role": "Software Engineering Intern",
-        "period": "Sep 2025 – Nov 2025",
+        "period": "Mar 2026 – May 2026",
         "type": "Internship",
         "highlights": [
-            "Engineered a document detection and perspective correction pipeline using OpenCV to digitize academic marksheets across multiple education boards",
-            "Delivered 99.98% extraction accuracy and reduced per-record processing time from 10 minutes to ~30 seconds (30× speedup) for large-scale academic records"
+            "Built an automated ingestion engine using Python to standardize and extract data from unpredictable, multi-format academic documents.",
+            "Implemented strict validation checks, reducing per-record processing time from 10 minutes to ~30 seconds while maintaining 99.98% accuracy on internal validation datasets."
         ],
         "tools": ["Python", "OpenCV", "OCR", "Git", "GitHub"]
     }

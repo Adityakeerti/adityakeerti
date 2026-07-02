@@ -18,7 +18,6 @@ export default function Navbar() {
     }, [open])
 
     const links = [
-        { label: 'PESE', href: '#pese' },
         { label: 'Projects', href: '#projects' },
         { label: 'Achievements', href: '#achievements' },
         { label: 'Skills', href: '#skills' },

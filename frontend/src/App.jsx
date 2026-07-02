@@ -8,7 +8,6 @@ import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Resume from './components/Resume'
-import PeseAssessment from './components/PeseAssessment'
 import about from './data/about.json'
 import projects from './data/projects.json'
 import skills from './data/skills.json'
@@ -387,8 +386,6 @@ export default function App() {
             <Navbar />
             <main>
                 <Hero data={about} />
-                <hr className="section-divider" />
-                <PeseAssessment />
                 <hr className="section-divider" />
                 <Projects data={projects} />
                 <hr className="section-divider" />

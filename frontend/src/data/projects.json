@@ -1,51 +1,55 @@
 [
     {
-        "id": "livana",
-        "title": "LivAna",
-        "subtitle": "Full-Stack Student Services Platform",
-        "date": "Jan 2026 – Present",
-        "problem": "Students living away from home lack a unified platform to manage PG accommodations, mess meal plans, and grocery services — forcing them to juggle multiple disconnected services.",
-        "approach": "Spearheading architecture and backend development of a multi-service platform. Designed a 14-table PostgreSQL schema normalized to BCNF with targeted denormalization on read-heavy listing endpoints. Architected 58 REST API endpoints in Spring Boot (Java 21) with JWT authentication, refresh token rotation, and role-based access control for student and business-owner roles.",
+        "id": "rage",
+        "title": "R.A.G.E.",
+        "subtitle": "Windows Automation Agent (AI Desktop Assistant)",
+        "date": "May 2026 – Present",
+        "problem": "Executing complex, multi-step desktop operations from open-ended natural language inputs requires secure execution, real-time feedback loops, and error recovery without manual human intervention.",
+        "approach": "Developed a fully autonomous Windows agent using a ReAct (Reason+Act) feedback loop. It translates natural language goals into system actions, intercepts active window handles, reads errors, and corrects them. Built background daemons for file sorting, clipboard tracking, and system events with an SQLite safety ledger.",
         "outcomes": [
-            "58 REST API endpoints with JWT auth and refresh token rotation",
-            "14-table PostgreSQL schema normalized to BCNF",
-            "Role-based access control for students and business owners",
-            "Covers PG accommodations, mess meal plans, and grocery services"
+            "Autonomous execution of multi-step desktop goals (compiling daily briefs, layout tiling, etc.)",
+            "Adaptive ReAct feedback loop for real-time error recovery and window tracking",
+            "Proactive background daemons for downloads, clipboard monitoring, and notification interception",
+            "SQLite transaction ledger for instant action rollbacks and safety filters"
         ],
         "techStack": [
-            "Java 21",
-            "Spring Boot",
-            "PostgreSQL 16",
-            "JWT",
-            "REST APIs"
+            "Python",
+            "TypeScript",
+            "React",
+            "SQLite",
+            "Win32 API",
+            "pywebview",
+            "CustomTkinter"
         ],
-        "github": "https://github.com/Adityakeerti/LivAna",
+        "github": "https://github.com/Adityakeerti/desktop-ai-agent",
         "demo": null,
         "featured": true
     },
     {
         "id": "credit-limit-rl",
         "title": "Advanzia AutoLend",
-        "subtitle": "AI-Driven Dynamic Credit Limit Optimization",
+        "subtitle": "Autonomous Credit Limit Optimization",
         "date": "Jan 2026",
         "problem": "Traditional credit limit adjustments rely on static rules that fail to adapt to real-time risk signals, leaving portfolio profit on the table while exposing lenders to uncontrolled default rates.",
-        "approach": "Implemented an offline Double DQN policy in PyTorch to dynamically adjust credit limits and optimize risk-adjusted profit under strict portfolio constraints. Built a FastAPI decision gateway for real-time inference.",
+        "approach": "Implemented a Dueling Double DQN-based risk optimization engine inspired by existing research on dynamic credit limit optimization, combined with a Cox Proportional Hazard Model to estimate default probabilities. Architected a high-throughput microservices backend (Spring Boot, FastAPI) leveraging Kafka event streams and Redis caching.",
         "outcomes": [
-            "5,000+ real-time evaluations/min with sub-second latency",
-            "Financial exposure constrained to under 7%",
-            "8% boost in user purchasing power",
-            "Finalist — HackTheWinter National Hackathon"
+            "Dynamic credit limit adjustment optimized using PyTorch reinforcement learning",
+            "Microservices backend benchmarking throughput at 5,000+ requests/min under 300ms latency",
+            "Immutable double-entry ledger architecture with complete audit trails",
+            "Simulation pipeline modeling 10,000+ synthetic users for policy pre-training"
         ],
         "techStack": [
+            "Java",
+            "Spring Boot",
             "Python",
-            "PyTorch",
-            "Reinforcement Learning",
             "FastAPI",
-            "n8n",
-            "MySQL"
+            "PyTorch",
+            "Kafka",
+            "Redis",
+            "PostgreSQL"
         ],
         "github": "https://github.com/Adityakeerti/Credit_Limit_Adjust_RL",
-        "demo": null,
+        "demo": "https://autocreditrl.vercel.app/",
         "featured": true
     },
     {
@@ -54,23 +58,25 @@
         "subtitle": "Automated Marksheet Extraction System",
         "date": "Sep – Oct 2025",
         "problem": "Manual transcription of academic marksheets across different education boards is slow, error-prone, and doesn't scale — taking ~10 minutes per document.",
-        "approach": "Constructed a multi-board document parsing pipeline using YOLO for layout detection and Table Transformers for structured field extraction. Developed an async FastAPI backend and React frontend serving real-time extraction results; pipeline was deployed in production during the Peerprep internship.",
+        "approach": "Engineered a multi-board extraction pipeline utilizing OpenCV, custom YOLOv8 object detection, and Hugging Face Table Transformers to automate structured data parsing for administrative workflows. Built a custom structure-retaining OCR engine (via LLM Whisperer) integrated with strict fraud-mitigation checks to ensure data integrity across consecutive semesters. Developed a React/TypeScript and async FastAPI portal backed by a secure MySQL database.",
         "outcomes": [
-            "Near-flawless structural fidelity across multiple boards",
-            "95% reduction in document processing latency",
-            "Deployed in production at Peerprep internship",
-            "Async FastAPI backend with React frontend"
+            "Multi-board extraction pipeline parsing structured tabular and field data",
+            "Custom structure-retaining OCR engine integrated with strict fraud-mitigation checks",
+            "30x reduction in document processing time (from 10 minutes to ~30 seconds)",
+            "FastAPI and React/TypeScript web portal backed by a secure MySQL database"
         ],
         "techStack": [
             "Python",
+            "TypeScript",
+            "React",
             "FastAPI",
-            "React.js",
-            "YOLO",
-            "HuggingFace Table Transformers",
+            "YOLOv8",
+            "HuggingFace",
+            "OpenCV",
             "MySQL"
         ],
         "github": "https://github.com/Adityakeerti/DOC-OC",
-        "demo": null,
+        "demo": "https://adityacodes404-doc-oc.hf.space/",
         "featured": true
     },
     {

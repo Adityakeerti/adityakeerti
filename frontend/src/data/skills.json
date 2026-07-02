@@ -1,37 +1,23 @@
 {
     "categories": [
         {
-            "name": "Languages & Core",
+            "name": "Languages",
             "skills": [
-                "Java",
                 "Python",
+                "Java",
                 "SQL",
                 "TypeScript",
-                "Dart",
-                "DSA",
-                "OOPs"
+                "Dart"
             ]
         },
         {
-            "name": "Backend",
+            "name": "Backend & Architecture",
             "skills": [
-                "Spring Boot",
                 "FastAPI",
-                "Flask",
+                "Spring Boot",
                 "REST APIs",
-                "Microservices",
-                "Kafka",
-                "Redis"
-            ]
-        },
-        {
-            "name": "Frontend",
-            "skills": [
-                "React.js",
-                "Flutter",
-                "HTML/CSS",
-                "JavaScript (ES6+)",
-                "Vite"
+                "API Security",
+                "System Design"
             ]
         },
         {
@@ -43,25 +29,35 @@
             ]
         },
         {
-            "name": "AI / ML",
+            "name": "AI & Processing",
             "skills": [
                 "PyTorch",
-                "Reinforcement Learning",
                 "OpenCV",
                 "YOLO",
-                "HuggingFace",
-                "Google Document AI"
+                "LLM Orchestration",
+                "HuggingFace"
             ]
         },
         {
-            "name": "Tools & Cloud",
+            "name": "Cloud & DevOps",
             "skills": [
-                "Git/GitHub",
                 "Docker",
-                "Postman",
-                "n8n",
-                "Google Cloud Platform"
+                "Google Cloud (Vertex AI)",
+                "Git",
+                "GitHub Actions",
+                "CI/CD",
+                "Postman"
+            ]
+        },
+        {
+            "name": "Testing",
+            "skills": [
+                "PyTest",
+                "JUnit",
+                "Integration Testing",
+                "API Testing"
             ]
         }
     ]
 }
+
