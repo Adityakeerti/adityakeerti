@@ -56,7 +56,7 @@
         "github": "https://github.com/Adityakeerti/Credit_Limit_Adjust_RL",
         "demo": "https://autocreditrl.vercel.app/",
         "media": [
-            "/projects/autolend-demo.mp4",
+            "https://youtu.be/bsDh1WjEw9s",
             "/projects/autolend-1.png"
         ],
         "featured": true
@@ -116,7 +116,12 @@
         "github": "https://github.com/Adityakeerti/TeamAAAM",
         "demo": null,
         "media": [
-            "/projects/cargolaytime-1.png"
+            "/achievements/Marithon/Team.jpg",
+            "/achievements/Marithon/WithIMECoFounders.jpg",
+            "/achievements/Marithon/WithMentor.jpg",
+            "/achievements/Marithon/WithHOD.JPG",
+            "/achievements/Marithon/NewsPaper.jpg",
+            "/achievements/Marithon/NewsPaper2.jpg"
         ],
         "featured": true
     },
