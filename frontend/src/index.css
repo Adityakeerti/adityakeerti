@@ -1270,17 +1270,161 @@ section {
   display: block;
 }
 
-.gallery-video-wrapper {
+/* Custom Player UI */
+.custom-player {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
+  background: #000;
+  overflow: hidden;
 }
 
-.gallery-video {
+.player-media-container {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-video-element {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
+}
+
+.yt-iframe-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.yt-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.player-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(12, 11, 10, 0.98) 0%, rgba(12, 11, 10, 0.7) 70%, transparent 100%);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.65rem 1rem 0.75rem;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+
+.custom-player.hide-controls .player-controls {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-player.show-controls .player-controls {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Seek Bar / Scrubber */
+.player-seekbar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  outline: none;
+  cursor: pointer;
+  transition: height 0.15s;
+}
+
+.player-seekbar:hover {
+  height: 6px;
+}
+
+.player-seekbar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 100%;
+}
+
+.player-seekbar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(201, 169, 110, 0.6);
+  cursor: pointer;
+  margin-top: -4px;
+  transition: transform 0.15s;
+}
+
+.player-seekbar:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+.player-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.player-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.player-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.player-btn:hover {
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.player-time {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.player-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  background: var(--accent-dim);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
 }
 
 .gallery-arrow {

@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import CustomVideoPlayer from './CustomVideoPlayer'
 
 function isVideo(url) {
     if (typeof url !== 'string') return false
@@ -107,31 +108,13 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
                                         </p>
                                     </div>
                                 </div>
-                            ) : item.type === 'youtube' ? (
-                                <div className="gallery-video-wrapper">
-                                    <iframe 
-                                        src={`https://www.youtube.com/embed/${item.ytId}?autoplay=0&rel=0&modestbranding=1`}
-                                        title={`${alt} - YouTube Video`}
-                                        className="gallery-video"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowFullScreen
-                                    />
-                                </div>
-                            ) : item.type === 'video' ? (
-                                <div className="gallery-video-wrapper">
-                                    <video 
-                                        src={item.url} 
-                                        className="gallery-video" 
-                                        controls 
-                                        autoPlay
-                                        loop 
-                                        muted 
-                                        playsInline
-                                        preload="metadata"
-                                        onError={() => handleMediaError(index)}
-                                    />
-                                </div>
+                            ) : (item.type === 'youtube' || item.type === 'video') ? (
+                                <CustomVideoPlayer
+                                    type={item.type}
+                                    src={item.url}
+                                    ytId={item.ytId}
+                                    alt={alt}
+                                />
                             ) : (
                                 <img 
                                     src={item.url} 
