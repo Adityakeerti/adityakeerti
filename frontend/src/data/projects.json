@@ -87,7 +87,7 @@
         "github": "https://github.com/Adityakeerti/DOC-OC",
         "demo": "https://adityacodes404-doc-oc.hf.space/",
         "media": [
-            "/projects/dococ-demo.mp4",
+            "https://youtu.be/FT0ZPkmyE1o",
             "/projects/dococ-1.png"
         ],
         "featured": true
@@ -145,6 +145,7 @@
         "github": "https://github.com/Adityakeerti/Pustak-Tracker",
         "demo": null,
         "media": [
+            "https://youtu.be/wcgnRDovpAs",
             "/projects/pustak-1.png"
         ],
         "featured": false
