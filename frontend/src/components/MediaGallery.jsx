@@ -6,13 +6,30 @@ function isVideo(url) {
     return /\.(mp4|webm|ogg|mov)$/i.test(cleanUrl)
 }
 
+function getYouTubeId(url) {
+    if (typeof url !== 'string') return null
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
 export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
     const [activeIndex, setActiveIndex] = useState(0)
     const [failedItems, setFailedItems] = useState({})
     const scrollRef = useRef(null)
 
-    // Normalize items to array of objects { type: 'image'|'video', url: string }
+    // Normalize items to array of objects { type: 'image'|'video'|'youtube', url: string, ytId?: string }
     const normalizedItems = items.map(item => {
+        const itemUrl = typeof item === 'string' ? item : item.url;
+        const ytId = getYouTubeId(itemUrl);
+        if (ytId) {
+            return {
+                type: 'youtube',
+                url: itemUrl,
+                ytId
+            }
+        }
+
         if (typeof item === 'string') {
             return {
                 type: isVideo(item) ? 'video' : 'image',
@@ -80,15 +97,26 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
                                     <div className="gallery-fallback-glow" />
                                     <div className="gallery-fallback-content">
                                         <span className="gallery-fallback-icon">
-                                            {item.type === 'video' ? '🎥' : '📷'}
+                                            {item.type === 'image' ? '📷' : '🎥'}
                                         </span>
                                         <p className="gallery-fallback-title">
-                                            {item.type === 'video' ? 'Video Showcase' : 'Image Showcase'}
+                                            {item.type === 'image' ? 'Image Showcase' : 'Video Showcase'}
                                         </p>
                                         <p className="gallery-fallback-sub">
-                                            {alt} · {item.type === 'video' ? 'Demo Coming Soon' : 'Media Coming Soon'}
+                                            {alt} · Media Coming Soon
                                         </p>
                                     </div>
+                                </div>
+                            ) : item.type === 'youtube' ? (
+                                <div className="gallery-video-wrapper">
+                                    <iframe 
+                                        src={`https://www.youtube.com/embed/${item.ytId}?autoplay=0&rel=0&modestbranding=1`}
+                                        title={`${alt} - YouTube Video`}
+                                        className="gallery-video"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowFullScreen
+                                    />
                                 </div>
                             ) : item.type === 'video' ? (
                                 <div className="gallery-video-wrapper">
