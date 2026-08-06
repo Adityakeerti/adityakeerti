@@ -794,6 +794,18 @@ ul,ol{list-style:none}
   display:flex;flex-direction:column;
   gap:0.85rem;
 }
+.ach-detail-body.has-media {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 1.5rem;
+  overflow: hidden;
+  align-items: center;
+}
+.ach-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 /* Legacy classes kept for potential reuse */
 .ach-win{display:flex;flex-direction:column}
 .ach-win.full{grid-column:1/-1}
@@ -824,8 +836,9 @@ ul,ol{list-style:none}
 .ach-media{
   border-radius:6px;overflow:hidden;
   border:1px solid var(--border);
-  margin-top:0.5rem;
+  margin-top:0;
   flex-shrink:0;
+  width: 100%;
 }
 
 /* ── Panel: CONTACT ── */
@@ -1197,8 +1210,9 @@ a.c-item-val:hover{color:var(--orange)}
   .nf-art{display:none}
   .contact-panel{grid-template-columns:1fr;overflow-y:auto}
   .contact-statement{font-size:clamp(2.5rem,8vw,4rem)}
-  .ach-windows{grid-template-columns:1fr;overflow-y:auto}
-  .ach-win.full{grid-column:auto}
+  .ach-layout{grid-template-columns:1fr;overflow-y:auto}
+  .ach-detail-body.has-media{grid-template-columns:1fr;display:flex;flex-direction:column;overflow:visible}
+  .ach-media{margin-top:0.75rem}
   .os-status{max-width:calc(100vw - 2rem)}
   .st-tab{font-size:0.55rem;padding:0 0.6rem;letter-spacing:0.03em}
 }

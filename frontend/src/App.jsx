@@ -593,10 +593,12 @@ function AchievementsPanel() {
                 <span className="os-d r"/><span className="os-d y"/><span className="os-d g"/>
                 <span className="os-win-title">{ach.title.toLowerCase().replace(/\s/g,'_')}.txt</span>
               </div>
-              <div className="ach-detail-body">
-                <span className="ach-type">{ach.type}</span>
-                <h3 className="ach-title">{ach.title}</h3>
-                <p className="ach-desc">{ach.description}</p>
+              <div className={`ach-detail-body${ach.media?.length > 0 ? ' has-media' : ''}`}>
+                <div className="ach-detail-info">
+                  <span className="ach-type">{ach.type}</span>
+                  <h3 className="ach-title">{ach.title}</h3>
+                  <p className="ach-desc">{ach.description}</p>
+                </div>
                 {ach.media?.length > 0 && (
                   <div className="ach-media">
                     <MediaGallery items={ach.media} alt={ach.title} />
@@ -611,8 +613,6 @@ function AchievementsPanel() {
   )
 }
 
-/* ─────────────────────────────────────────────────────────────
-   PANEL 6 — CONTACT
 /* ─────────────────────────────────────────────────────────────
    PANEL 6 — CONTACT
 ───────────────────────────────────────────────────────────── */
