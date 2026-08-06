@@ -1,68 +1,47 @@
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-export default function Navbar() {
-    const [open, setOpen] = useState(false)
-    const [scrolled, setScrolled] = useState(false)
-
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 50)
-        window.addEventListener('scroll', onScroll, { passive: true })
-        return () => window.removeEventListener('scroll', onScroll)
-    }, [])
-
-    // Lock body scroll when mobile menu is open
-    useEffect(() => {
-        document.body.style.overflow = open ? 'hidden' : ''
-        return () => { document.body.style.overflow = '' }
-    }, [open])
-
+export default function Navbar({ activeIndex, setActiveIndex }) {
     const links = [
-        { label: 'Projects', href: '#projects' },
-        { label: 'Experience', href: '#experience' },
-        { label: 'Achievements', href: '#achievements' },
-        { label: 'Skills', href: '#skills' },
-        { label: 'Resume', href: '#resume' },
-        { label: 'Contact', href: '#contact' },
+        { label: 'Profile', index: 0 },
+        { label: 'Projects', index: 1 },
+        { label: 'Experience & Skills', index: 2 },
+        { label: 'Achievements & Contact', index: 3 },
     ]
 
     return (
         <motion.nav
-            className={`navbar ${scrolled ? 'scrolled' : ''} ${open ? 'menu-open' : ''}`}
+            className="navbar scrolled"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
             <div className="container navbar-inner">
-                <a href="#" className="navbar-logo" aria-label="Home">
+                <a href="#" className="navbar-logo" onClick={(e) => { e.preventDefault(); setActiveIndex(0); }} aria-label="Home">
                     AK<span>.</span>
                 </a>
 
-                <ul className={`navbar-links ${open ? 'open' : ''}`}>
-                    {links.map(({ label, href }, i) => (
-                        <motion.li
-                            key={href}
-                            initial={{ y: -20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                        >
-                            <a href={href} onClick={() => setOpen(false)}>
-                                {label}
-                            </a>
-                        </motion.li>
-                    ))}
+                <ul className="navbar-links-deck">
+                    {links.map(({ label, index }) => {
+                        const isActive = activeIndex === index
+                        return (
+                            <li key={index} className="navbar-deck-item">
+                                <button
+                                    onClick={() => setActiveIndex(index)}
+                                    className={`navbar-deck-btn ${isActive ? 'active' : ''}`}
+                                >
+                                    {label}
+                                    {isActive && (
+                                        <motion.div
+                                            className="navbar-active-bar"
+                                            layoutId="activeNavDeck"
+                                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                                        />
+                                    )}
+                                </button>
+                            </li>
+                        )
+                    })}
                 </ul>
-
-                <button
-                    className={`navbar-mobile-toggle ${open ? 'active' : ''}`}
-                    onClick={() => setOpen(!open)}
-                    aria-label="Toggle navigation menu"
-                    aria-expanded={open}
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
         </motion.nav>
     )

@@ -197,11 +197,26 @@ export default function CustomVideoPlayer({ type, src, ytId, alt = 'Video player
         >
             {/* Media elements */}
             <div className="player-media-container" onClick={togglePlay}>
-                {type === 'youtube' ? (
-                    <div className="yt-iframe-container">
+                {type === 'youtube' && (
+                    <div className="yt-iframe-container" style={{ opacity: isPlaying ? 1 : 0, pointerEvents: isPlaying ? 'auto' : 'none' }}>
                         <div id={iframeId.current} className="yt-iframe" />
                     </div>
-                ) : (
+                )}
+                {type === 'youtube' && !isPlaying && (
+                    <div className="yt-thumbnail-overlay">
+                        <img 
+                            src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`} 
+                            alt={alt} 
+                            className="yt-thumbnail"
+                        />
+                        <div className="yt-play-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                )}
+                {type !== 'youtube' && (
                     <video
                         ref={videoRef}
                         src={src}
