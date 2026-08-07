@@ -25,12 +25,13 @@ class Aditya:
 
 ---
 
-## 👔 one time someone paid me to code
+## 🔬 research & real work
 
-**Software Engineering Intern @ Peerprep** &nbsp;`Mar – May 2026`
+**Research Contributor @ GEHU** &nbsp;·&nbsp; *under a senior faculty member* &nbsp;`Mar – May 2026`
 
-took a pile of chaotic, multi-format academic documents and built a machine that ate them for breakfast.
-went from **10 minutes per record → ~30 seconds**, 99.98% accuracy. no documents were harmed.
+built an automated document intelligence system to handle chaotic, multi-format academic files —
+took processing time from **10 minutes → ~30 seconds per record** at **99.98% accuracy**.
+the professor was happy. the server was not.
 
 `Python` `OpenCV` `OCR` `Git`
 
@@ -74,15 +75,21 @@ went from **10 minutes per record → ~30 seconds**, 99.98% accuracy. no documen
 
 ---
 
-## 🧰 stuff i know how to use
+## 🖌️ the tech wall
 
-```
-languages   →  Python, Java, C, SQL
-backend     →  FastAPI, Spring Boot, REST APIs, Microservices
-AI / ML     →  PyTorch, ONNX, YOLOv8, OpenCV, HuggingFace, LLMs
-databases   →  MySQL, PostgreSQL, SQLite, Redis
-cloud/ops   →  GCP (Vertex AI), GitHub Actions, CI/CD, Git
-```
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=python,java,c&theme=dark" height="42" title="languages"/>
+&nbsp;&nbsp;
+<img src="https://skillicons.dev/icons?i=fastapi,spring,redis,postgres,mysql&theme=dark" height="42" title="backend + databases"/>
+&nbsp;&nbsp;
+<img src="https://skillicons.dev/icons?i=pytorch,opencv&theme=dark" height="42" title="AI/ML"/>
+&nbsp;&nbsp;
+<img src="https://skillicons.dev/icons?i=react,ts&theme=dark" height="42" title="frontend"/>
+&nbsp;&nbsp;
+<img src="https://skillicons.dev/icons?i=gcp,docker,git,githubactions&theme=dark" height="42" title="cloud + devops"/>
+
+</div>
 
 ---
 
@@ -97,6 +104,10 @@ cloud/ops   →  GCP (Vertex AI), GitHub Actions, CI/CD, Git
 ---
 
 <div align="center">
+
+<img src="https://github-profile-trophy.vercel.app/?username=Adityakeerti&theme=onedark&no-frame=true&no-bg=true&margin-w=6&column=7" width="100%"/>
+
+<br/>
 
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Adityakeerti&bg_color=0d0d0d&color=c9a96e&line=c9a96e&point=e8d5a8&area=true&hide_border=true&custom_title=proof+that+i+actually+code" width="95%"/>
 
