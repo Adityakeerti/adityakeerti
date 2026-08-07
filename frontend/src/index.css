@@ -1189,7 +1189,7 @@ a.c-item-val:hover{color:var(--orange)}
 
 /* ── Responsive ── */
 @media(max-width:900px){
-  .panel{padding:1.5rem 1.5rem}
+  .panel{padding:5.5rem 1.5rem 2.25rem}
   .about-panel{
     grid-template-columns:1fr;
     grid-template-rows:auto 1fr;
@@ -1203,16 +1203,93 @@ a.c-item-val:hover{color:var(--orange)}
   .about-vert-role{writing-mode:unset;transform:none;margin-top:0;margin-left:1rem}
   .about-sep{display:none}
   .exp-watermark,.proj-watermark,.skills-watermark{display:none}
-  .proj-panel{grid-template-columns:1fr;overflow-y:auto}
-  .proj-right{height:auto;min-height:300px}
+  
+  /* Projects Section Mobile Optimization */
+  .proj-panel{
+    grid-template-columns:1fr;
+    overflow-y:auto;
+    height:100%;
+    gap:1.5rem;
+  }
+  .proj-left{
+    height:auto;
+    overflow:visible;
+  }
+  .proj-list{
+    overflow:visible;
+    max-height:none;
+  }
+  .proj-right{
+    height:auto;
+    min-height:auto;
+    overflow:visible;
+  }
+  .proj-detail-win{
+    height:auto!important;
+    overflow:visible;
+  }
+  .proj-detail-body{
+    overflow:visible;
+  }
+  
   .skills-win{max-width:100%}
   .neofetch-layout{grid-template-columns:1fr}
   .nf-art{display:none}
-  .contact-panel{grid-template-columns:1fr;overflow-y:auto}
+  
+  /* Contact Section Mobile Optimization */
+  .contact-panel{
+    grid-template-columns:1fr;
+    overflow-y:auto;
+    height:100%;
+    gap:2rem;
+  }
   .contact-statement{font-size:clamp(2.5rem,8vw,4rem)}
-  .ach-layout{grid-template-columns:1fr;overflow-y:auto}
-  .ach-detail-body.has-media{grid-template-columns:1fr;display:flex;flex-direction:column;overflow:visible}
+  .contact-win-wrap{
+    height:auto;
+    padding-bottom:2rem;
+  }
+  .contact-win{
+    height:auto;
+  }
+  .contact-win-body{
+    height:auto;
+    gap:1.5rem;
+  }
+
+  /* Achievements Mobile Horizontal selector Tabs */
+  .ach-layout{
+    grid-template-columns:1fr;
+    overflow-y:auto;
+    height:100%;
+    gap:1.5rem;
+  }
+  .ach-selector{
+    flex-direction:row;
+    overflow-x:auto;
+    scrollbar-width:none;
+    gap:0.5rem;
+    padding-bottom:0.5rem;
+    flex-shrink:0;
+  }
+  .ach-selector::-webkit-scrollbar{display:none}
+  .ach-sel-item{
+    padding:0.6rem 0.85rem;
+    width:auto;
+    white-space:nowrap;
+  }
+  .ach-sel-arrow{display:none}
+  .ach-detail{
+    height:auto!important;
+    overflow:visible;
+  }
+  .ach-detail-body.has-media{
+    grid-template-columns:1fr;
+    display:flex;
+    flex-direction:column;
+    overflow:visible;
+  }
   .ach-media{margin-top:0.75rem}
+  
   .os-status{max-width:calc(100vw - 2rem)}
   .st-tab{font-size:0.55rem;padding:0 0.6rem;letter-spacing:0.03em}
 }
@@ -1220,11 +1297,90 @@ a.c-item-val:hover{color:var(--orange)}
 @media(max-width:600px){
   .os-bar-right .os-avail-text{display:none}
   .os-bar-section{display:none}
-  .panel{padding:1rem}
-  .about-vert-name{font-size:2.5rem}
-  .contact-statement{font-size:2.5rem}
-  .os-status{max-width:calc(100vw - 1rem)}
-  .st-tabs{overflow-x:auto;scrollbar-width:none}
-  .st-tab{font-size:0.52rem;padding:0 0.5rem}
+  .panel{padding:5.5rem 1rem 2.25rem}
+  .about-vert-name{font-size:2.25rem}
+  .contact-statement{font-size:2.25rem}
+  .os-status{
+    max-width:calc(100vw - 1rem);
+    height:36px;
+  }
+  .st-tabs{
+    overflow-x:auto;
+    scrollbar-width:none;
+    height:100%;
+    align-items:center;
+  }
+  .st-tab{
+    font-size:0.5rem;
+    padding:0 0.5rem;
+    height:26px;
+  }
   .st-git{display:none}
+  
+  /* Experience Mobile terminal wrapping & font size */
+  .term-cmd-row {
+    font-size:0.68rem;
+    margin-bottom:0.75rem;
+  }
+  .term-data {
+    font-size:0.65rem;
+    word-break:break-all;
+    white-space:pre-wrap;
+  }
+  .td-hl-row {
+    padding-left:1.5rem;
+  }
+  .td-tools {
+    padding-left:0.75rem;
+  }
+  
+  /* Resume action row wrapping */
+  .contact-resume {
+    flex-direction:column;
+    width:100%;
+  }
+  .contact-resume .btn {
+    width:100%;
+    justify-content:center;
+  }
+  
+  /* About Links mobile wrap */
+  .about-links {
+    width:100%;
+  }
+  .about-links .btn {
+    width:100%;
+    justify-content:center;
+  }
+  
+  /* Neofetch text size */
+  .nf-data {
+    font-size:0.68rem;
+  }
+  .nf-row {
+    font-size:0.65rem;
+    line-height:1.6;
+  }
+  .nf-label {
+    min-width:65px;
+  }
+
+  /* Custom player controls shrink for small screens */
+  .player-seekbar {
+    height:2px;
+  }
+  .player-controls {
+    padding:0.35rem 0.5rem 0.4rem;
+  }
+  .player-btn {
+    width:24px;
+    height:24px;
+  }
+  .player-time {
+    font-size:0.55rem;
+  }
+  .player-badge {
+    font-size:0.5rem;
+    padding:1px 6px;
+  }
 }

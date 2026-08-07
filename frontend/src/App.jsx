@@ -775,6 +775,11 @@ export default function App() {
     const ts = e => { sx = e.touches[0].clientX }
     const te = e => {
       if (sx === null) return
+      // Ignore swipe if user is interacting with slider tracks, terminal views, tabs, or lists
+      if (e.target.closest('.gallery-track, .st-tabs, .st-tab, .proj-list, .ach-selector, pre, code')) {
+        sx = null
+        return
+      }
       const d = sx - e.changedTouches[0].clientX
       if (Math.abs(d) > 50) d > 0 ? next() : prev()
       sx = null
