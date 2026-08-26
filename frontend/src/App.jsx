@@ -813,7 +813,7 @@ export default function App() {
 
           <div className="os-bar-right">
             <a href="/freelance" className="os-bar-resume" style={{ color: 'var(--orange)', borderColor: 'rgba(255,77,0,0.3)' }}>
-              ✦ For Clients
+              ✦ Freelance Work
             </a>
             <a href={RESUME} target="_blank" rel="noopener noreferrer" className="os-bar-resume">
               <ResumeIcon /> RESUME

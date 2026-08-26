@@ -275,6 +275,10 @@
   border-radius: var(--fl-radius);
   overflow: hidden;
 }
+.fl-services-grid > * {
+  display: flex;
+  flex-direction: column;
+}
 .fl-service-card {
   background: var(--fl-surface);
   padding: 1.75rem;
@@ -283,6 +287,8 @@
   gap: 0.65rem;
   transition: background 0.15s;
   cursor: default;
+  flex: 1;
+  height: 100%;
 }
 .fl-service-card--hovered { background: var(--fl-orange-lt); }
 .fl-service-icon { font-size: 1.5rem; line-height: 1; }
@@ -593,7 +599,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  align-items: start;
+  align-items: stretch;
 }
 .fl-proof-col {
   display: flex;
@@ -613,6 +619,12 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  flex: 1;
+}
+.fl-proof-col-list > * {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .fl-proof-card {
   background: var(--fl-surface);
@@ -623,6 +635,8 @@
   flex-direction: column;
   gap: 0.4rem;
   transition: border-color 0.2s, box-shadow 0.2s;
+  flex: 1;
+  height: 100%;
 }
 .fl-proof-card:hover {
   border-color: var(--fl-border-2);
