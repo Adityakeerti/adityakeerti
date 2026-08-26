@@ -140,18 +140,24 @@ function FreelanceNav() {
     return () => window.removeEventListener('scroll', h)
   }, [])
 
+  const handleScroll = (id) => (e) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <nav className={`fl-nav${scrolled ? ' fl-nav--scrolled' : ''}`}>
       <div className="fl-nav-inner">
         <a href="/" className="fl-nav-logo">AK<span>.</span></a>
         <div className="fl-nav-center">
-          <a href="#services"     className="fl-nav-link">Services</a>
-          <a href="#client-work"  className="fl-nav-link">Freelance Work</a>
-          <a href="#work"         className="fl-nav-link">Projects</a>
-          <a href="#process"      className="fl-nav-link">Process</a>
-          <a href="#contact"      className="fl-nav-link">Contact</a>
+          <a href="#services"     onClick={handleScroll('services')}      className="fl-nav-link">Services</a>
+          <a href="#client-work"  onClick={handleScroll('client-work')}   className="fl-nav-link">Freelance Work</a>
+          <a href="#work"         onClick={handleScroll('work')}          className="fl-nav-link">Projects</a>
+          <a href="#process"      onClick={handleScroll('process')}       className="fl-nav-link">Process</a>
+          <a href="#contact"      onClick={handleScroll('contact')}       className="fl-nav-link">Contact</a>
         </div>
-        <a href="#contact" className="fl-nav-cta">Let's Talk →</a>
+        <a href="#contact" onClick={handleScroll('contact')} className="fl-nav-cta">Let's Talk →</a>
       </div>
     </nav>
   )
@@ -159,6 +165,12 @@ function FreelanceNav() {
 
 /* ─── Hero ─── */
 function FreelanceHero() {
+  const handleScroll = (id) => (e) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <section className="fl-hero">
       <div className="fl-container">
@@ -180,8 +192,8 @@ function FreelanceHero() {
         </FadeIn>
         <FadeIn delay={0.35}>
           <div className="fl-hero-actions">
-            <a href="#contact" className="fl-btn fl-btn--primary">Start a Project →</a>
-            <a href="#work"    className="fl-btn fl-btn--ghost">See My Work</a>
+            <a href="#contact" onClick={handleScroll('contact')} className="fl-btn fl-btn--primary">Start a Project →</a>
+            <a href="#work"    onClick={handleScroll('work')}    className="fl-btn fl-btn--ghost">See My Work</a>
           </div>
         </FadeIn>
 
@@ -204,6 +216,13 @@ function FreelanceHero() {
 /* ─── Services ─── */
 function Services() {
   const [hovered, setHovered] = useState(null)
+  
+  const handleScroll = (id) => (e) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <Section id="services" className="fl-section--alt">
       <FadeIn>
@@ -225,7 +244,7 @@ function Services() {
               <div className="fl-service-tags">
                 {s.tags.map(t => <span key={t} className="fl-tag">{t}</span>)}
               </div>
-              <a href="#work" className="fl-service-link">See example project →</a>
+              <a href="#work" onClick={handleScroll('work')} className="fl-service-link">See example project →</a>
             </div>
           </FadeIn>
         ))}
@@ -301,6 +320,12 @@ function Work() {
   const [active, setActive] = useState(0)
   const proj = FEATURED_PROJECTS[active]
 
+  const handleScroll = (id) => (e) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <Section id="work">
       <FadeIn>
@@ -373,7 +398,7 @@ function Work() {
               </div>
 
               <div className="fl-work-hire-nudge">
-                Need something similar? <a href="#contact">Let's scope your project →</a>
+                Need something similar? <a href="#contact" onClick={handleScroll('contact')}>Let's scope your project →</a>
               </div>
             </motion.div>
           )}
