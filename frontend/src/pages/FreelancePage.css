@@ -5,11 +5,11 @@
 
 /* ── Design tokens ── */
 .fl-page {
-  --fl-bg:        #fafaf8;
-  --fl-bg-2:      #f2f0eb;
-  --fl-surface:   #ffffff;
-  --fl-border:    #e2e0d8;
-  --fl-border-2:  #ccc9be;
+  --fl-bg:        #f3efe6; /* warm sand / cozy paper */
+  --fl-bg-2:      #e8e3d5; /* slightly darker warm cream */
+  --fl-surface:   #faf9f6; /* warm off-white surface */
+  --fl-border:    #dfd9cb;
+  --fl-border-2:  #beb7a7;
   --fl-orange:    #ff4d00;
   --fl-orange-lt: #fff2ed;
   --fl-orange-md: #ffd5c2;
@@ -352,11 +352,11 @@
   border: 1.5px solid var(--fl-border);
   border-radius: var(--fl-radius);
   overflow: hidden;
-  border-top: 3px solid var(--cw-accent, var(--fl-orange));
-  transition: box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .fl-cw-card:hover {
-  box-shadow: 0 6px 28px rgba(0,0,0,0.07);
+  border-color: var(--fl-border-2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 .fl-cw-header {
   display: flex;
@@ -556,74 +556,89 @@
 .fl-work-hire-nudge a { color: var(--fl-orange); text-decoration: none; font-weight: 700; }
 .fl-work-hire-nudge a:hover { text-decoration: underline; }
 
-/* ── Process — horizontal timeline on desktop ── */
+/* ── Process — cards ── */
 .fl-process-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-}
-.fl-process-grid::before {
-  content: '';
-  position: absolute;
-  top: 2.1rem; left: 2rem; right: 2rem;
-  height: 1px;
-  background: var(--fl-border-2);
-  z-index: 0;
+  gap: 1.25rem;
 }
 .fl-process-card {
-  background: transparent;
-  padding: 0 1rem 0 0;
-  position: relative;
-  z-index: 1;
+  background: var(--fl-surface);
+  border: 1px solid var(--fl-border);
+  border-radius: var(--fl-radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fl-process-card:hover {
+  border-color: var(--fl-border-2);
 }
 .fl-process-step {
-  width: 44px; height: 44px;
-  background: var(--fl-orange);
-  color: #fff;
   font-family: var(--fl-font-m);
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-  flex-shrink: 0;
+  color: var(--fl-orange);
+  line-height: 1;
 }
 .fl-process-title {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin: 0 0 0.4rem;
+  margin: 0;
   color: var(--fl-text-1);
   letter-spacing: -0.01em;
 }
 .fl-process-desc {
   font-size: 0.81rem;
   color: var(--fl-text-2);
-  line-height: 1.6;
+  line-height: 1.55;
   margin: 0;
 }
 
 /* ── Social Proof ── */
-.fl-proof-grid {
+/* ── Social Proof ── */
+.fl-proof-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  background: var(--fl-border);
-  border: 1px solid var(--fl-border);
-  border-radius: var(--fl-radius);
-  overflow: hidden;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.fl-proof-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.fl-proof-col-title {
+  font-family: var(--fl-font-m);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--fl-text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.25rem;
+}
+.fl-proof-col-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 .fl-proof-card {
   background: var(--fl-surface);
-  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--fl-border);
+  border-radius: var(--fl-radius);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fl-proof-card:hover {
+  border-color: var(--fl-border-2);
 }
 .fl-proof-card--highlight {
   background: var(--fl-orange-lt);
+  border-color: var(--fl-orange-md);
 }
 .fl-proof-type {
   font-family: var(--fl-font-m);
@@ -633,7 +648,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.fl-proof-title { font-size: 0.9rem; font-weight: 700; margin: 0; color: var(--fl-text-1); letter-spacing: -0.01em; }
+.fl-proof-title { font-size: 0.95rem; font-weight: 700; margin: 0; color: var(--fl-text-1); letter-spacing: -0.01em; }
 .fl-proof-desc { font-size: 0.8rem; color: var(--fl-text-2); line-height: 1.6; margin: 0; }
 
 /* ── Contact ── */
@@ -843,22 +858,17 @@
   /* Process — vertical list on mobile */
   .fl-process-grid {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 0.75rem;
   }
-  .fl-process-grid::before { display: none; }
   .fl-process-card {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 0 1rem;
-    padding: 0 0 1.5rem 0;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    gap: 0.4rem;
   }
-  .fl-process-card:last-child { padding-bottom: 0; }
-  .fl-process-step { margin-bottom: 0; }
-  .fl-process-title { margin-top: 0.6rem; }
 
   /* Proof */
-  .fl-proof-grid { grid-template-columns: 1fr; }
+  .fl-proof-columns { grid-template-columns: 1fr; gap: 1.25rem; }
 
   /* Contact */
   .fl-contact-layout { grid-template-columns: 1fr; gap: 2rem; }
@@ -896,72 +906,36 @@
   width: 6px;
   height: 6px;
   background: var(--fl-orange);
-  border-radius: 2px;
+  border-radius: 50%;
   will-change: transform;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: transform 0.2s ease, opacity 0.2s;
   pointer-events: none;
 }
 
 .fl-cursor-dot.on {
-  opacity: 0;
-  transform: scale(0);
+  transform: scale(0.5);
+  opacity: 0.8;
 }
 
 .fl-cursor-ring {
   position: absolute;
-  top: -16px;
-  left: -16px;
-  width: 32px;
-  height: 32px;
-  will-change: transform;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.fl-cursor-ring-inner {
-  position: absolute;
-  inset: 0;
-  border: 1.5px solid var(--fl-orange);
-  border-radius: 6px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  animation: fl-rotate-slow 10s linear infinite;
-}
-
-.fl-cursor-ring.on .fl-cursor-ring-inner {
-  inset: -6px;
+  top: -11px;
+  left: -11px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--fl-orange);
   border-radius: 50%;
-  background: var(--fl-orange-lt);
+  will-change: transform;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.fl-cursor-ring.on {
+  transform: scale(1.4);
+  background-color: rgba(255, 77, 0, 0.08);
   border-color: var(--fl-orange);
-  animation: fl-rotate-fast 3s linear infinite;
-}
-
-.fl-cursor-text {
-  font-family: var(--fl-font-m);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--fl-orange);
-  opacity: 0;
-  transform: scale(0.5);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 2;
-  line-height: 1;
-}
-
-.fl-cursor-ring.on .fl-cursor-text {
-  opacity: 1;
-  transform: scale(1);
-}
-
-@keyframes fl-rotate-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fl-rotate-fast {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-360deg); }
 }
 
 @media (hover: none) {

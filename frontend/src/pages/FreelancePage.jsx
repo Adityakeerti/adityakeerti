@@ -415,24 +415,46 @@ function SocialProof() {
       <FadeIn>
         <span className="fl-section-eyebrow">Track Record</span>
         <h2 className="fl-section-h2">Recognition &amp; Results</h2>
+        <p className="fl-section-sub">Demonstrated ability to deliver high-performance solutions and real business value.</p>
       </FadeIn>
-      <div className="fl-proof-grid">
-        {achievements.map((a, i) => (
-          <FadeIn key={a.id} delay={i * 0.08}>
-            <div className="fl-proof-card">
-              <span className="fl-proof-type">{a.type}</span>
-              <h3 className="fl-proof-title">{a.title}</h3>
-              <p className="fl-proof-desc">{a.description}</p>
-            </div>
-          </FadeIn>
-        ))}
-        <FadeIn delay={0.24}>
-          <div className="fl-proof-card fl-proof-card--highlight">
-            <span className="fl-proof-type">internship</span>
-            <h3 className="fl-proof-title">30× Processing Speed — Peerprep</h3>
-            <p className="fl-proof-desc">Built an automated ingestion engine that cut per-record processing from 10 minutes to ~30 seconds at 99.98% accuracy on production validation data.</p>
+      
+      <div className="fl-proof-columns">
+        {/* Left Column: Industrial/Professional Impact */}
+        <div className="fl-proof-col">
+          <h3 className="fl-proof-col-title">Professional Impact</h3>
+          <div className="fl-proof-col-list">
+            <FadeIn delay={0.05}>
+              <div className="fl-proof-card fl-proof-card--highlight">
+                <span className="fl-proof-type">internship · speed</span>
+                <h4 className="fl-proof-title">30× Processing Speed — Peerprep</h4>
+                <p className="fl-proof-desc">Built an automated ingestion engine that cut per-record processing from 10 minutes to ~30 seconds at 99.98% accuracy on production validation data.</p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.15}>
+              <div className="fl-proof-card">
+                <span className="fl-proof-type">architecture · scale</span>
+                <h4 className="fl-proof-title">5,000+ Req/Min — Advanzia AutoLend</h4>
+                <p className="fl-proof-desc">Architected and benchmarked a Spring Boot/FastAPI microservices pipeline using Kafka event streams and Redis caching, running under 300ms latency.</p>
+              </div>
+            </FadeIn>
           </div>
-        </FadeIn>
+        </div>
+
+        {/* Right Column: Hackathons & Awards */}
+        <div className="fl-proof-col">
+          <h3 className="fl-proof-col-title">Hackathons &amp; Awards</h3>
+          <div className="fl-proof-col-list">
+            {achievements.map((a, i) => (
+              <FadeIn key={a.id} delay={i * 0.08 + 0.1}>
+                <div className="fl-proof-card">
+                  <span className="fl-proof-type">{a.type}</span>
+                  <h4 className="fl-proof-title">{a.title}</h4>
+                  <p className="fl-proof-desc">{a.description}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
       </div>
     </Section>
   )
@@ -595,7 +617,6 @@ function FreelanceFooter() {
 function FreelanceCursor() {
   const dotRef  = useRef(null)
   const ringRef = useRef(null)
-  const textRef = useRef(null)
   const pos     = useRef({ x: -200, y: -200 })
   const lag     = useRef({ x: -200, y: -200 })
 
@@ -625,22 +646,10 @@ function FreelanceCursor() {
         el.addEventListener('mouseenter', () => {
           ringRef.current?.classList.add('on')
           dotRef.current?.classList.add('on')
-          if (textRef.current) {
-            if (el.tagName === 'A' && el.getAttribute('href')?.startsWith('#')) {
-              textRef.current.innerText = '↓'
-            } else if (el.classList.contains('fl-service-card') || el.classList.contains('fl-work-tab')) {
-              textRef.current.innerText = '★'
-            } else if (el.classList.contains('fl-cw-live-btn') || (el.tagName === 'A' && el.target === '_blank')) {
-              textRef.current.innerText = '↗'
-            } else {
-              textRef.current.innerText = '✦'
-            }
-          }
         })
         el.addEventListener('mouseleave', () => {
           ringRef.current?.classList.remove('on')
           dotRef.current?.classList.remove('on')
-          if (textRef.current) textRef.current.innerText = ''
         })
       })
     }
@@ -656,10 +665,7 @@ function FreelanceCursor() {
 
   return (
     <div className="fl-cursor-wrap">
-      <div ref={ringRef} className="fl-cursor-ring">
-        <div className="fl-cursor-ring-inner" />
-        <span ref={textRef} className="fl-cursor-text"></span>
-      </div>
+      <div ref={ringRef} className="fl-cursor-ring" />
       <div ref={dotRef}  className="fl-cursor-dot"  />
     </div>
   )
