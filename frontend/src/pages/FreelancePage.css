@@ -172,8 +172,8 @@
   margin-bottom: 3.5rem;
 }
 
-/* Trust bar — horizontal scroll on mobile */
-.fl-trust-bar {
+/* Technical Focus bar — horizontal scroll on mobile */
+.fl-focus-bar {
   display: flex;
   gap: 0;
   border: 1px solid var(--fl-border);
@@ -184,29 +184,27 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
-.fl-trust-bar::-webkit-scrollbar { display: none; }
-.fl-trust-item {
-  flex: 1 0 150px;
-  padding: 1.1rem 1.25rem;
+.fl-focus-bar::-webkit-scrollbar { display: none; }
+.fl-focus-item {
+  flex: 1 0 220px;
+  padding: 1.2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
   border-right: 1px solid var(--fl-border);
-  min-width: 140px;
+  min-width: 200px;
 }
-.fl-trust-item:last-child { border-right: none; }
-.fl-trust-value {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--fl-orange);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  font-family: var(--fl-font-m);
+.fl-focus-item:last-child { border-right: none; }
+.fl-focus-area {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--fl-text-1);
+  letter-spacing: -0.01em;
 }
-.fl-trust-label {
+.fl-focus-detail {
   font-size: 0.72rem;
   color: var(--fl-text-2);
-  line-height: 1.35;
+  font-family: var(--fl-font-m);
 }
 
 /* ── Buttons ── */
@@ -823,9 +821,9 @@
   .fl-hero-actions { flex-direction: column; gap: 0.65rem; }
   .fl-hero-actions .fl-btn { width: 100%; justify-content: center; }
 
-  /* Trust bar — force scroll, 2 items visible */
-  .fl-trust-bar { border-radius: 8px; }
-  .fl-trust-item { flex: 0 0 48%; min-width: 130px; }
+  /* Focus bar — force scroll */
+  .fl-focus-bar { border-radius: 8px; }
+  .fl-focus-item { flex: 0 0 85%; min-width: 200px; }
 
   /* Services — 1 col */
   .fl-services-grid { grid-template-columns: 1fr; }

@@ -54,11 +54,11 @@ const PROCESS = [
   { step: '04', title: 'Support', desc: '2 weeks of free post-delivery support to handle any edge cases. After that, retainer options available.' },
 ]
 
-const TRUST_SIGNALS = [
-  { value: '5+', label: 'Projects Deployed' },
-  { value: '30×', label: 'Processing Speed Improvement (DOC-OC)' },
-  { value: '5K+', label: 'Requests/min (Advanzia AutoLend)' },
-  { value: '1st', label: 'Place — MariTHON National Hackathon' },
+const TECHNICAL_FOCUS = [
+  { area: 'Backends & Scale', detail: 'Spring Boot · FastAPI · Kafka · Redis' },
+  { area: 'AI & Automation', detail: 'LLM Orchestration · ReAct loops · Agents' },
+  { area: 'OCR & Computer Vision', detail: 'YOLOv8 · Table Transformers · OpenCV' },
+  { area: 'Full-Stack Engineering', detail: 'React · Next.js · Prisma · PostgreSQL' },
 ]
 
 /* ─── Featured projects for freelance page ─── */
@@ -185,13 +185,13 @@ function FreelanceHero() {
           </div>
         </FadeIn>
 
-        {/* Trust bar */}
+        {/* Technical Focus */}
         <FadeIn delay={0.45}>
-          <div className="fl-trust-bar">
-            {TRUST_SIGNALS.map(t => (
-              <div key={t.label} className="fl-trust-item">
-                <span className="fl-trust-value">{t.value}</span>
-                <span className="fl-trust-label">{t.label}</span>
+          <div className="fl-focus-bar">
+            {TECHNICAL_FOCUS.map(f => (
+              <div key={f.area} className="fl-focus-item">
+                <span className="fl-focus-area">{f.area}</span>
+                <span className="fl-focus-detail">{f.detail}</span>
               </div>
             ))}
           </div>
@@ -432,9 +432,9 @@ function SocialProof() {
             </FadeIn>
             <FadeIn delay={0.15}>
               <div className="fl-proof-card">
-                <span className="fl-proof-type">architecture · scale</span>
-                <h4 className="fl-proof-title">5,000+ Req/Min — Advanzia AutoLend</h4>
-                <p className="fl-proof-desc">Architected and benchmarked a Spring Boot/FastAPI microservices pipeline using Kafka event streams and Redis caching, running under 300ms latency.</p>
+                <span className="fl-proof-type">hackathon finalist · architecture</span>
+                <h4 className="fl-proof-title">HackTheWinter Finalist — Advanzia AutoLend</h4>
+                <p className="fl-proof-desc">Built an autonomous credit limit optimization model using reinforcement learning. Developed a supporting high-throughput backend (Spring Boot/FastAPI/Kafka/Redis) handling 5,000+ requests/min under 300ms latency.</p>
               </div>
             </FadeIn>
           </div>
@@ -444,7 +444,7 @@ function SocialProof() {
         <div className="fl-proof-col">
           <h3 className="fl-proof-col-title">Hackathons &amp; Awards</h3>
           <div className="fl-proof-col-list">
-            {achievements.map((a, i) => (
+            {achievements.filter(a => a.id !== 'hackthewinter').map((a, i) => (
               <FadeIn key={a.id} delay={i * 0.08 + 0.1}>
                 <div className="fl-proof-card">
                   <span className="fl-proof-type">{a.type}</span>
