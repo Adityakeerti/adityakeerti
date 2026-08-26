@@ -172,27 +172,21 @@
   margin-bottom: 3.5rem;
 }
 
-/* Technical Focus bar — horizontal scroll on mobile */
+/* Technical Focus bar — responsive grid */
 .fl-focus-bar {
-  display: flex;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   border: 1px solid var(--fl-border);
   border-radius: var(--fl-radius);
   background: var(--fl-surface);
   overflow: hidden;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
-.fl-focus-bar::-webkit-scrollbar { display: none; }
 .fl-focus-item {
-  flex: 1 0 220px;
-  padding: 1.2rem 1.5rem;
+  padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.35rem;
   border-right: 1px solid var(--fl-border);
-  min-width: 200px;
 }
 .fl-focus-item:last-child { border-right: none; }
 .fl-focus-area {
@@ -358,11 +352,10 @@
 }
 .fl-cw-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 1.25rem;
-  padding: 1.5rem 1.75rem 1.1rem;
-  flex-wrap: wrap;
+  padding: 1.5rem 1.75rem;
 }
 .fl-cw-type {
   display: block;
@@ -653,8 +646,8 @@
 .fl-contact-section { padding: 5rem 1.25rem; }
 .fl-contact-layout {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 4rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
   align-items: start;
 }
 .fl-contact-h2 {
@@ -821,9 +814,22 @@
   .fl-hero-actions { flex-direction: column; gap: 0.65rem; }
   .fl-hero-actions .fl-btn { width: 100%; justify-content: center; }
 
-  /* Focus bar — force scroll */
-  .fl-focus-bar { border-radius: 8px; }
-  .fl-focus-item { flex: 0 0 85%; min-width: 200px; }
+  /* Focus bar — grid overrides */
+  .fl-focus-bar {
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 8px;
+  }
+  .fl-focus-item {
+    border-right: 1px solid var(--fl-border);
+    border-bottom: 1px solid var(--fl-border);
+  }
+  .fl-focus-item:nth-child(2n) {
+    border-right: none;
+  }
+  .fl-focus-item:nth-child(3),
+  .fl-focus-item:nth-child(4) {
+    border-bottom: none;
+  }
 
   /* Services — 1 col */
   .fl-services-grid { grid-template-columns: 1fr; }
@@ -879,8 +885,17 @@
 /* Small mobile (< 420px) */
 @media (max-width: 420px) {
   .fl-hero-h1 { font-size: 1.7rem; }
-  .fl-trust-item { flex: 0 0 55%; }
   .fl-section-h2 { font-size: 1.4rem; }
+  .fl-focus-bar {
+    grid-template-columns: 1fr;
+  }
+  .fl-focus-item {
+    border-right: none;
+    border-bottom: 1px solid var(--fl-border);
+  }
+  .fl-focus-item:last-child {
+    border-bottom: none;
+  }
 }
 
 /* ── Custom Freelance Cursor ── */
