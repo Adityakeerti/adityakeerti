@@ -591,6 +591,80 @@ function FreelanceFooter() {
   )
 }
 
+/* ─── Freelance Custom Cursor ─── */
+function FreelanceCursor() {
+  const dotRef  = useRef(null)
+  const ringRef = useRef(null)
+  const textRef = useRef(null)
+  const pos     = useRef({ x: -200, y: -200 })
+  const lag     = useRef({ x: -200, y: -200 })
+
+  useEffect(() => {
+    // Check if on a hover-capable device
+    const isHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    if (!isHover) return
+
+    const onMove = e => { pos.current = { x: e.clientX, y: e.clientY } }
+    window.addEventListener('mousemove', onMove, { passive: true })
+
+    let raf
+    const tick = () => {
+      if (dotRef.current)
+        dotRef.current.style.transform = `translate(${pos.current.x}px,${pos.current.y}px)`
+      lag.current.x += (pos.current.x - lag.current.x) * 0.15
+      lag.current.y += (pos.current.y - lag.current.y) * 0.15
+      if (ringRef.current)
+        ringRef.current.style.transform = `translate(${lag.current.x}px,${lag.current.y}px)`
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+
+    const attachHovers = () => {
+      const links = document.querySelectorAll('a, button, .fl-service-card, .fl-work-tab, .fl-contact-email')
+      links.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          ringRef.current?.classList.add('on')
+          dotRef.current?.classList.add('on')
+          if (textRef.current) {
+            if (el.tagName === 'A' && el.getAttribute('href')?.startsWith('#')) {
+              textRef.current.innerText = '↓'
+            } else if (el.classList.contains('fl-service-card') || el.classList.contains('fl-work-tab')) {
+              textRef.current.innerText = '★'
+            } else if (el.classList.contains('fl-cw-live-btn') || (el.tagName === 'A' && el.target === '_blank')) {
+              textRef.current.innerText = '↗'
+            } else {
+              textRef.current.innerText = '✦'
+            }
+          }
+        })
+        el.addEventListener('mouseleave', () => {
+          ringRef.current?.classList.remove('on')
+          dotRef.current?.classList.remove('on')
+          if (textRef.current) textRef.current.innerText = ''
+        })
+      })
+    }
+    
+    const t = setTimeout(attachHovers, 500)
+
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      cancelAnimationFrame(raf)
+      clearTimeout(t)
+    }
+  }, [])
+
+  return (
+    <div className="fl-cursor-wrap">
+      <div ref={ringRef} className="fl-cursor-ring">
+        <div className="fl-cursor-ring-inner" />
+        <span ref={textRef} className="fl-cursor-text"></span>
+      </div>
+      <div ref={dotRef}  className="fl-cursor-dot"  />
+    </div>
+  )
+}
+
 /* ─── Page ─── */
 export default function FreelancePage() {
   // Unlock scroll (main portfolio locks it)
@@ -601,6 +675,7 @@ export default function FreelancePage() {
 
   return (
     <div className="fl-page">
+      <FreelanceCursor />
       <FreelanceNav />
       <FreelanceHero />
       <Services />
