@@ -146,7 +146,7 @@ function FreelanceNav() {
         <a href="/" className="fl-nav-logo">AK<span>.</span></a>
         <div className="fl-nav-center">
           <a href="#services"     className="fl-nav-link">Services</a>
-          <a href="#client-work"  className="fl-nav-link">Clients</a>
+          <a href="#client-work"  className="fl-nav-link">Freelance Work</a>
           <a href="#work"         className="fl-nav-link">Projects</a>
           <a href="#process"      className="fl-nav-link">Process</a>
           <a href="#contact"      className="fl-nav-link">Contact</a>
@@ -197,10 +197,6 @@ function FreelanceHero() {
           </div>
         </FadeIn>
       </div>
-
-      {/* Decorative blobs */}
-      <div className="fl-blob fl-blob-1" aria-hidden />
-      <div className="fl-blob fl-blob-2" aria-hidden />
     </section>
   )
 }
@@ -209,7 +205,7 @@ function FreelanceHero() {
 function Services() {
   const [hovered, setHovered] = useState(null)
   return (
-    <Section id="services" className="fl-section--dark">
+    <Section id="services" className="fl-section--alt">
       <FadeIn>
         <span className="fl-section-eyebrow">What I Do</span>
         <h2 className="fl-section-h2">Services</h2>
@@ -241,7 +237,7 @@ function Services() {
 /* ─── Client Work ─── */
 function ClientWork() {
   return (
-    <Section id="client-work" className="fl-section--dark">
+    <Section id="client-work">
       <FadeIn>
         <span className="fl-section-eyebrow">Real Clients · Live Sites</span>
         <h2 className="fl-section-h2">Client Work</h2>
@@ -390,7 +386,7 @@ function Work() {
 /* ─── Process ─── */
 function Process() {
   return (
-    <Section id="process" className="fl-section--dark">
+    <Section id="process" className="fl-section--alt">
       <FadeIn>
         <span className="fl-section-eyebrow">How It Works</span>
         <h2 className="fl-section-h2">Working With Me</h2>
@@ -452,7 +448,7 @@ function Contact() {
   }
 
   return (
-    <Section id="contact" className="fl-section--dark fl-contact-section">
+    <Section id="contact" className="fl-section--alt fl-contact-section">
       <div className="fl-contact-layout">
         <FadeIn className="fl-contact-left">
           <span className="fl-section-eyebrow">Let's Work Together</span>
