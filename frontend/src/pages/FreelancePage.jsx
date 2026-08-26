@@ -696,8 +696,104 @@ function FreelanceCursor() {
   )
 }
 
+// Custom hook to set document meta for SEO dynamically
+function useSEO({ title, description, keywords, schema }) {
+  useEffect(() => {
+    const prevTitle = document.title
+    document.title = title
+
+    const getOrCreateMeta = (attrName, attrValue) => {
+      let element = document.querySelector(`meta[${attrName}="${attrValue}"]`)
+      if (!element) {
+        element = document.createElement('meta')
+        element.setAttribute(attrName, attrValue)
+        document.head.appendChild(element)
+      }
+      return element
+    }
+
+    const descMeta = getOrCreateMeta('name', 'description')
+    const prevDesc = descMeta.getAttribute('content')
+    descMeta.setAttribute('content', description)
+
+    const keywordsMeta = getOrCreateMeta('name', 'keywords')
+    const prevKeywords = keywordsMeta.getAttribute('content')
+    keywordsMeta.setAttribute('content', keywords)
+
+    const ogTitle = getOrCreateMeta('property', 'og:title')
+    const prevOgTitle = ogTitle.getAttribute('content')
+    ogTitle.setAttribute('content', title)
+
+    const ogDesc = getOrCreateMeta('property', 'og:description')
+    const prevOgDesc = ogDesc.getAttribute('content')
+    ogDesc.setAttribute('content', description)
+
+    const ogUrl = getOrCreateMeta('property', 'og:url')
+    const prevOgUrl = ogUrl.getAttribute('content')
+    ogUrl.setAttribute('content', window.location.href)
+
+    let scriptTag = document.querySelector('script[type="application/ld+json"]')
+    if (!scriptTag) {
+      scriptTag = document.createElement('script')
+      scriptTag.setAttribute('type', 'application/ld+json')
+      document.head.appendChild(scriptTag)
+    }
+    scriptTag.text = JSON.stringify(schema)
+
+    return () => {
+      document.title = prevTitle
+      if (prevDesc) descMeta.setAttribute('content', prevDesc)
+      else descMeta.remove()
+
+      if (prevKeywords) keywordsMeta.setAttribute('content', prevKeywords)
+      else keywordsMeta.remove()
+
+      if (prevOgTitle) ogTitle.setAttribute('content', prevOgTitle)
+      else ogTitle.remove()
+
+      if (prevOgDesc) ogDesc.setAttribute('content', prevOgDesc)
+      else ogDesc.remove()
+
+      if (prevOgUrl) ogUrl.setAttribute('content', prevOgUrl)
+      else ogUrl.remove()
+
+      if (scriptTag) scriptTag.remove()
+    }
+  }, [title, description, keywords, schema])
+}
+
 /* ─── Page ─── */
 export default function FreelancePage() {
+  useSEO({
+    title: 'Aditya Keerti — Freelance Software Engineer & AI Architect',
+    description: 'Specializing in custom AI agents, automated OCR systems, high-throughput backends, and full-stack Next.js web applications. Hire for remote contract work.',
+    keywords: 'freelance software engineer, AI agent developer, next.js developer, fastapi freelance, custom OCR pipeline, system architect, fullstack developer, India developer',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      'name': 'Aditya Keerti — Freelance Software Engineer & AI Architect',
+      'image': 'https://adityakeerti.vercel.app/og-image.jpg',
+      'description': 'Freelance software engineer specializing in custom AI agents, OCR pipelines, high-throughput backends, and Next.js applications.',
+      'url': 'https://adityakeerti.vercel.app/freelance',
+      'priceRange': '$$',
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': 'Dehradun',
+        'addressRegion': 'Uttarakhand',
+        'addressCountry': 'IN'
+      },
+      'knowsAbout': [
+        'Artificial Intelligence',
+        'Machine Learning',
+        'Software Engineering',
+        'Full-Stack Web Development',
+        'Backend Infrastructure',
+        'OCR Systems',
+        'Kafka Event Streaming'
+      ]
+    }
+  })
+
   // Unlock scroll (main portfolio locks it)
   useEffect(() => {
     document.body.style.overflow = 'auto'
