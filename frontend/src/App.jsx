@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MediaGallery from './components/MediaGallery'
 import ContactConsole from './components/contact/ContactConsole'
+import CinematicMonitorLoader from './components/loader/CinematicMonitorLoader'
 
 import about       from './data/about.json'
 import projects    from './data/projects.json'
@@ -69,64 +70,6 @@ function Cursor() {
   )
 }
 
-/* ─────────────────────────────────────────────────────────────
-   LOADING SCREEN (Fast & Respectful 750ms / Session-aware)
-───────────────────────────────────────────────────────────── */
-function LoadingScreen({ onDone }) {
-  useEffect(() => {
-    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
-    if (sessionStorage.getItem('ak_intro_seen') || prefersReducedMotion) {
-      onDone()
-      return
-    }
-
-    const timer = setTimeout(() => {
-      sessionStorage.setItem('ak_intro_seen', '1')
-      onDone()
-    }, 750)
-
-    const handleKey = (e) => {
-      if (['Escape', ' ', 'Enter'].includes(e.key)) {
-        sessionStorage.setItem('ak_intro_seen', '1')
-        onDone()
-      }
-    }
-
-    window.addEventListener('keydown', handleKey)
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener('keydown', handleKey)
-    }
-  }, [onDone])
-
-  return (
-    <motion.div
-      className="loader"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      onClick={() => {
-        sessionStorage.setItem('ak_intro_seen', '1')
-        onDone()
-      }}
-      role="status"
-      aria-live="polite"
-    >
-      <div className="loader-inner">
-        <span className="loader-ak">AK</span>
-        <div className="loader-bar-wrap">
-          <motion.div
-            className="loader-bar"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          />
-        </div>
-        <p className="loader-skip-hint">Click or press Esc to skip</p>
-      </div>
-    </motion.div>
-  )
-}
 
 /* ─────────────────────────────────────────────────────────────
    OS WINDOW
@@ -839,9 +782,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(() => {
     if (typeof window !== 'undefined') {
       const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
-      if (sessionStorage.getItem('ak_intro_seen') || prefersReduced) {
-        return true
-      }
+      if (prefersReduced) return true
     }
     return false
   })
@@ -1018,9 +959,9 @@ export default function App() {
         </main>
       )}
 
-      {/* Cinematic Loader */}
+      {/* Cinematic Monitor Simulation Loader */}
       <AnimatePresence>
-        {!loaded && <LoadingScreen key="loader" onDone={() => setLoaded(true)} />}
+        {!loaded && <CinematicMonitorLoader key="loader" onDone={() => setLoaded(true)} />}
       </AnimatePresence>
     </div>
   )
