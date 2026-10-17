@@ -60,26 +60,26 @@ export default function CinematicMonitorLoader({ onDone }) {
       setCursorClicking(true)
       const id = Date.now() + Math.random()
       setClickRipples(prev => [...prev, { id, x, y }])
-      setTimeout(() => setCursorClicking(false), 150)
-      setTimeout(() => setClickRipples(prev => prev.filter(r => r.id !== id)), 600)
+      setTimeout(() => setCursorClicking(false), 220)
+      setTimeout(() => setClickRipples(prev => prev.filter(r => r.id !== id)), 850)
     }
 
-    // Step 0: Power on monitor (80ms)
+    // Step 0: Power on monitor with phosphor flare (250ms)
     const t0 = setTimeout(() => {
       setMonitorPower(true)
-    }, 80)
+    }, 250)
 
-    // Step 1: Cursor moves to search bar center (450ms)
+    // Step 1: Cursor smoothly glides into search bar (950ms)
     const t1 = setTimeout(() => {
       setCursorPos({ x: 45, y: 46 })
-    }, 450)
+    }, 950)
 
-    // Step 2: Cursor clicks inside search bar (800ms)
+    // Step 2: Cursor clicks inside search bar (1850ms)
     const t2 = setTimeout(() => {
       triggerClick(45, 46)
-    }, 800)
+    }, 1850)
 
-    // Step 3: Type query character by character (900ms - 1450ms)
+    // Step 3: Type query character by character at natural, deliberate human pace (2100ms - 3550ms)
     let charIdx = 0
     let typeInterval = null
     const t3 = setTimeout(() => {
@@ -89,58 +89,60 @@ export default function CinematicMonitorLoader({ onDone }) {
         if (charIdx >= SEARCH_QUERY.length) {
           clearInterval(typeInterval)
         }
-      }, 26) // ultra-snappy typing
-    }, 900)
+      }, 68) // natural, legible typing cadence
+    }, 2100)
 
-    // Step 4: Cursor hits Enter / Search button (1520ms)
+    // Step 4: Cursor glides smoothly toward the Return button after a natural reading pause (4000ms)
     const t4 = setTimeout(() => {
       setCursorPos({ x: 74, y: 46 })
-      setTimeout(() => {
-        triggerClick(74, 46)
-        setSearchSubmitted(true)
-      }, 100)
-    }, 1520)
+    }, 4000)
 
-    // Step 5: Micro-windows spring open (1680ms)
+    // Step 5: Cursor clicks Return (4850ms)
     const t5 = setTimeout(() => {
-      setWindowsActive(true)
-    }, 1680)
+      triggerClick(74, 46)
+      setSearchSubmitted(true)
+    }, 4850)
 
-    // Step 6: Counter increments rapidly
+    // Step 6: Micro-windows cascade open in smooth succession (5100ms)
+    const t6 = setTimeout(() => {
+      setWindowsActive(true)
+    }, 5100)
+
+    // Step 7: Telemetry counter increments smoothly & steadily (5200ms - 6600ms)
     let countVal = 0
     let counterInterval = null
-    const t6 = setTimeout(() => {
+    const t7 = setTimeout(() => {
       counterInterval = setInterval(() => {
-        countVal += Math.floor(Math.random() * 12) + 6
+        countVal += Math.floor(Math.random() * 5) + 3
         if (countVal >= 100) {
           countVal = 100
           clearInterval(counterInterval)
         }
         setCounter(countVal)
-      }, 40)
-    }, 1700)
+      }, 55)
+    }, 5200)
 
-    // Step 7: Cursor sweeps down to the [CONNECT WORKSTATION] button (1950ms)
-    const t7 = setTimeout(() => {
-      setCursorPos({ x: 50, y: 80 })
-    }, 1950)
-
-    // Step 8: Cursor clicks launch (2220ms)
+    // Step 8: Cursor glides gracefully down to the [CONNECT WORKSTATION] button (5600ms)
     const t8 = setTimeout(() => {
+      setCursorPos({ x: 50, y: 80 })
+    }, 5600)
+
+    // Step 9: Cursor clicks launch (6600ms)
+    const t9 = setTimeout(() => {
       triggerClick(50, 80)
       setLaunchActive(true)
       setCounter(100)
-    }, 2220)
+    }, 6600)
 
-    // Step 9: Camera Plunge / Screen Breach Zoom (2450ms)
-    const t9 = setTimeout(() => {
-      setScreenBreach(true)
-    }, 2450)
-
-    // Step 10: Complete and reveal portfolio (2800ms)
+    // Step 10: Smooth Cinematic Camera Plunge / Screen Breach Zoom (7250ms)
     const t10 = setTimeout(() => {
+      setScreenBreach(true)
+    }, 7250)
+
+    // Step 11: Seamlessly finish and reveal portfolio workspace (8200ms)
+    const t11 = setTimeout(() => {
       finish()
-    }, 2850)
+    }, 8200)
 
     return () => {
       clearTimeout(t0)
@@ -156,6 +158,7 @@ export default function CinematicMonitorLoader({ onDone }) {
       clearTimeout(t8)
       clearTimeout(t9)
       clearTimeout(t10)
+      clearTimeout(t11)
     }
   }, [])
 
@@ -164,7 +167,7 @@ export default function CinematicMonitorLoader({ onDone }) {
       className="cml-backdrop"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       onClick={finish}
       role="status"
       aria-live="polite"
@@ -183,13 +186,13 @@ export default function CinematicMonitorLoader({ onDone }) {
         className={`cml-monitor-rig ${screenBreach ? 'cml-breaching' : ''}`}
         initial={{ scale: 0.88, opacity: 0, y: 20 }}
         animate={{
-          scale: screenBreach ? 3.8 : 1,
+          scale: screenBreach ? 4.2 : 1,
           opacity: screenBreach ? 0 : 1,
-          y: screenBreach ? -40 : 0,
+          y: screenBreach ? -45 : 0,
         }}
         transition={{
-          duration: screenBreach ? 0.48 : 0.65,
-          ease: screenBreach ? [0.4, 0, 0.2, 1] : [0.16, 1, 0.3, 1]
+          duration: screenBreach ? 0.95 : 0.75,
+          ease: screenBreach ? [0.22, 1, 0.36, 1] : [0.16, 1, 0.3, 1]
         }}
         onClick={e => e.stopPropagation()}
       >
@@ -238,9 +241,9 @@ export default function CinematicMonitorLoader({ onDone }) {
                     animate={{
                       y: searchSubmitted ? -90 : 0,
                       opacity: searchSubmitted ? 0.8 : 1,
-                      scale: searchSubmitted ? 0.85 : 1,
+                      scale: searchSubmitted ? 0.88 : 1,
                     }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Search size={14} className="cml-search-ico" />
                     <span className="cml-search-text">
@@ -260,9 +263,9 @@ export default function CinematicMonitorLoader({ onDone }) {
                     {windowsActive && (
                       <motion.div
                         className="cml-micro-win cml-win-terminal"
-                        initial={{ opacity: 0, x: -35, y: -15, scale: 0.85 }}
+                        initial={{ opacity: 0, x: -30, y: -10, scale: 0.9 }}
                         animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <div className="cml-win-bar">
                           <span className="cml-dot r" /><span className="cml-dot y" /><span className="cml-dot g" />
@@ -288,9 +291,9 @@ export default function CinematicMonitorLoader({ onDone }) {
                     {windowsActive && (
                       <motion.div
                         className="cml-micro-win cml-win-radar"
-                        initial={{ opacity: 0, x: 35, y: -15, scale: 0.85 }}
+                        initial={{ opacity: 0, x: 30, y: -10, scale: 0.9 }}
                         animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                        transition={{ duration: 0.35, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.6, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <div className="cml-win-bar">
                           <span className="cml-dot r" /><span className="cml-dot y" /><span className="cml-dot g" />
@@ -316,9 +319,9 @@ export default function CinematicMonitorLoader({ onDone }) {
                     {windowsActive && (
                       <motion.div
                         className={`cml-micro-win cml-win-launch ${launchActive ? 'cml-launch-triggered' : ''}`}
-                        initial={{ opacity: 0, y: 40, scale: 0.85 }}
+                        initial={{ opacity: 0, y: 35, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ duration: 0.38, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.65, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <div className="cml-win-bar">
                           <span className="cml-dot r" /><span className="cml-dot y" /><span className="cml-dot g" />

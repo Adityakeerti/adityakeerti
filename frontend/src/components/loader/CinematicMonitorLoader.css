@@ -147,14 +147,14 @@
   opacity: 0;
   pointer-events: none;
   z-index: 50;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 .cml-power-on .cml-crt-flare {
-  animation: cml-flare 0.4s ease-out forwards;
+  animation: cml-flare 0.55s ease-out forwards;
 }
 @keyframes cml-flare {
   0% { transform: scaleX(0); opacity: 0; }
-  50% { transform: scaleX(1); opacity: 1; }
+  45% { transform: scaleX(1); opacity: 1; }
   100% { transform: scaleX(1); opacity: 0; }
 }
 
@@ -472,7 +472,7 @@
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .cml-btn-ping {
   width: 6px;
@@ -507,11 +507,14 @@
   z-index: 60;
   will-change: left, top, transform;
   transform: translate(-2px, -2px);
-  transition: left 0.32s cubic-bezier(0.2, 0.9, 0.3, 1), top 0.32s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.15s ease;
+  transition:
+    left 0.75s cubic-bezier(0.25, 0.1, 0.25, 1),
+    top 0.75s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
 }
 .cml-synthetic-cursor.clicking {
-  transform: translate(-2px, -2px) scale(0.85) !important;
+  transform: translate(-2px, -2px) scale(0.82) !important;
 }
 
 /* Optical Click Ripple */
@@ -521,16 +524,17 @@
   height: 28px;
   border-radius: 50%;
   border: 2px solid #ff4d00;
-  box-shadow: 0 0 12px rgba(255, 77, 0, 0.6);
+  box-shadow: 0 0 14px rgba(255, 77, 0, 0.6);
   pointer-events: none;
   z-index: 55;
-  transform: translate(-50%, -50%) scale(0.3);
+  transform: translate(-50%, -50%) scale(0.2);
   opacity: 1;
-  animation: cml-ripple 0.5s ease-out forwards;
+  animation: cml-ripple 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 @keyframes cml-ripple {
   0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
+  50% { opacity: 0.85; }
+  100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; }
 }
 
 /* ── Bottom OS Progress Dock ── */
@@ -570,8 +574,8 @@
   height: 100%;
   background: linear-gradient(90deg, #ff4d00, #ff7a30);
   border-radius: 9999px;
-  transition: width 0.08s linear;
-  box-shadow: 0 0 8px rgba(255, 77, 0, 0.5);
+  transition: width 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 10px rgba(255, 77, 0, 0.6);
 }
 .cml-dock-percent {
   color: #ff4d00;
