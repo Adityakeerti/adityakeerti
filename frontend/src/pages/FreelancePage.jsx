@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Check } from 'lucide-react'
+import MediaGallery from '../components/MediaGallery'
 import './FreelancePage.css'
 import about      from '../data/about.json'
 import projects   from '../data/projects.json'
@@ -56,33 +57,30 @@ const SERVICES = [
   {
     id: 'ai-agents',
     icon: <AgentWorkflowIcon />,
-    title: 'AI Systems & LLM Workflows',
-    desc: 'Build autonomous agentic workflows and LLM pipelines designed for production reliability — structured outputs, tool use, and self-healing error recovery without manual human intervention.',
-    tags: ['Python', 'LLMs', 'VLM', 'FastAPI', 'Function Calling', 'RAG'],
-  },
-  {
-    id: 'ml-backend',
-    icon: <PipelineIcon />,
-    title: 'ML Pipelines & Backend Systems',
-    desc: 'End-to-end ML systems — model training, serving APIs, high-throughput microservices. From PyTorch models to Kafka event streams under 300ms latency.',
-    tags: ['PyTorch', 'FastAPI', 'Spring Boot', 'Kafka', 'Redis', 'PostgreSQL'],
-    project: 'credit-limit-rl',
+    title: 'Autonomous AI Agents & Workflows',
+    desc: 'Automate repetitive operations, multi-step customer inquiries, and complex data pipelines with reliable, self-healing AI agents that complete real tasks without getting stuck in loops.',
+    tags: ['Autonomous Agents', 'Self-Healing Workflows', 'Tool Calling', 'Private LLMs', 'Enterprise RAG'],
   },
   {
     id: 'doc-intelligence',
     icon: <DocumentVlmIcon />,
-    title: 'Document Intelligence & Multimodal VLMs',
-    desc: 'High-speed, 100% offline Vision-Language Model extraction engines for complex documents and tabular data. Zero cloud OCR API costs, 100% schema adherence via C++ GBNF grammar decoding, and self-healing arithmetic validation.',
-    tags: ['VLM', 'llama.cpp', 'GBNF Grammars', 'FastAPI', 'Pydantic', 'PyMuPDF'],
-    project: 'doc-oc',
+    title: 'Offline Vision AI & Document Automation',
+    desc: 'Turn 10-minute manual paperwork into 6-second structured data. Runs 100% offline with zero cloud OCR fees and zero data leakage — guaranteed 100% schema accuracy.',
+    tags: ['Offline Vision AI', 'Smart Forms & Tables', '$0 Cloud Fees', '100% Private', 'Deterministic JSON'],
   },
   {
     id: 'fullstack',
     icon: <FullStackIcon />,
-    title: 'Full-Stack Web Applications',
-    desc: 'Complete web apps from database schema to deployed frontend. REST APIs, async backends, secure auth, React UIs — shipped fast, built to scale.',
-    tags: ['React', 'TypeScript', 'FastAPI', 'JWT', 'Docker', 'Vercel'],
-    project: 'campusintel',
+    title: 'Full-Stack SaaS & Web Applications',
+    desc: 'Turn your vision into a live, paying-customer-ready web app in weeks. Built with modern Next.js/React, rock-solid authentication, role-based controls, and scalable database schemas.',
+    tags: ['Next.js / React', 'SaaS MVPs', 'Role-Based Access', 'PostgreSQL', 'Fast Delivery'],
+  },
+  {
+    id: 'ml-backend',
+    icon: <PipelineIcon />,
+    title: 'High-Throughput Backends & Scalable APIs',
+    desc: 'Fast, bulletproof microservices and real-time event streams designed to handle high concurrency (5,000+ req/min) with sub-300ms response times and zero downtime.',
+    tags: ['High Concurrency', 'Sub-300ms APIs', 'Event Streaming', 'Kafka & Redis', 'Fault Tolerant'],
   },
 ]
 
@@ -93,15 +91,124 @@ const PROCESS = [
   { step: '04', title: 'Support', desc: '2 weeks of free post-delivery support to handle any edge cases. After that, retainer options available.' },
 ]
 
-const TECHNICAL_FOCUS = [
-  { area: 'Backends & Scale', detail: 'Spring Boot · FastAPI · Kafka · Redis' },
-  { area: 'AI & Edge Inference', detail: 'Local VLMs · llama.cpp · GBNF · Ollama' },
-  { area: 'Document Intelligence', detail: 'Spatial VLMs · Table Extraction · OpenCV' },
-  { area: 'Full-Stack Engineering', detail: 'React · Next.js · Prisma · PostgreSQL' },
+/* ─── Client Value & Trust Pillars (Replacing Tech Soup) ─── */
+const TRUST_PILLARS = [
+  {
+    kicker: 'Fast Delivery',
+    headline: 'Concept to Production in 2–4 Wks',
+    desc: 'Shipped & battle-tested MVPs without agency bureaucracy',
+  },
+  {
+    kicker: 'Zero Cloud Burn',
+    headline: '$0 Ongoing Cloud API Bills',
+    desc: 'Offline vision AI & local models running private and free',
+  },
+  {
+    kicker: 'High-Scale Performance',
+    headline: '5,000+ Req/Min Architecture',
+    desc: 'Sub-300ms response times, zero downtime, resilient events',
+  },
+  {
+    kicker: 'Complete Ownership',
+    headline: '100% Code Ownership',
+    desc: 'Full IP transfer + 2 weeks free dedicated post-launch support',
+  },
 ]
 
-/* ─── Featured projects for freelance page ─── */
-const FEATURED_PROJECTS = projects.filter(p => p.featured)
+/* ─── Interactive Demo Showcase Projects ─── */
+const DEMO_PROJECTS = [
+  {
+    id: 'doc-oc',
+    title: 'DOC-OC: Universal Document AI',
+    tagline: '100% Offline Multimodal Vision AI & Deterministic Table Extraction',
+    category: 'Offline Vision AI & Automation',
+    badge: '100% Local GPU Inference',
+    media: [
+      'https://youtu.be/FT0ZPkmyE1o',
+      '/projects/DOCOC/landing.png',
+      '/projects/DOCOC/result.png',
+    ],
+    demoUrl: 'https://adityacodes404-doc-oc.hf.space/',
+    githubUrl: 'https://github.com/Adityakeerti/DOC-OC-LLM',
+    metrics: [
+      { label: 'Processing Speed', value: '10m → 6.2s', highlight: true },
+      { label: 'Ongoing Cloud Bills', value: '$0 / month', highlight: true },
+      { label: 'Schema Accuracy', value: '100% Guaranteed', highlight: false },
+      { label: 'Data Privacy', value: '100% Offline', highlight: false },
+    ],
+    problem: 'Enterprises and academic institutions lose hundreds of hours manually transcribing unstandardized marks, stamps, and complex bilingual tables. Cloud OCR APIs charge expensive ongoing per-page fees ($0.02–$0.05/page) while compromising sensitive customer and student data privacy.',
+    solution: 'Engineered a unified, 100% offline edge Vision-Language Model (VLM) engine running Gemma-4 locally. Enforced C++ grammar-constrained decoding to mathematically eliminate JSON hallucinations, applied Lanczos image scaling, and built self-healing arithmetic validation.',
+    roi: [
+      'Slashed processing latency by 4.3× from ~28s down to 6.28s per complex document',
+      'Completely eliminated cloud API costs ($0 ongoing bills) with zero data leaving the premises',
+      '100% deterministic RFC 8259 JSON compliance with zero schema drift or formatting errors',
+      'Automated reconciliation of theory, practical, and total scores with self-healing validators',
+    ],
+    tags: ['Offline Vision AI', 'FastAPI', 'llama.cpp', 'Grammar Decoding', 'Pydantic Validation', 'React'],
+  },
+  {
+    id: 'credit-limit-rl',
+    title: 'Advanzia AutoLend',
+    tagline: 'Autonomous Real-Time Credit Risk & Dynamic Lending Engine',
+    category: 'High-Throughput Backend & ML',
+    badge: '5,000+ Req/Min Architecture',
+    media: [
+      'https://youtu.be/bsDh1WjEw9s',
+      '/projects/Advanzia AutoLend/architecture.png',
+      '/projects/Advanzia AutoLend/simulation.png',
+    ],
+    demoUrl: 'https://autocreditrl.vercel.app/',
+    githubUrl: 'https://github.com/Adityakeerti/Credit_Limit_Adjust_RL',
+    metrics: [
+      { label: 'System Throughput', value: '5,000+ req/min', highlight: true },
+      { label: 'Decision Latency', value: '< 300ms', highlight: true },
+      { label: 'Risk Protection', value: 'Survival Analysis AI', highlight: false },
+      { label: 'Financial Audit', value: 'Double-Entry Ledger', highlight: false },
+    ],
+    problem: 'Traditional static lending rules fail to adjust to live risk signals in volatile markets — costing financial lenders millions by rejecting creditworthy applicants or exposing portfolios to catastrophic default rates.',
+    solution: 'Implemented an adaptive reinforcement learning engine (Dueling Double DQN) coupled with a Cox Proportional Hazard survival model to continuously optimize credit limits. Architected a resilient microservices backend leveraging Kafka event streaming, Redis caching, and an immutable double-entry ledger.',
+    roi: [
+      'Benchmarked sustained throughput of 5,000+ requests/minute with sub-300ms response times',
+      'Pre-trained and validated dynamic credit policies across 10,000+ synthetic borrower simulations',
+      'Built-in regulatory compliance and financial audit trails via immutable double-entry ledgering',
+      'Fault-tolerant microservice architecture running Spring Boot, FastAPI, and PostgreSQL',
+    ],
+    tags: ['Spring Boot', 'FastAPI', 'Kafka', 'Redis', 'PyTorch RL', 'PostgreSQL', 'Microservices'],
+  },
+  {
+    id: 'campusintel',
+    title: 'Campus Intel',
+    tagline: 'Unified Enterprise Campus Intelligence & Mobile Vision Platform',
+    category: 'Full-Stack SaaS & Applied AI',
+    badge: 'Hardware Cost Elimination',
+    media: [
+      'https://youtu.be/RIfFyF_utRg',
+      '/projects/campus-intel/student-home.png',
+      '/projects/campus-intel/student-login.png',
+      '/projects/campus-intel/students-marksheets.png',
+      '/projects/campus-intel/raise-makrs-correction-req.png',
+      '/projects/campus-intel/mgmt-approve-reject-req.png',
+      '/projects/campus-intel/mobiile-barcode-scanner.png',
+    ],
+    demoUrl: 'https://campusintel-phase2.onrender.com/',
+    githubUrl: 'https://github.com/Adityakeerti/CampusIntel-Phase2',
+    metrics: [
+      { label: 'Barcode Hardware Cost', value: '$0 (Phone Camera)', highlight: true },
+      { label: 'Ecosystem Scope', value: '4 Microservices', highlight: true },
+      { label: 'Support Response', value: 'Instant AI RAG', highlight: false },
+      { label: 'National Honor', value: 'Top 3 Finalist', highlight: false },
+    ],
+    problem: 'Educational institutions suffer from fragmented legacy tools: paper-based student administration, manual clerical review queues, and thousands of dollars spent on dedicated handheld barcode scanners for asset tracking.',
+    solution: 'Engineered a unified multi-service ecosystem: an institutional AI knowledge assistant (FAISS RAG) for instant query responses, digital administrative correction workflows, and mobile camera computer vision that turns student and staff phones into real-time barcode scanners.',
+    roi: [
+      'Eliminated dedicated hardware equipment costs by converting smartphone cameras into barcode scanners',
+      'Replaced multi-day paper approval queues with real-time digital administrative workflows',
+      'Integrated student, administrative, and inventory systems into 4 containerized microservices',
+      'Recognized in the Top 3 nationally in competitive hackathon finals',
+    ],
+    tags: ['React', 'FastAPI', 'Spring Boot', 'Mobile Vision', 'FAISS RAG', 'Docker', 'MySQL'],
+  },
+]
 
 /* ─── Real client work ─── */
 const CLIENT_WORK = [
@@ -191,9 +298,10 @@ function FreelanceNav() {
         <a href="/" className="fl-nav-logo">AK<span>.</span></a>
         <div className="fl-nav-center">
           <a href="#services"     onClick={handleScroll('services')}      className="fl-nav-link">Services</a>
-          <a href="#client-work"  onClick={handleScroll('client-work')}   className="fl-nav-link">Freelance Work</a>
-          <a href="#work"         onClick={handleScroll('work')}          className="fl-nav-link">Projects</a>
-          <a href="#process"      onClick={handleScroll('process')}       className="fl-nav-link">Process</a>
+          <a href="#client-work"  onClick={handleScroll('client-work')}   className="fl-nav-link">Client Work</a>
+          <a href="#demos"        onClick={handleScroll('demos')}         className="fl-nav-link">Live Demos</a>
+          <a href="#process"      onClick={handleScroll('process')}       className="fl-nav-link">How It Works</a>
+          <a href="#proof"        onClick={handleScroll('proof')}         className="fl-nav-link">Track Record</a>
           <a href="#contact"      onClick={handleScroll('contact')}       className="fl-nav-link">Contact</a>
         </div>
         <a href="#contact" onClick={handleScroll('contact')} className="fl-nav-cta">Let's Talk →</a>
@@ -225,24 +333,25 @@ function FreelanceHero() {
         </FadeIn>
         <FadeIn delay={0.25}>
           <p className="fl-hero-sub">
-            Full-Stack Developer &amp; AI/ML Engineer · 5 deployed projects · National hackathon winner ·
-            Reduced document processing from 10 min → 30 sec for a real client.
+            Full-Stack Developer &amp; AI Architect · Production MVPs in 2–4 weeks · $0 ongoing API bills ·
+            Reduced document processing from 10 min → 6 sec for real clients.
           </p>
         </FadeIn>
         <FadeIn delay={0.35}>
           <div className="fl-hero-actions">
             <a href="#contact" onClick={handleScroll('contact')} className="fl-btn fl-btn--primary">Start a Project →</a>
-            <a href="#work"    onClick={handleScroll('work')}    className="fl-btn fl-btn--ghost">See My Work</a>
+            <a href="#demos"   onClick={handleScroll('demos')}   className="fl-btn fl-btn--ghost">Explore Live Demos ↓</a>
           </div>
         </FadeIn>
 
-        {/* Technical Focus */}
+        {/* Client Value & Trust Pillars */}
         <FadeIn delay={0.45}>
           <div className="fl-focus-bar">
-            {TECHNICAL_FOCUS.map(f => (
-              <div key={f.area} className="fl-focus-item">
-                <span className="fl-focus-area">{f.area}</span>
-                <span className="fl-focus-detail">{f.detail}</span>
+            {TRUST_PILLARS.map(f => (
+              <div key={f.kicker} className="fl-focus-item">
+                <span className="fl-focus-kicker">{f.kicker}</span>
+                <span className="fl-focus-headline">{f.headline}</span>
+                <span className="fl-focus-desc">{f.desc}</span>
               </div>
             ))}
           </div>
@@ -283,7 +392,7 @@ function Services() {
               <div className="fl-service-tags">
                 {s.tags.map(t => <span key={t} className="fl-tag">{t}</span>)}
               </div>
-              <a href="#work" onClick={handleScroll('work')} className="fl-service-link">See example project →</a>
+              <a href="#demos" onClick={handleScroll('demos')} className="fl-service-link">See live demo →</a>
             </div>
           </FadeIn>
         ))}
@@ -354,10 +463,10 @@ function ClientWork() {
   )
 }
 
-/* ─── Work / Projects ─── */
+/* ─── Work / Interactive Live Demo Showcase ─── */
 function Work() {
   const [active, setActive] = useState(0)
-  const proj = FEATURED_PROJECTS[active]
+  const proj = DEMO_PROJECTS[active]
 
   const handleScroll = (id) => (e) => {
     e.preventDefault()
@@ -366,26 +475,32 @@ function Work() {
   }
 
   return (
-    <Section id="work">
+    <Section id="demos">
+      {/* Anchor for legacy or alternate navigation links */}
+      <div id="work" tabIndex={-1} aria-hidden="true" style={{ position: 'relative', top: '-60px' }} />
       <FadeIn>
-        <span className="fl-section-eyebrow">Portfolio</span>
-        <h2 className="fl-section-h2">Selected Work</h2>
-        <p className="fl-section-sub">Real projects. Real problems solved. Real numbers.</p>
+        <span className="fl-section-eyebrow">Proof of Execution</span>
+        <h2 className="fl-section-h2">Interactive Live Demos</h2>
+        <p className="fl-section-sub">
+          Explore real video walkthroughs, live sandboxes, and measured benchmark performance.
+        </p>
       </FadeIn>
 
       <div className="fl-work-layout">
         {/* Tab list */}
-        <div className="fl-work-tabs">
-          {FEATURED_PROJECTS.map((p, i) => (
+        <div className="fl-work-tabs" role="tablist" aria-label="Demo Projects">
+          {DEMO_PROJECTS.map((p, i) => (
             <button
               key={p.id}
+              role="tab"
+              aria-selected={active === i}
               className={`fl-work-tab${active === i ? ' fl-work-tab--active' : ''}`}
               onClick={() => setActive(i)}
             >
               <span className="fl-work-tab-num">{String(i + 1).padStart(2, '0')}</span>
               <div>
                 <div className="fl-work-tab-title">{p.title}</div>
-                <div className="fl-work-tab-sub">{p.subtitle}</div>
+                <div className="fl-work-tab-sub">{p.tagline}</div>
               </div>
             </button>
           ))}
@@ -402,42 +517,104 @@ function Work() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
+              {/* Header */}
               <div className="fl-work-detail-head">
                 <div>
+                  <div className="fl-demo-category-wrap">
+                    <span className="fl-demo-category">{proj.category}</span>
+                    <span className="fl-demo-pill">{proj.badge}</span>
+                  </div>
                   <h3 className="fl-work-title">{proj.title}</h3>
-                  <p className="fl-work-subtitle">{proj.subtitle} · {proj.date}</p>
+                  <p className="fl-work-subtitle">{proj.tagline}</p>
                 </div>
                 <div className="fl-work-links">
-                  {proj.demo   && <a href={proj.demo}   target="_blank" rel="noopener noreferrer" className="fl-btn fl-btn--sm fl-btn--primary">Live Demo ↗</a>}
-                  {proj.github && <a href={proj.github} target="_blank" rel="noopener noreferrer" className="fl-btn fl-btn--sm fl-btn--ghost">Source</a>}
+                  {proj.demoUrl && (
+                    <a
+                      href={proj.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="fl-btn fl-btn--sm fl-btn--primary"
+                    >
+                      Open Live Demo ↗
+                    </a>
+                  )}
+                  {proj.githubUrl && (
+                    <a
+                      href={proj.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="fl-btn fl-btn--sm fl-btn--ghost"
+                    >
+                      View Source Code
+                    </a>
+                  )}
                 </div>
               </div>
 
-              <div className="fl-work-sections">
-                <div className="fl-work-block">
-                  <div className="fl-work-label">The Problem</div>
-                  <p className="fl-work-text">{proj.problem}</p>
-                </div>
-                <div className="fl-work-block">
-                  <div className="fl-work-label">How I Solved It</div>
-                  <p className="fl-work-text">{proj.approach}</p>
-                </div>
-                {proj.outcomes?.length > 0 && (
-                  <div className="fl-work-block">
-                    <div className="fl-work-label">Results</div>
-                    <ul className="fl-outcomes">
-                      {proj.outcomes.map((o, k) => <li key={k}>{o}</li>)}
-                    </ul>
+              {/* High-Impact Metric Badges */}
+              <div className="fl-demo-metrics">
+                {proj.metrics.map((m, idx) => (
+                  <div
+                    key={idx}
+                    className={`fl-demo-metric-card${m.highlight ? ' fl-demo-metric-card--highlight' : ''}`}
+                  >
+                    <span className="fl-demo-metric-val">{m.value}</span>
+                    <span className="fl-demo-metric-lbl">{m.label}</span>
                   </div>
-                )}
+                ))}
               </div>
 
+              {/* Interactive Media Showcase (Video Walkthrough & Screenshots) */}
+              {proj.media && proj.media.length > 0 && (
+                <div className="fl-demo-media">
+                  <MediaGallery
+                    key={proj.id}
+                    items={proj.media}
+                    alt={`${proj.title} interactive demo`}
+                  />
+                </div>
+              )}
+
+              {/* Client-Centric Story: Problem -> Solution -> Measured ROI */}
+              <div className="fl-demo-story">
+                <div className="fl-demo-story-card">
+                  <div className="fl-demo-story-lbl">The Business Problem</div>
+                  <p className="fl-demo-story-txt">{proj.problem}</p>
+                </div>
+                <div className="fl-demo-story-card">
+                  <div className="fl-demo-story-lbl">The Delivered Solution</div>
+                  <p className="fl-demo-story-txt">{proj.solution}</p>
+                </div>
+                <div className="fl-demo-story-card fl-demo-story-card--full">
+                  <div className="fl-demo-story-lbl">Measured ROI &amp; Outcomes</div>
+                  <ul className="fl-demo-roi-list">
+                    {proj.roi.map((r, k) => (
+                      <li key={k}>{r}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Architecture / Tech Stack Pills */}
               <div className="fl-work-stack">
-                {proj.techStack.map(t => <span key={t} className="fl-tag fl-tag--orange">{t}</span>)}
+                {proj.tags.map(t => (
+                  <span key={t} className="fl-tag fl-tag--orange">{t}</span>
+                ))}
               </div>
 
-              <div className="fl-work-hire-nudge">
-                Need something similar? <a href="#contact" onClick={handleScroll('contact')}>Let's scope your project →</a>
+              {/* Direct Contextual Nudge */}
+              <div className="fl-demo-nudge">
+                <div>
+                  <span className="fl-demo-nudge-title">Want a system like this built for your business?</span>
+                  <span className="fl-demo-nudge-sub">Custom AI agents, private vision pipelines, or high-throughput backends in 2–4 weeks.</span>
+                </div>
+                <a
+                  href="#contact"
+                  onClick={handleScroll('contact')}
+                  className="fl-btn fl-btn--primary fl-btn--sm"
+                >
+                  Scope This Project →
+                </a>
               </div>
             </motion.div>
           )}
@@ -479,44 +656,44 @@ const TRACK_RECORD = {
       id: 'marathon',
       badge: '1st Place · National Winner',
       title: 'MariTHON National Hackathon',
-      desc: 'Engineered an AI SOF extraction pipeline on Vertex AI for the Integrated Maritime Exchange, winning 1st place nationwide.',
+      desc: 'Engineered an automated document extraction pipeline for maritime shipping logistics, processing vessel records automatically and securing 1st place nationwide.',
       highlight: true
     },
     {
       id: 'hackthewinter',
       badge: 'Top 3 Finalist · National',
       title: 'HackTheWinter Hackathon',
-      desc: 'Built an autonomous credit limit optimization model with Dueling Double DQN and an async microservice handling 5,000+ req/min.',
+      desc: 'Built an autonomous credit risk decisioning engine capable of processing 5,000+ financial transactions/minute with sub-second latency.',
       highlight: false
     },
     {
       id: 'india-innovates',
       badge: 'Top 500 Teams · Bharat Mandapam',
       title: 'India Innovates 2026',
-      desc: 'Selected into the top 500 teams physically competing at Bharat Mandapam, New Delhi in India’s premier national civic-tech hackathon.',
+      desc: 'Selected into the top 500 engineering teams nationwide to build civic-scale digital infrastructure at Bharat Mandapam, New Delhi.',
       highlight: false
     }
   ],
   production: [
     {
-      id: 'peerprep',
-      badge: '30× Ingestion Speedup',
-      title: 'Peerprep Ingestion Engine',
-      desc: 'Built an automated ingestion engine cutting per-record processing from 10 minutes to ~30 seconds at 99.98% accuracy on production data.',
+      id: 'doc-oc',
+      badge: '4.3× Faster · $0 Cloud Bills',
+      title: 'DOC-OC Universal Document AI',
+      desc: 'Engineered a 100% offline vision AI engine that extracts complex tabular documents in 6.2 seconds with zero data leakage and zero ongoing cloud OCR fees.',
       highlight: true
     },
     {
-      id: 'doc-oc',
-      badge: '4.3× Local Latency · $0 API Cost',
-      title: 'DOC-OC V2 Edge VLM',
-      desc: 'Completely offline multimodal document engine running Gemma-4 via llama.cpp with C++ GBNF grammar decoding, slashing inference to 6.28s.',
+      id: 'peerprep',
+      badge: '30× Ingestion Speedup',
+      title: 'Automated Ingestion Engine',
+      desc: 'Built an automated data pipeline cutting per-record processing from 10 minutes down to ~30 seconds with 99.98% accuracy on production data.',
       highlight: false
     },
     {
       id: 'live-saas',
-      badge: 'Active Production Deployments',
-      title: 'Anand Kosh & Drisu Compliance',
-      desc: 'Deployed 3-tier RBAC patient records system on Render/PostgreSQL and built 30+ live service pages with structured SEO schema.',
+      badge: 'Active Production Clients',
+      title: 'Live Healthcare & Legal Portals',
+      desc: 'Shipped a secure medical records platform handling hundreds of patient files daily and launched high-converting legal compliance portals with 30+ service flows.',
       highlight: false
     }
   ]
@@ -725,11 +902,11 @@ function ContactForm() {
             onChange={set('type')}
           >
             <option value="">Select a service…</option>
-            <option value="AI Systems & LLM Workflows">AI Systems &amp; LLM Workflows</option>
-            <option value="ML Pipelines & Backend Systems">ML Pipelines &amp; Backend Systems</option>
-            <option value="Document Intelligence & Multimodal VLMs">Document Intelligence &amp; Multimodal VLMs</option>
-            <option value="Full-Stack Web Applications">Full-Stack Web Applications</option>
-            <option value="Something else">Custom Consulting / Something else</option>
+            <option value="Autonomous AI Agents & Workflows">Autonomous AI Agents &amp; Workflows</option>
+            <option value="Offline Vision AI & Document Automation">Offline Vision AI &amp; Document Automation</option>
+            <option value="Full-Stack SaaS & Web Applications">Full-Stack SaaS &amp; Web Applications</option>
+            <option value="High-Throughput Backends & Scalable APIs">High-Throughput Backends &amp; Scalable APIs</option>
+            <option value="Custom Consulting / Something else">Custom Consulting / Something else</option>
           </select>
         </div>
         <div className="fl-form-field">
