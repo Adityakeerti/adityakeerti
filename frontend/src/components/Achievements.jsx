@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { Camera } from 'lucide-react'
 import MediaGallery from './MediaGallery'
 
 const cardVariants = {
@@ -70,7 +71,7 @@ export default function Achievements({ data }) {
                                     )
                                 ) : item.mediaPlaceholder && (
                                     <div className="achievement-media-placeholder">
-                                        📷 Photo / Video placeholder
+                                        <Camera size={14} className="inline mr-1" /> Photo / Video placeholder
                                     </div>
                                 )}
                             </motion.article>

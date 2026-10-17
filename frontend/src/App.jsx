@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MediaGallery from './components/MediaGallery'
+import ContactConsole from './components/contact/ContactConsole'
 
 import about       from './data/about.json'
 import projects    from './data/projects.json'
@@ -20,122 +21,109 @@ const SECTIONS = [
 ]
 
 /* ─────────────────────────────────────────────────────────────
-   CUSTOM CURSOR
+   CUSTOM CURSOR (Ambient Accent Follower)
 ───────────────────────────────────────────────────────────── */
 function Cursor() {
-  const dotRef  = useRef(null)
   const ringRef = useRef(null)
   const pos     = useRef({ x: -200, y: -200 })
   const lag     = useRef({ x: -200, y: -200 })
 
   useEffect(() => {
+    const isHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    if (!isHover) return
+
     const onMove = e => { pos.current = { x: e.clientX, y: e.clientY } }
     window.addEventListener('mousemove', onMove, { passive: true })
 
     let raf
     const tick = () => {
-      if (dotRef.current)
-        dotRef.current.style.transform = `translate(${pos.current.x}px,${pos.current.y}px)`
-      lag.current.x += (pos.current.x - lag.current.x) * 0.12
-      lag.current.y += (pos.current.y - lag.current.y) * 0.12
-      if (ringRef.current)
+      lag.current.x += (pos.current.x - lag.current.x) * 0.15
+      lag.current.y += (pos.current.y - lag.current.y) * 0.15
+      if (ringRef.current) {
         ringRef.current.style.transform = `translate(${lag.current.x}px,${lag.current.y}px)`
+      }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
 
-    // Hover effects
-    const attachHovers = () => {
-      document.querySelectorAll('a,button,.proj-item,.c-social,.btn,.st-tab').forEach(el => {
-        el.addEventListener('mouseenter', () => ringRef.current?.classList.add('on'))
-        el.addEventListener('mouseleave', () => ringRef.current?.classList.remove('on'))
-      })
+    const onOver = (e) => {
+      if (e.target.closest('a, button, [role="button"], [role="tab"], .proj-item, .c-social, .btn, .st-tab')) {
+        ringRef.current?.classList.add('on')
+      } else {
+        ringRef.current?.classList.remove('on')
+      }
     }
-    const t = setTimeout(attachHovers, 3500)
+    window.addEventListener('mouseover', onOver, { passive: true })
 
     return () => {
       window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseover', onOver)
       cancelAnimationFrame(raf)
-      clearTimeout(t)
     }
   }, [])
 
   return (
-    <div className="c-wrap">
+    <div className="c-wrap" aria-hidden="true">
       <div ref={ringRef} className="c-ring" />
-      <div ref={dotRef}  className="c-dot"  />
     </div>
   )
 }
 
 /* ─────────────────────────────────────────────────────────────
-   LOADING SCREEN
+   LOADING SCREEN (Fast & Respectful 750ms / Session-aware)
 ───────────────────────────────────────────────────────────── */
 function LoadingScreen({ onDone }) {
-  const [p, setP] = useState(0)
-
   useEffect(() => {
-    const t0 = setTimeout(() => setP(1), 200)
-    const t1 = setTimeout(() => setP(2), 700)
-    const t2 = setTimeout(() => setP(3), 1250)
-    const t3 = setTimeout(() => setP(4), 1700)
-    const t4 = setTimeout(() => setP(5), 2700)
-    const t5 = setTimeout(() => onDone(),  3300)
-    return () => [t0,t1,t2,t3,t4,t5].forEach(clearTimeout)
-  }, [onDone])
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+    if (sessionStorage.getItem('ak_intro_seen') || prefersReducedMotion) {
+      onDone()
+      return
+    }
 
-  const nameChars = [...'ADITYAKEERTI']
+    const timer = setTimeout(() => {
+      sessionStorage.setItem('ak_intro_seen', '1')
+      onDone()
+    }, 750)
+
+    const handleKey = (e) => {
+      if (['Escape', ' ', 'Enter'].includes(e.key)) {
+        sessionStorage.setItem('ak_intro_seen', '1')
+        onDone()
+      }
+    }
+
+    window.addEventListener('keydown', handleKey)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [onDone])
 
   return (
     <motion.div
       className="loader"
-      animate={p >= 5 ? { opacity: 0 } : { opacity: 1 }}
-      transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      onClick={() => {
+        sessionStorage.setItem('ak_intro_seen', '1')
+        onDone()
+      }}
+      role="status"
+      aria-live="polite"
     >
-      {/* Orange seed line */}
-      <motion.div
-        className="loader-line"
-        initial={{ scaleX: 0, opacity: 0 }}
-        animate={p >= 1 ? { scaleX: 1, opacity: 1 } : {}}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      />
-
-      {/* AK architectural text */}
-      <motion.span
-        className="loader-ak"
-        initial={{ opacity: 0, filter: 'blur(24px)' }}
-        animate={p >= 1 ? { opacity: 1, filter: 'blur(0px)' } : {}}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-      >
-        AK
-      </motion.span>
-
-      {/* Name character by character */}
-      <div className="loader-name">
-        {nameChars.map((ch, i) => (
-          <motion.span
-            key={i}
-            className="loader-char"
-            initial={{ opacity: 0, y: 12 }}
-            animate={p >= 2 ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: i * 0.055, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {ch}
-          </motion.span>
-        ))}
+      <div className="loader-inner">
+        <span className="loader-ak">AK</span>
+        <div className="loader-bar-wrap">
+          <motion.div
+            className="loader-bar"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          />
+        </div>
+        <p className="loader-skip-hint">Click or press Esc to skip</p>
       </div>
-
-      {/* Role */}
-      <motion.p
-        className="loader-role"
-        initial={{ opacity: 0 }}
-        animate={p >= 3 ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      >
-        Full-Stack Developer
-        <span className="loader-dot" />
-        AI/ML Engineer
-      </motion.p>
     </motion.div>
   )
 }
@@ -176,36 +164,74 @@ const pt = { duration: 0.55, ease: [0.16, 1, 0.3, 1] }
 function AboutPanel() {
   return (
     <div className="about-panel">
-      {/* Left: vertical name */}
-      <div className="about-vert">
+      {/* Left: vertical name with slide-in */}
+      <motion.div
+        className="about-vert"
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
         <span className="about-vert-name">{about.name?.toUpperCase()}</span>
         <span className="about-vert-role">Full-Stack · AI/ML</span>
-      </div>
+      </motion.div>
 
       {/* Orange separator */}
-      <div className="about-sep" />
+      <motion.div
+        className="about-sep"
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      />
 
-      {/* Right: OS window */}
-      <div className="about-content">
+      {/* Right: OS window with slide-in */}
+      <motion.div
+        className="about-content"
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+      >
         <OSWin title="~/about.txt" className="about-win" bodyClass="about-win-body" style={{ height: '100%' }}>
-          <div className="p-eyebrow">01 / Profile</div>
+          <motion.div
+            className="p-eyebrow"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            01 / Profile
+          </motion.div>
 
-          <p className="about-bio">{about.bio}</p>
+          <motion.p
+            className="about-bio"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.25 }}
+          >
+            {about.bio}
+          </motion.p>
 
           <div className="about-rule" />
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.3 }}
+          >
             <p className="about-edu-label">Education</p>
             <p className="about-edu-degree">{about.education.degree}</p>
             <p className="about-edu-meta">{about.education.university}</p>
             <p className="about-edu-meta" style={{ color: 'var(--text-3)', marginTop: '0.2rem' }}>
               {about.education.year} &nbsp;·&nbsp; CGPA {about.education.result}
             </p>
-          </div>
+          </motion.div>
 
           <div className="about-rule" />
 
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
+          <motion.div
+            style={{ display: 'flex', gap: '1.5rem' }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.35 }}
+          >
             <div>
               <p className="about-edu-label">Location</p>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-2)' }}>{about.location}</p>
@@ -217,9 +243,14 @@ function AboutPanel() {
                 Open to Work
               </p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="about-links">
+          <motion.div
+            className="about-links"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.4 }}
+          >
             <a href={about.github} target="_blank" rel="noopener noreferrer" className="btn">
               <GithubIcon /> GitHub
             </a>
@@ -232,9 +263,9 @@ function AboutPanel() {
             <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${about.email}`} target="_blank" rel="noopener noreferrer" className="btn primary">
               Say Hello →
             </a>
-          </div>
+          </motion.div>
         </OSWin>
-      </div>
+      </motion.div>
     </div>
   )
 }
@@ -313,7 +344,15 @@ function ExperiencePanel() {
                       <span className="td-brace">{'['}</span>
                     </div>
                     {exp.highlights?.map((h, i) => (
-                      <div key={i} className="td-hl-row">{h}</div>
+                      <motion.div
+                        key={i}
+                        className="td-hl-row"
+                        initial={{ opacity: 0, x: -14 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.35, delay: 0.12 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        {h}
+                      </motion.div>
                     ))}
                     <div className="td-brace">{'],'}</div>
 
@@ -322,10 +361,15 @@ function ExperiencePanel() {
                       <span className="td-colon">: </span>
                       <span className="td-brace">{'['}</span>
                       {exp.tools?.map((t, i) => (
-                        <span key={t}>
+                        <motion.span
+                          key={t}
+                          initial={{ opacity: 0, scale: 0.85 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.25, delay: 0.2 + i * 0.03, ease: [0.16, 1, 0.3, 1] }}
+                        >
                           <span className="td-tools">"<span className="td-tool">{t}</span>"</span>
                           {i < exp.tools.length - 1 && <span className="td-brace">, </span>}
-                        </span>
+                        </motion.span>
                       ))}
                       <span className="td-brace">{']'}</span>
                     </div>
@@ -366,33 +410,41 @@ function ProjectsPanel() {
         </div>
         <div className="proj-list">
           {projects.map((p, i) => (
-            <div
+            <motion.button
+              type="button"
               key={p.id}
               className={`proj-item${active === i ? ' active' : ''}`}
               onClick={() => setActive(i)}
+              role="tab"
+              aria-selected={active === i}
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.35, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ x: 6 }}
+              whileTap={{ scale: 0.98 }}
             >
               <div className="proj-item-num">
                 {String(i+1).padStart(2,'0')}
-                {p.featured && <span />}
+                {p.featured && <span aria-hidden="true" />}
               </div>
               <div className="proj-item-title">{p.title}</div>
               <div className="proj-item-sub">{p.subtitle} · {p.date}</div>
-            </div>
+            </motion.button>
           ))}
         </div>
       </div>
 
-      {/* Right: detail window */}
+      {/* Right: detail window with dynamic card slide-in */}
       <div className="proj-right">
         <AnimatePresence mode="wait">
           {proj && (
             <motion.div
               key={proj.id}
               className="proj-detail-win os-win"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, x: 35, scale: 0.985 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -20, scale: 0.985 }}
+              transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
               style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div className="os-win-bar">
@@ -519,11 +571,17 @@ function SkillsPanel() {
 
                 <div className="nf-rule" />
 
-                {rows.map((r) => (
-                  <div key={r.label} className="nf-row">
+                {rows.map((r, i) => (
+                  <motion.div
+                    key={r.label}
+                    className="nf-row"
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: 0.15 + i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                  >
                     <span className="nf-label">{r.label.trim()}</span>
                     <span className="nf-val">{r.val}</span>
-                  </div>
+                  </motion.div>
                 ))}
 
                 <div className="nf-rule" />
@@ -560,34 +618,51 @@ function AchievementsPanel() {
       </div>
 
       <div className="ach-layout">
-        {/* Left: achievement selector */}
+        {/* Left: achievement selector with card slide-in */}
         <div className="ach-selector">
           {achievements.map((a, i) => (
-            <button
+            <motion.button
+              type="button"
               key={a.id}
               className={`ach-sel-item${activeAch === i ? ' active' : ''}`}
               onClick={() => setActiveAch(i)}
+              role="tab"
+              aria-selected={activeAch === i}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.35, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ x: 5 }}
+              whileTap={{ scale: 0.98 }}
             >
               <span className="ach-sel-num">{String(i+1).padStart(2,'0')}</span>
               <div className="ach-sel-info">
                 <span className="ach-sel-type">{a.type}</span>
                 <span className="ach-sel-title">{a.title}</span>
               </div>
-              {activeAch === i && <span className="ach-sel-arrow">→</span>}
-            </button>
+              {activeAch === i && (
+                <motion.span
+                  className="ach-sel-arrow"
+                  initial={{ opacity: 0, x: -4 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  →
+                </motion.span>
+              )}
+            </motion.button>
           ))}
         </div>
 
-        {/* Right: detail */}
+        {/* Right: detail window with card slide-in */}
         <AnimatePresence mode="wait">
           {ach && (
             <motion.div
               key={ach.id}
               className="ach-detail os-win"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.16,1,0.3,1] }}
+              initial={{ opacity: 0, x: 35, scale: 0.985 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -18, scale: 0.985 }}
+              transition={{ duration: 0.38, ease: [0.16,1,0.3,1] }}
             >
               <div className="os-win-bar">
                 <span className="os-d r"/><span className="os-d y"/><span className="os-d g"/>
@@ -619,62 +694,80 @@ function AchievementsPanel() {
 function ContactPanel() {
   return (
     <div className="contact-panel">
-      {/* Left: big typographic statement */}
+      {/* Left: big typographic statement with word-by-word slide-in */}
       <div className="contact-left">
-        <p className="p-eyebrow">06 / Contact</p>
+        <motion.p
+          className="p-eyebrow"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          06 / Contact &amp; Dispatch
+        </motion.p>
+
         <h2 className="contact-statement">
-          LET'S<br />
-          BUILD<br />
-          SOMETHING<br />
-          <em>REMARKABLE</em>
+          <span className="contact-word-line">
+            <motion.span
+              className="contact-word"
+              initial={{ y: '105%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              LET'S
+            </motion.span>
+          </span>
+          <span className="contact-word-line">
+            <motion.span
+              className="contact-word"
+              initial={{ y: '105%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.55, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            >
+              BUILD
+            </motion.span>
+          </span>
+          <span className="contact-word-line">
+            <motion.span
+              className="contact-word"
+              initial={{ y: '105%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.55, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            >
+              SOMETHING
+            </motion.span>
+          </span>
+          <span className="contact-word-line">
+            <motion.span
+              className="contact-word contact-word-em"
+              initial={{ y: '105%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.55, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            >
+              REMARKABLE
+            </motion.span>
+          </span>
         </h2>
-        <div className="contact-orange-line" />
+
+        <motion.div
+          className="contact-orange-line"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        />
+
+        <motion.p
+          className="contact-tagline"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.45 }}
+        >
+          Available for high-impact software engineering roles, complex AI/ML architectures, and select freelance engineering contracts.
+        </motion.p>
       </div>
 
-      {/* Right: contact window — offset so it clears the floating pill nav */}
+      {/* Right: interactive dispatch console with staggered slide-in bento cards & radar */}
       <div className="contact-win-wrap">
-        <div className="contact-win os-win">
-          <div className="os-win-bar">
-            <span className="os-d r"/><span className="os-d y"/><span className="os-d g"/>
-            <span className="os-win-title">~/contact.json</span>
-          </div>
-          <div className="contact-win-body">
-            <div className="contact-details">
-              <div>
-                <p className="c-item-label">Email</p>
-                <a href={`mailto:${about.email}`} className="c-item-val">
-                  {about.email}
-                </a>
-              </div>
-              <div>
-                <p className="c-item-label">Phone</p>
-                <p className="c-item-val">{about.phone}</p>
-              </div>
-              <div>
-                <p className="c-item-label">Location</p>
-                <p className="c-item-val">{about.location}</p>
-              </div>
-            </div>
-
-            <div className="contact-socials">
-              <a href={about.github}   className="c-social" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href={about.linkedin} className="c-social c-social-li" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </div>
-
-            <div className="contact-resume">
-              <a href={RESUME} target="_blank" rel="noopener noreferrer" className="btn primary">
-                View Résumé ↗
-              </a>
-              <a href={RESUME} download="ADITYA_RESUME.pdf" className="btn">
-                Download PDF
-              </a>
-            </div>
-
-            <p className="contact-footer">
-              Built by {about.name} &nbsp;·&nbsp; {new Date().getFullYear()}
-            </p>
-          </div>
-        </div>
+        <ContactConsole about={about} resumeUrl={RESUME} />
       </div>
     </div>
   )
@@ -743,7 +836,15 @@ const PANELS = [
    ROOT APP
 ───────────────────────────────────────────────────────────── */
 export default function App() {
-  const [loaded,  setLoaded]  = useState(false)
+  const [loaded, setLoaded] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+      if (sessionStorage.getItem('ak_intro_seen') || prefersReduced) {
+        return true
+      }
+    }
+    return false
+  })
   const [panel,   setPanel]   = useState(0)
   const [dir,     setDir]     = useState(1)
   const time = useTime()
@@ -762,6 +863,8 @@ export default function App() {
   // Keyboard
   useEffect(() => {
     const h = e => {
+      // Don't intercept if focus is inside an input or textarea
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  { e.preventDefault(); next() }
       if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    { e.preventDefault(); prev() }
     }
@@ -797,39 +900,107 @@ export default function App() {
       <Cursor />
 
       {/* AK background monogram */}
-      <div className="bg-mono" aria-hidden>AK</div>
+      <div className="bg-mono" aria-hidden="true">AK</div>
 
-      {/* OS Menubar */}
+      {/* Unified OS Menubar Chrome */}
       {loaded && (
-        <div className="os-bar">
+        <header className="os-bar" role="banner">
           <div className="os-bar-left">
-            <div className="os-bar-dot" />
-            <span className="os-bar-logo">AK.</span>
-            <span className="os-bar-sep">—</span>
-            <span className="os-bar-section">{SECTIONS[panel].label}</span>
+            <button
+              type="button"
+              className="os-bar-brand"
+              onClick={() => goTo(0)}
+              aria-label="Go to About section"
+            >
+              <div className="os-bar-dot" aria-hidden="true" />
+              <span className="os-bar-logo">AK.</span>
+            </button>
+            <div className="st-git" title="Branch: main">
+              <span className="st-git-dot" aria-hidden="true" />
+              <span>main</span>
+            </div>
           </div>
 
-          <div className="os-bar-section">ADITYAKEERTI · PORTFOLIO 2026</div>
+          <div className="st-tabs-center-wrap">
+            <nav className="st-tabs" aria-label="Portfolio sections">
+              {SECTIONS.map((s, i) => (
+                <button
+                  type="button"
+                  key={s.id}
+                  className={`st-tab${panel === i ? ' active' : ''}`}
+                  onClick={() => goTo(i)}
+                  role="tab"
+                  aria-selected={panel === i}
+                >
+                  {panel === i && (
+                    <motion.div
+                      layoutId="activeNavPill"
+                      className="st-tab-active-bg"
+                      transition={{ type: 'spring', stiffness: 450, damping: 35 }}
+                    />
+                  )}
+                  <span className="st-tab-label">
+                    <span className="st-tab-num">0{i + 1}</span>
+                    <span className="st-tab-name">{s.label.replace(/^\d+_/, '')}</span>
+                  </span>
+                </button>
+              ))}
+              <div className="st-arrows">
+                <button
+                  type="button"
+                  className="st-arr"
+                  onClick={prev}
+                  disabled={panel === 0}
+                  aria-label="Previous section"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className="st-arr"
+                  onClick={next}
+                  disabled={panel === PANELS.length - 1}
+                  aria-label="Next section"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              </div>
+            </nav>
+          </div>
 
           <div className="os-bar-right">
-            <a href="/freelance" className="os-bar-resume" style={{ color: 'var(--orange)', borderColor: 'rgba(255,77,0,0.3)' }}>
-              ✦ Freelance Work
+            <a href="/freelance" className="os-bar-cta-freelance" aria-label="Hire Aditya Keerti for Freelance Projects">
+              <span className="os-bar-cta-ping-wrap" aria-hidden="true">
+                <span className="os-bar-cta-ping-ring" />
+                <span className="os-bar-cta-ping-core" />
+              </span>
+              <span className="os-bar-cta-fl-text">Hire Freelance</span>
+              <span className="os-bar-cta-fl-arrow" aria-hidden="true">→</span>
             </a>
-            <a href={RESUME} target="_blank" rel="noopener noreferrer" className="os-bar-resume">
-              <ResumeIcon /> RESUME
+            <a href={RESUME} target="_blank" rel="noopener noreferrer" className="os-bar-cta-resume" aria-label="Open Résumé PDF in new tab">
+              <ResumeIcon />
+              <span>RÉSUMÉ</span>
+              <span className="os-bar-cta-arrow" aria-hidden="true">↗</span>
             </a>
-            <span className="os-avail">
-              <span className="os-avail-dot" />
-              <span className="os-avail-text">OPEN TO WORK</span>
-            </span>
-            <span>{time}</span>
+            <div className="os-bar-telemetry">
+              <span className="os-avail" title="Status: Open to work (Full-time & Contract)">
+                <span className="os-avail-dot" aria-hidden="true" />
+                <span className="os-avail-text">OPEN TO WORK</span>
+              </span>
+              <span className="os-telemetry-sep" aria-hidden="true" />
+              <span className="os-clock" aria-label="Current time">{time}</span>
+            </div>
           </div>
-        </div>
+        </header>
       )}
 
       {/* Panels */}
       {loaded && (
-        <div className="panels-viewport">
+        <main className="panels-viewport" role="main">
           <AnimatePresence mode="wait" custom={dir}>
             <motion.div
               key={panel}
@@ -844,34 +1015,7 @@ export default function App() {
               {PANELS[panel]}
             </motion.div>
           </AnimatePresence>
-        </div>
-      )}
-
-      {/* OS Status Bar */}
-      {loaded && (
-        <div className="os-status">
-          <div className="st-git">
-            <span className="st-git-dot" />
-            main
-          </div>
-
-          <div className="st-tabs">
-            {SECTIONS.map((s, i) => (
-              <button
-                key={s.id}
-                className={`st-tab${panel === i ? ' active' : ''}`}
-                onClick={() => goTo(i)}
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="st-arrows">
-            <button className="st-arr" onClick={prev} disabled={panel === 0} aria-label="prev">←</button>
-            <button className="st-arr" onClick={next} disabled={panel === PANELS.length - 1} aria-label="next">→</button>
-          </div>
-        </div>
+        </main>
       )}
 
       {/* Cinematic Loader */}

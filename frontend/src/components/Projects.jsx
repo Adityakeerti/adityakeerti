@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { Star } from 'lucide-react'
 import MediaGallery from './MediaGallery'
 
 const cardVariants = {
@@ -60,7 +61,10 @@ export default function Projects({ data }) {
                                 whileHover={{ scale: 1.01 }}
                             >
                                 {project.featured && (
-                                    <span className="project-badge">★ Featured</span>
+                                    <span className="project-badge">
+                                        <Star size={11} className="inline mr-1" fill="currentColor" />
+                                        Featured
+                                    </span>
                                 )}
 
                                 <div className="project-header">

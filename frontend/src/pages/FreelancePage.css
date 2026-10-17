@@ -211,10 +211,14 @@
   font-weight: 600;
   font-size: 0.88rem;
   padding: 0.7rem 1.35rem;
-  transition: all 0.15s;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
   cursor: pointer;
   border: none;
   white-space: nowrap;
+}
+.fl-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--fl-bg), 0 0 0 4px var(--fl-orange);
 }
 .fl-btn--primary {
   background: var(--fl-orange);
@@ -451,10 +455,12 @@
   line-height: 1.45;
 }
 .fl-cw-deliverables li::before {
-  content: '✓';
-  position: absolute; left: 0;
-  color: var(--cw-accent, var(--fl-orange));
-  font-size: 0.68rem; top: 2px;
+  content: '';
+  position: absolute; left: 0; top: 4px;
+  width: 10px; height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF4D00' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 /* ── Work / Projects ── */
@@ -481,8 +487,12 @@
   border-radius: 8px;
   padding: 0.9rem 1rem;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   color: var(--fl-text-2);
+}
+.fl-work-tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--fl-bg), 0 0 0 4px var(--fl-orange);
 }
 .fl-work-tab:hover {
   background: var(--fl-surface);
@@ -593,8 +603,7 @@
   margin: 0;
 }
 
-/* ── Social Proof ── */
-/* ── Social Proof ── */
+/* ── Social Proof / Track Record ── */
 .fl-proof-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -608,9 +617,9 @@
 }
 .fl-proof-col-title {
   font-family: var(--fl-font-m);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  color: var(--fl-text-3);
+  color: var(--fl-text-2);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin: 0 0 0.25rem;
@@ -618,7 +627,7 @@
 .fl-proof-col-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.85rem;
   flex: 1;
 }
 .fl-proof-col-list > * {
@@ -630,20 +639,33 @@
   background: var(--fl-surface);
   border: 1px solid var(--fl-border);
   border-radius: var(--fl-radius);
-  padding: 1.5rem;
+  padding: 1.35rem 1.45rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  gap: 0.45rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
   flex: 1;
   height: 100%;
 }
 .fl-proof-card:hover {
   border-color: var(--fl-border-2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 .fl-proof-card--highlight {
   background: var(--fl-orange-lt);
   border-color: var(--fl-orange-md);
+}
+.fl-proof-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--fl-font-m);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--fl-orange);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
 }
 .fl-proof-type {
   font-family: var(--fl-font-m);
@@ -753,12 +775,19 @@
   color: var(--fl-text-1);
   font-size: 0.875rem;
   font-family: inherit;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
   outline: none;
   width: 100%;
   box-sizing: border-box;
 }
-.fl-form-input:focus { border-color: var(--fl-orange); background: var(--fl-surface); }
+.fl-form-input:focus-visible,
+.fl-form-select:focus-visible,
+.fl-form-textarea:focus-visible {
+  outline: none;
+  border-color: var(--fl-orange);
+  box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.2);
+  background: var(--fl-surface);
+}
 .fl-form-input::placeholder { color: var(--fl-text-3); }
 .fl-form-select {
   -webkit-appearance: none; appearance: none;
@@ -769,11 +798,43 @@
   cursor: pointer;
 }
 .fl-form-select option { background: #fff; color: #1a1917; }
-.fl-form-textarea { resize: vertical; min-height: 110px; }
+.fl-form-textarea { resize: vertical; min-height: 100px; }
+.fl-req { color: var(--fl-orange); margin-left: 2px; }
+.fl-form-error {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 0.55rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+.fl-form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
 .fl-form-note {
   font-size: 0.68rem; color: var(--fl-text-3);
   text-align: center; margin: -0.15rem 0 0;
   font-family: var(--fl-font-m);
+}
+.fl-form-note code {
+  color: var(--fl-text-1);
+  background: rgba(0,0,0,0.05);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 .fl-form-success {
   background: var(--fl-surface);
@@ -912,13 +973,7 @@
   }
 }
 
-/* ── Custom Freelance Cursor ── */
-@media (hover: hover) and (pointer: fine) {
-  .fl-page, .fl-page * {
-    cursor: none !important;
-  }
-}
-
+/* ── Ambient Freelance Cursor (Native cursor preserved) ── */
 .fl-cursor-wrap {
   position: fixed;
   inset: 0;
@@ -927,21 +982,7 @@
 }
 
 .fl-cursor-dot {
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  width: 6px;
-  height: 6px;
-  background: var(--fl-orange);
-  border-radius: 50%;
-  will-change: transform;
-  transition: transform 0.2s ease, opacity 0.2s;
-  pointer-events: none;
-}
-
-.fl-cursor-dot.on {
-  transform: scale(0.5);
-  opacity: 0.8;
+  display: none;
 }
 
 .fl-cursor-ring {
@@ -950,17 +991,15 @@
   left: -11px;
   width: 22px;
   height: 22px;
-  border: 1px solid var(--fl-orange);
+  border: 1px solid rgba(255, 77, 0, 0.4);
   border-radius: 50%;
   will-change: transform;
   pointer-events: none;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              background-color 0.25s ease,
-              border-color 0.25s ease;
+  transition: transform 0.18s ease-out, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .fl-cursor-ring.on {
-  transform: scale(1.4);
+  transform: scale(1.35);
   background-color: rgba(255, 77, 0, 0.08);
   border-color: var(--fl-orange);
 }
@@ -968,6 +1007,36 @@
 @media (hover: none) {
   .fl-cursor-wrap {
     display: none;
+  }
+}
+
+/* ── Typography & Polish (Web Interface Guidelines & UI Taste) ── */
+.fl-hero-h1,
+.fl-section-h2,
+.fl-contact-h2,
+.fl-cw-client,
+.fl-work-title {
+  text-wrap: balance;
+}
+
+.fl-proof-badge,
+.fl-process-step,
+.fl-work-tab-num,
+.fl-nav-cta,
+.fl-btn {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Accessibility: Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fl-cursor-wrap {
+    display: none !important;
   }
 }
 

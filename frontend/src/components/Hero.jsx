@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { GraduationCap } from 'lucide-react'
 
 const roles = [
     'Full-Stack Developer',
@@ -144,7 +145,7 @@ export default function Hero({ data }) {
                             animate="visible"
                             custom={5}
                         >
-                            <span className="hero-edu-icon">🎓</span>
+                            <span className="hero-edu-icon"><GraduationCap size={16} /></span>
                             <div>
                                 <p className="hero-edu-label">Education</p>
                                 <p className="hero-edu-degree">{data.education.degree}</p>

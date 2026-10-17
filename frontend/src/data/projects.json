@@ -1,31 +1,38 @@
 [
     {
-        "id": "rage",
-        "title": "R.A.G.E.",
-        "subtitle": "Windows Automation Agent (AI Desktop Assistant)",
-        "date": "May 2026 – Present",
-        "problem": "Executing complex, multi-step desktop operations from open-ended natural language inputs requires secure execution, real-time feedback loops, and error recovery without manual human intervention.",
-        "approach": "Developed a fully autonomous Windows agent using a ReAct (Reason+Act) feedback loop. It translates natural language goals into system actions, intercepts active window handles, reads errors, and corrects them. Built background daemons for file sorting, clipboard tracking, and system events with an SQLite safety ledger.",
+        "id": "doc-oc",
+        "title": "DOC-OC (V1 → V2)",
+        "subtitle": "Universal Academic Document Intelligence & Edge VLM Engine",
+        "date": "Sep 2025 – Present",
+        "problem": "Extracting structured data from diverse, unstandardized Indian board marksheets (CBSE, ICSE, UP, Haryana, etc.) with security watermarks, bilingual headers, and varied layouts is slow (~10 mins/doc) and error-prone. The initial V1 cascade (YOLO + TableTransformer + regex) was brittle across board formatting changes, and cloud OCR APIs incurred high costs ($0.02–$0.05/page) while compromising student privacy.",
+        "approach": "Engineered the full progression from a heuristic CV cascade to an offline edge Vision-Language Model (VLM):\n• V1 (CV Cascade): Built a multi-board extraction pipeline with OpenCV, custom YOLOv8 layout detection, Hugging Face Table Transformers, and structure-retaining OCR (LLM Whisperer) with strict fraud-mitigation checks, backed by FastAPI and MySQL.\n• V2 (Multimodal Edge VLM): Completely re-architected into a 100% offline, zero-cloud VLM engine running Gemma-4-E2B locally via llama.cpp (100% GPU offload on RTX 4050 6GB). Implemented C++ GBNF grammar-constrained decoding to deterministically mask illegal token logits and guarantee RFC 8259 JSON compliance. Slashed latency by 4.3× (from ~28–30s to ~6.28s) by disabling internal reasoning traces and applying Lanczos 1600px scaling. Performed ShortGPT layer redundancy profiling (Blocks 14-15) and engineered Pydantic self-healing domain arithmetic validation (Theory + Practical total reconciliation, leading-zero type coercion).",
         "outcomes": [
-            "Autonomous execution of multi-step desktop goals (compiling daily briefs, layout tiling, etc.)",
-            "Adaptive ReAct feedback loop for real-time error recovery and window tracking",
-            "Proactive background daemons for downloads, clipboard monitoring, and notification interception",
-            "SQLite transaction ledger for instant action rollbacks and safety filters"
+            "V1 → V2 Progression: Evolved from a brittle CV/OCR heuristic cascade into a unified, 100% offline multimodal edge VLM engine",
+            "4.3× Latency Reduction: Dropped processing time from ~28–30s down to ~6.28s per document on a consumer GPU (RTX 4050 6GB, 83 tokens/sec)",
+            "Deterministic Schema Compliance: C++ GBNF grammar decoding masks illegal token transitions, eliminating JSON syntax errors and schema drift",
+            "Self-Healing Validation: Automated arithmetic reconciliation (Theory + Practical) and RFC 8259 leading-zero coercion via Pydantic validators",
+            "Zero Cloud Cost & Complete Privacy: 100% local GPU execution in ~2.8–3.2 GB resident VRAM with zero external API dependencies"
         ],
         "techStack": [
             "Python",
-            "TypeScript",
+            "FastAPI",
+            "Gemma 4",
+            "llama.cpp",
+            "GBNF Grammars",
+            "Pydantic",
+            "PyMuPDF",
+            "PyTorch",
+            "OpenCV",
+            "YOLOv8",
             "React",
-            "SQLite",
-            "Win32 API",
-            "pywebview",
-            "CustomTkinter"
+            "MySQL"
         ],
-        "github": "https://github.com/Adityakeerti/desktop-ai-agent",
-        "demo": "https://tryrageai.vercel.app/",
+        "github": "https://github.com/Adityakeerti/DOC-OC-LLM",
+        "demo": "https://adityacodes404-doc-oc.hf.space/",
         "media": [
-            "/projects/rage/demo-rage.mp4",
-            "/projects/rage/image.png"
+            "https://youtu.be/FT0ZPkmyE1o",
+            "/projects/DOCOC/landing.png",
+            "/projects/DOCOC/result.png"
         ],
         "featured": true
     },
@@ -62,90 +69,57 @@
         "featured": true
     },
     {
-        "id": "doc-oc",
-        "title": "DOC-OC",
-        "subtitle": "Automated Marksheet Extraction System",
-        "date": "Sep – Oct 2025",
-        "problem": "Manual transcription of academic marksheets across different education boards is slow, error-prone, and doesn't scale — taking ~10 minutes per document.",
-        "approach": "Engineered a multi-board extraction pipeline utilizing OpenCV, custom YOLOv8 object detection, and Hugging Face Table Transformers to automate structured data parsing for administrative workflows. Built a custom structure-retaining OCR engine (via LLM Whisperer) integrated with strict fraud-mitigation checks to ensure data integrity across consecutive semesters. Developed a React/TypeScript and async FastAPI portal backed by a secure MySQL database.",
+        "id": "anandkosh",
+        "title": "Anand Kosh (आनंद कोष)",
+        "subtitle": "Clinical Record Digitization & Hospital Management Platform",
+        "date": "2025 – Present",
+        "problem": "Healthcare providers handle hundreds of physical patient files daily, resulting in search bottlenecks, paper degradation, and confidentiality vulnerabilities during clinical operations.",
+        "approach": "Engineered a full-stack clinical management and patient record digitization portal in active hospital production. Architected a 3-tier Role-Based Access Control system (Administrators, Medical Staff, Clinical Observers) with serverless PostgreSQL (Neon), Prisma ORM, and automated medical document archival via Google Drive API.",
         "outcomes": [
-            "Multi-board extraction pipeline parsing structured tabular and field data",
-            "Custom structure-retaining OCR engine integrated with strict fraud-mitigation checks",
-            "30x reduction in document processing time (from 10 minutes to ~30 seconds)",
-            "FastAPI and React/TypeScript web portal backed by a secure MySQL database"
+            "Live in Daily Hospital Production: Actively used by hospital medical staff and clinical observers",
+            "Hundreds of Patient Records Managed: Real-time secure document archival and fast clinical retrieval",
+            "3-Tier RBAC Architecture: Enforced clinical confidentiality with JWT-based auth and bcrypt hashing",
+            "Serverless PostgreSQL Backend: Neon serverless database with automated archival and zero-downtime availability"
         ],
         "techStack": [
-            "Python",
+            "Next.js",
             "TypeScript",
-            "React",
-            "FastAPI",
-            "YOLOv8",
-            "HuggingFace",
-            "OpenCV",
-            "MySQL"
+            "Prisma",
+            "Neon PostgreSQL",
+            "Google Drive API",
+            "Render",
+            "Tailwind CSS"
         ],
-        "github": "https://github.com/Adityakeerti/DOC-OC",
-        "demo": "https://adityacodes404-doc-oc.hf.space/",
-        "media": [
-            "https://youtu.be/FT0ZPkmyE1o",
-            "/projects/DOCOC/landing.png",
-            "/projects/DOCOC/result.png"
-        ],
+        "github": "https://github.com/Adityakeerti/anand-kosh",
+        "demo": "http://anandkosh.in",
+        "media": [],
         "featured": true
-    },
-
-    {
-        "id": "pustak-tracker",
-        "title": "Pustak Tracker",
-        "subtitle": "Library Management System",
-        "date": "Aug – Nov 2025",
-        "problem": "Small and institutional libraries need affordable, mobile-friendly management systems that don't require expensive barcode hardware.",
-        "approach": "Architected a full-stack library solution using Flutter for mobile and Flask for backend. Integrated mobile-vision barcode scanning to replace hardware scanners, with secure JWT authentication and automated fine calculation.",
-        "outcomes": [
-            "Replaced hardware barcode scanners, saving ₹4,000 in infrastructure",
-            "Secure JWT-based authentication",
-            "Real-time book tracking and automated fine calculation",
-            "Mobile-first design with Flutter"
-        ],
-        "techStack": [
-            "Flutter",
-            "Dart",
-            "Python",
-            "Flask",
-            "SQLite",
-            "REST APIs",
-            "System Design"
-        ],
-        "github": "https://github.com/Adityakeerti/Pustak-Tracker",
-        "demo": null,
-        "media": [
-            "https://youtu.be/wcgnRDovpAs"
-        ],
-        "featured": false
     },
     {
         "id": "campusintel",
-        "title": "2 Campus Intel",
-        "subtitle": "Unified Campus Intelligence System",
-        "date": "2025",
-        "problem": "Educational institutions lack unified platforms that combine campus automation, AI-powered student assistance, and document processing into a single, accessible system.",
-        "approach": "Built a comprehensive multi-service platform with AI chat powered by FAISS-based RAG, smart library management, automated OCR-based document processing, and a real-time communication layer — all deployed as containerized microservices.",
+        "title": "Campus Intel",
+        "subtitle": "Unified Campus Intelligence & Automation Platform",
+        "date": "Aug 2025 – Present",
+        "problem": "Educational institutions suffer from fragmented platforms across student portals, administrative document corrections, and library book tracking, lacking real-time AI assistance and requiring expensive dedicated barcode hardware.",
+        "approach": "Built a comprehensive multi-service platform combining FAISS-powered RAG AI chat for campus queries, automated marksheet document verification, and a smart library management system (absorbing Pustak Tracker) that turns mobile phone cameras into real-time barcode scanners with JWT authentication and automated fine calculation — deployed as containerized microservices.",
         "outcomes": [
-            "Live production deployment on Render",
-            "Multi-service architecture (4 backend services)",
-            "AI-powered campus assistant with RAG retrieval",
+            "Unified campus ecosystem merging student portal, administrative correction workflows, and mobile library tracking",
+            "AI-powered campus assistant utilizing FAISS vector retrieval and RAG for institutional queries",
+            "Replaced dedicated barcode scanner hardware with mobile camera vision, cutting infrastructure costs",
+            "Multi-service architecture (4 backend services) with live production deployment on Render",
             "Top 3 in HackTheWinter offline final round"
         ],
         "techStack": [
-            "JavaScript",
-            "React",
             "Python",
             "FastAPI",
             "Java",
             "Spring Boot",
+            "React",
+            "Flutter",
             "FAISS",
             "Docker",
-            "MySQL"
+            "MySQL",
+            "REST APIs"
         ],
         "github": "https://github.com/Adityakeerti/CampusIntel-Phase2",
         "demo": "https://campusintel-phase2.onrender.com/",

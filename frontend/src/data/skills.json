@@ -32,6 +32,8 @@
             "name": "AI & Processing",
             "skills": [
                 "PyTorch",
+                "Vision-Language Models (VLMs)",
+                "llama.cpp / GBNF",
                 "OpenCV",
                 "YOLO",
                 "LLM Orchestration",
@@ -60,4 +62,3 @@
         }
     ]
 }
-

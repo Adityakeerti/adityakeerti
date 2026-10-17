@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { Check } from 'lucide-react'
 import './FreelancePage.css'
 import about      from '../data/about.json'
 import projects   from '../data/projects.json'
@@ -12,18 +13,56 @@ const GITHUB  = about.github
 const LINKEDIN = about.linkedin
 const RESUME  = '/ADITYA_RESUME.pdf'
 
+function AgentWorkflowIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M7 12h10M12 7v10M7 7l10 10" />
+    </svg>
+  )
+}
+
+function PipelineIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <ellipse cx="12" cy="5" rx="9" ry="3" />
+      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+      <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+    </svg>
+  )
+}
+
+function DocumentVlmIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M9 15h6M9 11h3M9 19h4" />
+    </svg>
+  )
+}
+
+function FullStackIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+      <polyline points="2 17 12 22 22 17" />
+      <polyline points="2 12 12 17 22 12" />
+    </svg>
+  )
+}
+
 const SERVICES = [
   {
     id: 'ai-agents',
-    icon: '🤖',
-    title: 'AI Agents & Automation',
-    desc: 'Build autonomous agents that reason, act, and recover from errors — from desktop automation bots to LLM-orchestrated pipelines. Production-ready, not toy demos.',
-    tags: ['Python', 'LLMs', 'ReAct Loops', 'Win32 API', 'Background Daemons'],
-    project: 'rage',
+    icon: <AgentWorkflowIcon />,
+    title: 'AI Systems & LLM Workflows',
+    desc: 'Build autonomous agentic workflows and LLM pipelines designed for production reliability — structured outputs, tool use, and self-healing error recovery without manual human intervention.',
+    tags: ['Python', 'LLMs', 'VLM', 'FastAPI', 'Function Calling', 'RAG'],
   },
   {
     id: 'ml-backend',
-    icon: '🧠',
+    icon: <PipelineIcon />,
     title: 'ML Pipelines & Backend Systems',
     desc: 'End-to-end ML systems — model training, serving APIs, high-throughput microservices. From PyTorch models to Kafka event streams under 300ms latency.',
     tags: ['PyTorch', 'FastAPI', 'Spring Boot', 'Kafka', 'Redis', 'PostgreSQL'],
@@ -31,15 +70,15 @@ const SERVICES = [
   },
   {
     id: 'doc-intelligence',
-    icon: '📄',
-    title: 'Document Intelligence & OCR',
-    desc: 'Automated extraction of structured data from any document type — PDFs, scanned forms, tables. Custom pipelines with built-in fraud-mitigation and validation.',
-    tags: ['YOLOv8', 'OpenCV', 'HuggingFace', 'OCR', 'FastAPI', 'MySQL'],
+    icon: <DocumentVlmIcon />,
+    title: 'Document Intelligence & Multimodal VLMs',
+    desc: 'High-speed, 100% offline Vision-Language Model extraction engines for complex documents and tabular data. Zero cloud OCR API costs, 100% schema adherence via C++ GBNF grammar decoding, and self-healing arithmetic validation.',
+    tags: ['VLM', 'llama.cpp', 'GBNF Grammars', 'FastAPI', 'Pydantic', 'PyMuPDF'],
     project: 'doc-oc',
   },
   {
     id: 'fullstack',
-    icon: '🌐',
+    icon: <FullStackIcon />,
     title: 'Full-Stack Web Applications',
     desc: 'Complete web apps from database schema to deployed frontend. REST APIs, async backends, secure auth, React UIs — shipped fast, built to scale.',
     tags: ['React', 'TypeScript', 'FastAPI', 'JWT', 'Docker', 'Vercel'],
@@ -56,8 +95,8 @@ const PROCESS = [
 
 const TECHNICAL_FOCUS = [
   { area: 'Backends & Scale', detail: 'Spring Boot · FastAPI · Kafka · Redis' },
-  { area: 'AI & Automation', detail: 'LLM Orchestration · ReAct loops · Agents' },
-  { area: 'OCR & Computer Vision', detail: 'YOLOv8 · Table Transformers · OpenCV' },
+  { area: 'AI & Edge Inference', detail: 'Local VLMs · llama.cpp · GBNF · Ollama' },
+  { area: 'Document Intelligence', detail: 'Spatial VLMs · Table Extraction · OpenCV' },
   { area: 'Full-Stack Engineering', detail: 'React · Next.js · Prisma · PostgreSQL' },
 ]
 
@@ -433,7 +472,57 @@ function Process() {
   )
 }
 
-/* ─── Social Proof ─── */
+/* ─── Track Record Data (Balanced 3-on-3) ─── */
+const TRACK_RECORD = {
+  awards: [
+    {
+      id: 'marathon',
+      badge: '1st Place · National Winner',
+      title: 'MariTHON National Hackathon',
+      desc: 'Engineered an AI SOF extraction pipeline on Vertex AI for the Integrated Maritime Exchange, winning 1st place nationwide.',
+      highlight: true
+    },
+    {
+      id: 'hackthewinter',
+      badge: 'Top 3 Finalist · National',
+      title: 'HackTheWinter Hackathon',
+      desc: 'Built an autonomous credit limit optimization model with Dueling Double DQN and an async microservice handling 5,000+ req/min.',
+      highlight: false
+    },
+    {
+      id: 'india-innovates',
+      badge: 'Top 500 Teams · Bharat Mandapam',
+      title: 'India Innovates 2026',
+      desc: 'Selected into the top 500 teams physically competing at Bharat Mandapam, New Delhi in India’s premier national civic-tech hackathon.',
+      highlight: false
+    }
+  ],
+  production: [
+    {
+      id: 'peerprep',
+      badge: '30× Ingestion Speedup',
+      title: 'Peerprep Ingestion Engine',
+      desc: 'Built an automated ingestion engine cutting per-record processing from 10 minutes to ~30 seconds at 99.98% accuracy on production data.',
+      highlight: true
+    },
+    {
+      id: 'doc-oc',
+      badge: '4.3× Local Latency · $0 API Cost',
+      title: 'DOC-OC V2 Edge VLM',
+      desc: 'Completely offline multimodal document engine running Gemma-4 via llama.cpp with C++ GBNF grammar decoding, slashing inference to 6.28s.',
+      highlight: false
+    },
+    {
+      id: 'live-saas',
+      badge: 'Active Production Deployments',
+      title: 'Anand Kosh & Drisu Compliance',
+      desc: 'Deployed 3-tier RBAC patient records system on Render/PostgreSQL and built 30+ live service pages with structured SEO schema.',
+      highlight: false
+    }
+  ]
+}
+
+/* ─── Social Proof (Balanced 3-on-3 Track Record) ─── */
 function SocialProof() {
   return (
     <Section id="proof">
@@ -444,37 +533,32 @@ function SocialProof() {
       </FadeIn>
       
       <div className="fl-proof-columns">
-        {/* Left Column: Industrial/Professional Impact */}
+        {/* Left Column: National Competitions & Hackathons */}
         <div className="fl-proof-col">
-          <h3 className="fl-proof-col-title">Professional Impact</h3>
+          <h3 className="fl-proof-col-title">National Competitions &amp; Awards</h3>
           <div className="fl-proof-col-list">
-            <FadeIn delay={0.05}>
-              <div className="fl-proof-card fl-proof-card--highlight">
-                <span className="fl-proof-type">internship · speed</span>
-                <h4 className="fl-proof-title">30× Processing Speed — Peerprep</h4>
-                <p className="fl-proof-desc">Built an automated ingestion engine that cut per-record processing from 10 minutes to ~30 seconds at 99.98% accuracy on production validation data.</p>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.15}>
-              <div className="fl-proof-card">
-                <span className="fl-proof-type">hackathon finalist · architecture</span>
-                <h4 className="fl-proof-title">HackTheWinter Finalist — Advanzia AutoLend</h4>
-                <p className="fl-proof-desc">Built an autonomous credit limit optimization model using reinforcement learning. Developed a supporting high-throughput backend (Spring Boot/FastAPI/Kafka/Redis) handling 5,000+ requests/min under 300ms latency.</p>
-              </div>
-            </FadeIn>
+            {TRACK_RECORD.awards.map((a, i) => (
+              <FadeIn key={a.id} delay={i * 0.08 + 0.05}>
+                <div className={`fl-proof-card${a.highlight ? ' fl-proof-card--highlight' : ''}`}>
+                  <span className="fl-proof-badge">{a.badge}</span>
+                  <h4 className="fl-proof-title">{a.title}</h4>
+                  <p className="fl-proof-desc">{a.desc}</p>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
 
-        {/* Right Column: Hackathons & Awards */}
+        {/* Right Column: Industrial & Production Milestones */}
         <div className="fl-proof-col">
-          <h3 className="fl-proof-col-title">Hackathons &amp; Awards</h3>
+          <h3 className="fl-proof-col-title">Production &amp; Engineering Impact</h3>
           <div className="fl-proof-col-list">
-            {achievements.filter(a => a.id !== 'hackthewinter').map((a, i) => (
-              <FadeIn key={a.id} delay={i * 0.08 + 0.1}>
-                <div className="fl-proof-card">
-                  <span className="fl-proof-type">{a.type}</span>
-                  <h4 className="fl-proof-title">{a.title}</h4>
-                  <p className="fl-proof-desc">{a.description}</p>
+            {TRACK_RECORD.production.map((p, i) => (
+              <FadeIn key={p.id} delay={i * 0.08 + 0.05}>
+                <div className={`fl-proof-card${p.highlight ? ' fl-proof-card--highlight' : ''}`}>
+                  <span className="fl-proof-badge">{p.badge}</span>
+                  <h4 className="fl-proof-title">{p.title}</h4>
+                  <p className="fl-proof-desc">{p.desc}</p>
                 </div>
               </FadeIn>
             ))}
@@ -506,11 +590,20 @@ function Contact() {
             Tell me what you're building. I'll tell you how I'd approach it and what it'd cost — no commitment, no pressure.
           </p>
           <div className="fl-contact-details">
-            <button className="fl-contact-email" onClick={copyEmail} title="Click to copy">
+            <button type="button" className="fl-contact-email" onClick={copyEmail} title="Click to copy email address">
               <span className="fl-contact-label">Email</span>
               <span className="fl-contact-val">
                 {EMAIL}
-                <span className="fl-copy-badge">{copied ? '✓ Copied' : 'Copy'}</span>
+                <span className="fl-copy-badge">
+                  {copied ? (
+                    <span className="inline-flex items-center gap-1">
+                      <Check size={11} strokeWidth={2.5} />
+                      <span>Copied</span>
+                    </span>
+                  ) : (
+                    'Copy'
+                  )}
+                </span>
               </span>
             </button>
             <div className="fl-contact-row">
@@ -537,90 +630,171 @@ function Contact() {
   )
 }
 
-/* ─── Contact Form ─── */
+/* ─── Contact Form (Accessible, Validated, Resilient) ─── */
 function ContactForm() {
-  const [form, setForm] = useState({ name: '', contact: '', type: '', budget: '', message: '' })
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [form, setForm] = useState({ name: '', email: '', phone: '', type: '', budget: '', message: '' })
+  const [status, setStatus] = useState('idle') // idle | opened | copied
+  const [error, setError] = useState('')
 
-  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatus('sending')
-
-    // Build mailto link as fallback — replace with your backend/Formspree if needed
-    const subject = encodeURIComponent(`Freelance Inquiry: ${form.type || 'Project'} from ${form.name}`)
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nContact: ${form.contact}\nProject Type: ${form.type}\nBudget: ${form.budget}\n\n${form.message}`
-    )
-    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${subject}&body=${body}`, '_blank')
-    setStatus('sent')
+  const set = (k) => (e) => {
+    setForm(f => ({ ...f, [k]: e.target.value }))
+    if (error) setError('')
   }
 
-  if (status === 'sent') {
-    return (
-      <div className="fl-form-success">
-        <div className="fl-form-success-icon">✓</div>
-        <h3>Your message is on its way!</h3>
-        <p>I usually respond within 24 hours. Talk soon.</p>
-        <button className="fl-btn fl-btn--ghost" onClick={() => { setForm({ name:'', contact:'', type:'', budget:'', message:'' }); setStatus('idle') }}>
-          Send Another
-        </button>
-      </div>
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setError('Please provide your name, email, and project scope.')
+      return
+    }
+
+    const subject = encodeURIComponent(`Project Inquiry: ${form.type || 'General'} — ${form.name}`)
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || 'N/A'}\nService: ${form.type || 'General'}\nBudget: ${form.budget || 'To discuss'}\n\nProject Scope:\n${form.message}`
     )
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${subject}&body=${body}`
+    const popup = window.open(gmailUrl, '_blank')
+    if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+      // Fallback: mailto URI works natively in all desktop & mobile mail clients
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
+    }
+    setStatus('opened')
+  }
+
+  const handleCopy = () => {
+    const text = `To: ${EMAIL}\nSubject: Project Inquiry: ${form.type || 'General'} — ${form.name}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || 'N/A'}\nService: ${form.type || 'General'}\nBudget: ${form.budget || 'To discuss'}\n\nProject Scope:\n${form.message}`
+    navigator.clipboard.writeText(text)
+    setStatus('copied')
   }
 
   return (
-    <form className="fl-form" onSubmit={handleSubmit}>
+    <form className="fl-form" onSubmit={handleSubmit} noValidate>
+      {/* Screen reader live notification */}
+      <div className="sr-only" aria-live="polite">
+        {status === 'opened' && 'Email draft opened in your email provider.'}
+        {status === 'copied' && 'Inquiry draft copied to clipboard.'}
+        {error && error}
+      </div>
+
       <div className="fl-form-row">
         <div className="fl-form-field">
-          <label className="fl-form-label">Your Name *</label>
-          <input className="fl-form-input" required value={form.name} onChange={set('name')} placeholder="Jane Smith" />
+          <label htmlFor="fl-name" className="fl-form-label">
+            Your Name <span className="fl-req" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="fl-name"
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            className="fl-form-input"
+            value={form.name}
+            onChange={set('name')}
+            placeholder="Jane Smith"
+          />
         </div>
         <div className="fl-form-field">
-          <label className="fl-form-label">Email / Phone *</label>
-          <input className="fl-form-input" required value={form.contact} onChange={set('contact')} placeholder="you@company.com" />
+          <label htmlFor="fl-email" className="fl-form-label">
+            Work Email <span className="fl-req" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="fl-email"
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            spellCheck={false}
+            required
+            className="fl-form-input"
+            value={form.email}
+            onChange={set('email')}
+            placeholder="you@company.com"
+          />
         </div>
       </div>
+
       <div className="fl-form-row">
         <div className="fl-form-field">
-          <label className="fl-form-label">Project Type</label>
-          <select className="fl-form-input fl-form-select" value={form.type} onChange={set('type')}>
+          <label htmlFor="fl-type" className="fl-form-label">Service of Interest</label>
+          <select
+            id="fl-type"
+            name="type"
+            className="fl-form-input fl-form-select"
+            value={form.type}
+            onChange={set('type')}
+          >
             <option value="">Select a service…</option>
-            <option>AI Agent / Automation</option>
-            <option>ML Pipeline / Backend</option>
-            <option>Document Intelligence / OCR</option>
-            <option>Full-Stack Web App</option>
-            <option>Something else</option>
+            <option value="AI Systems & LLM Workflows">AI Systems &amp; LLM Workflows</option>
+            <option value="ML Pipelines & Backend Systems">ML Pipelines &amp; Backend Systems</option>
+            <option value="Document Intelligence & Multimodal VLMs">Document Intelligence &amp; Multimodal VLMs</option>
+            <option value="Full-Stack Web Applications">Full-Stack Web Applications</option>
+            <option value="Something else">Custom Consulting / Something else</option>
           </select>
         </div>
         <div className="fl-form-field">
-          <label className="fl-form-label">Budget Range</label>
-          <select className="fl-form-input fl-form-select" value={form.budget} onChange={set('budget')}>
+          <label htmlFor="fl-budget" className="fl-form-label">Estimated Budget</label>
+          <select
+            id="fl-budget"
+            name="budget"
+            className="fl-form-input fl-form-select"
+            value={form.budget}
+            onChange={set('budget')}
+          >
             <option value="">Select a range…</option>
-            <option>Under ₹15,000</option>
-            <option>₹15,000 – ₹50,000</option>
-            <option>₹50,000 – ₹1,50,000</option>
-            <option>₹1,50,000+</option>
-            <option>Let's discuss</option>
+            <option value="Under ₹25,000">Under ₹25,000 (~$300 USD)</option>
+            <option value="₹25,000 – ₹60,000">₹25,000 – ₹60,000 (~$300–$750 USD)</option>
+            <option value="₹60,000 – ₹1,50,000">₹60,000 – ₹1,50,000 (~$750–$1,800 USD)</option>
+            <option value="₹1,50,000+">₹1,50,000+ (~$1,800+ USD)</option>
+            <option value="Let's discuss">Flexible / Let's discuss</option>
           </select>
         </div>
       </div>
+
       <div className="fl-form-field">
-        <label className="fl-form-label">Tell me about your project *</label>
+        <label htmlFor="fl-message" className="fl-form-label">
+          Tell me about your project <span className="fl-req" aria-hidden="true">*</span>
+        </label>
         <textarea
+          id="fl-message"
+          name="message"
           className="fl-form-input fl-form-textarea"
           required
-          rows={5}
+          rows={4}
           value={form.message}
           onChange={set('message')}
-          placeholder="What are you building? What's the problem? What's your timeline?"
+          placeholder="What are you building? What's the core challenge? What's your desired timeline?"
         />
       </div>
-      <button type="submit" className="fl-btn fl-btn--primary fl-btn--full" disabled={status === 'sending'}>
-        {status === 'sending' ? 'Opening…' : 'Send Inquiry →'}
-      </button>
-      <p className="fl-form-note">Opens in Gmail · No spam · Response within 24 hrs</p>
+
+      {error && (
+        <div className="fl-form-error" role="alert">
+          {error}
+        </div>
+      )}
+
+      <div className="fl-form-actions">
+        <button type="submit" className="fl-btn fl-btn--primary fl-btn--full">
+          Launch Email Draft →
+        </button>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="fl-btn fl-btn--ghost fl-btn--full"
+          title="Copies formatted inquiry draft so you can paste into any client"
+        >
+          {status === 'copied' ? (
+            <span className="inline-flex items-center justify-center gap-1.5">
+              <Check size={13} strokeWidth={2.5} />
+              <span>Copied Draft to Clipboard</span>
+            </span>
+          ) : (
+            'Copy Inquiry Draft'
+          )}
+        </button>
+      </div>
+
+      <p className="fl-form-note">Direct email: <code>{EMAIL}</code> · No spam · Response within 24 hrs</p>
     </form>
   )
 }

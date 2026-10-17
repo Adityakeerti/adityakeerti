@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Image as ImageIcon, Video as VideoIcon, ChevronLeft, ChevronRight } from 'lucide-react'
 import CustomVideoPlayer from './CustomVideoPlayer'
 
 function isVideo(url) {
@@ -98,7 +99,11 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
                                     <div className="gallery-fallback-glow" />
                                     <div className="gallery-fallback-content">
                                         <span className="gallery-fallback-icon">
-                                            {item.type === 'image' ? '📷' : '🎥'}
+                                            {item.type === 'image' ? (
+                                                <ImageIcon size={22} strokeWidth={1.75} aria-hidden="true" />
+                                            ) : (
+                                                <VideoIcon size={22} strokeWidth={1.75} aria-hidden="true" />
+                                            )}
                                         </span>
                                         <p className="gallery-fallback-title">
                                             {item.type === 'image' ? 'Image Showcase' : 'Video Showcase'}
@@ -138,9 +143,7 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
                         disabled={activeIndex === 0}
                         aria-label="Previous slide"
                     >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="15 18 9 12 15 6" />
-                        </svg>
+                        <ChevronLeft size={16} strokeWidth={2.2} />
                     </button>
                     <button 
                         className="gallery-arrow arrow-right" 
@@ -148,9 +151,7 @@ export default function MediaGallery({ items = [], alt = 'Media gallery' }) {
                         disabled={activeIndex === normalizedItems.length - 1}
                         aria-label="Next slide"
                     >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="9 18 15 12 9 6" />
-                        </svg>
+                        <ChevronRight size={16} strokeWidth={2.2} />
                     </button>
                 </>
             )}
