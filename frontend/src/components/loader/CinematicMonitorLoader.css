@@ -319,160 +319,99 @@
   box-shadow: 0 0 8px rgba(255, 77, 0, 0.5);
 }
 
-/* ── Micro-Windows (Desktop Simulation) ── */
-.cml-micro-win {
-  position: absolute;
-  background: rgba(14, 14, 20, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 7px;
-  overflow: hidden;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  pointer-events: none;
-}
-.cml-win-bar {
-  height: 22px;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+/* ── Identity Result Card (Clean & Focused) ── */
+.cml-result-card {
+  position: relative;
+  z-index: 24;
+  width: min(86%, 390px);
+  background: rgba(13, 13, 18, 0.94);
+  border: 1px solid rgba(255, 77, 0, 0.35);
+  border-radius: 12px;
+  padding: 16px 20px 14px 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0 7px;
-  gap: 4px;
+  text-align: center;
+  gap: 6px;
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(255, 77, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
-.cml-dot { width: 6px; height: 6px; border-radius: 50%; }
-.cml-dot.r { background: #ff5f56; }
-.cml-dot.y { background: #ffbd2e; }
-.cml-dot.g { background: #27c93f; }
-.cml-win-title {
+
+.cml-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: rgba(45, 213, 91, 0.1);
+  border: 1px solid rgba(45, 213, 91, 0.3);
   font-family: var(--font-m, monospace);
   font-size: 0.52rem;
-  color: #7a7a8e;
-  margin-left: 4px;
+  font-weight: 600;
+  color: #34d399;
+  letter-spacing: 0.08em;
+}
+.cml-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+.cml-card-name {
+  font-family: var(--font-d, sans-serif);
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cml-card-role {
+  font-family: var(--font-m, monospace);
+  font-size: 0.62rem;
+  color: #ff4d00;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.cml-card-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-m, monospace);
+  font-size: 0.56rem;
+  color: #9c9cb0;
+  margin-top: 1px;
+  margin-bottom: 6px;
   letter-spacing: 0.03em;
 }
 
-/* Window 1: Kernel Shell (Top Left) */
-.cml-win-terminal {
-  top: 14%;
-  left: 4%;
-  width: 250px;
-  z-index: 20;
-}
-.cml-win-terminal .cml-win-body {
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.cml-log-line {
-  font-family: var(--font-m, monospace);
-  font-size: 0.56rem;
-  line-height: 1.35;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Window 2: Telemetry Radar (Top Right) */
-.cml-win-radar {
-  top: 14%;
-  right: 4%;
-  width: 210px;
-  z-index: 20;
-}
-.cml-radar-body {
-  padding: 8px 10px;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.cml-radar-sweep {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(45, 213, 91, 0.35);
-  background: radial-gradient(circle, rgba(45, 213, 91, 0.08) 0%, transparent 70%);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.cml-radar-beam {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: conic-gradient(from 0deg, rgba(45, 213, 91, 0.5) 0deg, transparent 65deg, transparent 360deg);
-  border-radius: 50%;
-  animation: cml-spin 2s linear infinite;
-}
-.cml-radar-blip {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #2dd55b;
-  box-shadow: 0 0 6px #2dd55b;
-}
-.cml-radar-blip.b1 { top: 12px; left: 16px; }
-.cml-radar-blip.b2 { bottom: 10px; right: 14px; }
-.cml-radar-stats {
-  font-family: var(--font-m, monospace);
-  font-size: 0.52rem;
-  color: #8c8ca0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.cml-radar-stats strong { color: #f4f4f6; }
-
-/* Window 3: Launch Orchestrator (Center-Bottom) */
-.cml-win-launch {
-  bottom: 8%;
-  width: min(84%, 440px);
-  z-index: 22;
-}
-.cml-counter-badge {
-  margin-left: auto;
-  font-family: var(--font-m, monospace);
-  font-size: 0.54rem;
-  color: #ff4d00;
-  font-weight: 700;
-}
-.cml-launch-body {
-  padding: 10px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-.cml-chips-row {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-.cml-chip {
-  font-family: var(--font-m, monospace);
-  font-size: 0.52rem;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #a5a5b8;
-}
 .cml-boot-btn {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  height: 32px;
-  border-radius: 6px;
+  height: 34px;
+  border-radius: 7px;
   background: linear-gradient(135deg, rgba(255, 77, 0, 0.22) 0%, rgba(255, 110, 30, 0.12) 100%);
   border: 1px solid rgba(255, 77, 0, 0.65);
-  box-shadow: 0 0 14px rgba(255, 77, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 16px rgba(255, 77, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   color: #fff;
   font-family: var(--font-m, monospace);
-  font-size: 0.62rem;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
 }
 .cml-btn-ping {
   width: 6px;
@@ -493,10 +432,6 @@
   transform: scale(0.98);
 }
 .cml-boot-clicked .cml-btn-ping { background: #000; box-shadow: none; }
-.cml-launch-triggered {
-  border-color: #ff4d00;
-  box-shadow: 0 0 28px rgba(255, 77, 0, 0.35);
-}
 
 /* ── Autonomous Cybernetic Cursor ── */
 .cml-synthetic-cursor {
@@ -649,12 +584,12 @@
 
 @media (max-width: 640px) {
   .cml-monitor-bezel { padding: 10px 10px 8px 10px; border-radius: 12px; }
-  .cml-win-terminal { width: 170px; top: 12%; left: 3%; }
-  .cml-win-radar { width: 150px; top: 12%; right: 3%; }
-  .cml-log-line { font-size: 0.48rem; }
   .cml-search-bar { height: 38px; }
   .cml-search-text { font-size: 0.62rem; }
-  .cml-chips-row { display: none; }
+  .cml-result-card { width: min(92%, 340px); padding: 12px 14px 10px 14px; gap: 4px; }
+  .cml-card-name { font-size: 1.05rem; }
+  .cml-card-role { font-size: 0.58rem; }
+  .cml-boot-btn { height: 30px; font-size: 0.58rem; }
   .cml-monitor-neck { height: 18px; width: 40px; }
   .cml-monitor-base { width: 120px; }
   .cml-skip-pill { top: 1rem; right: 1rem; font-size: 0.55rem; padding: 4px 10px; }

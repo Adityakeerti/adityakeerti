@@ -1,17 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Terminal, Cpu, Check, Activity, ShieldCheck, Sparkles, CornerDownLeft } from 'lucide-react'
+import { Search, CornerDownLeft, MapPin } from 'lucide-react'
 import './CinematicMonitorLoader.css'
 
 /* ─────────────────────────────────────────────────────────────
-   CINEMATIC MONITOR LOADER
-   High-energy, 60fps computer screen simulation:
-   1. Physical monitor chassis powers on with phosphor flare
-   2. Autonomous cybernetic cursor moves & clicks spotlight search
+   CINEMATIC MONITOR LOADER — Clean & Focused
+   1. Hardware monitor powers on with phosphor flare
+   2. Autonomous cursor clicks spotlight search & types query
    3. Types "who is aditya keerti?"
-   4. Cascading micro-windows spring open (terminal, models, radar)
-   5. Cursor clicks [BOOT WORKSTATION]
-   6. Camera plunges into the display glass directly into portfolio
+   4. Resolves cleanly to Aditya Keerti's identity card (Dehradun, India)
+   5. Cursor clicks [ENTER PORTFOLIO]
+   6. Camera plunges smoothly through display glass into portfolio
 ───────────────────────────────────────────────────────────── */
 
 const SEARCH_QUERY = 'who is aditya keerti?'
@@ -23,7 +22,6 @@ export default function CinematicMonitorLoader({ onDone }) {
   const [clickRipples, setClickRipples] = useState([])
   const [typedText, setTypedText] = useState('')
   const [searchSubmitted, setSearchSubmitted] = useState(false)
-  const [windowsActive, setWindowsActive] = useState(false)
   const [launchActive, setLaunchActive] = useState(false)
   const [counter, setCounter] = useState(0)
   const [screenBreach, setScreenBreach] = useState(false)
@@ -48,7 +46,7 @@ export default function CinematicMonitorLoader({ onDone }) {
     return () => window.removeEventListener('keydown', handleKey)
   }, [])
 
-  // 60FPS Autonomous Choreography Script
+  // 60FPS Autonomous Choreography Script (Slow & Smooth)
   useEffect(() => {
     const prefersReduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
     if (prefersReduced) {
@@ -64,22 +62,22 @@ export default function CinematicMonitorLoader({ onDone }) {
       setTimeout(() => setClickRipples(prev => prev.filter(r => r.id !== id)), 850)
     }
 
-    // Step 0: Power on monitor with phosphor flare (250ms)
+    // Step 0: Power on monitor with phosphor flare (200ms)
     const t0 = setTimeout(() => {
       setMonitorPower(true)
-    }, 250)
+    }, 200)
 
-    // Step 1: Cursor smoothly glides into search bar (950ms)
+    // Step 1: Cursor smoothly glides into search bar (850ms)
     const t1 = setTimeout(() => {
-      setCursorPos({ x: 45, y: 46 })
-    }, 950)
+      setCursorPos({ x: 45, y: 48 })
+    }, 850)
 
-    // Step 2: Cursor clicks inside search bar (1850ms)
+    // Step 2: Cursor clicks inside search bar (1650ms)
     const t2 = setTimeout(() => {
-      triggerClick(45, 46)
-    }, 1850)
+      triggerClick(45, 48)
+    }, 1650)
 
-    // Step 3: Type query character by character at natural, deliberate human pace (2100ms - 3550ms)
+    // Step 3: Type query character by character at natural human pace (1900ms - 3300ms)
     let charIdx = 0
     let typeInterval = null
     const t3 = setTimeout(() => {
@@ -89,29 +87,24 @@ export default function CinematicMonitorLoader({ onDone }) {
         if (charIdx >= SEARCH_QUERY.length) {
           clearInterval(typeInterval)
         }
-      }, 68) // natural, legible typing cadence
-    }, 2100)
+      }, 65)
+    }, 1900)
 
-    // Step 4: Cursor glides smoothly toward the Return button after a natural reading pause (4000ms)
+    // Step 4: Cursor glides smoothly toward the Return button (3700ms)
     const t4 = setTimeout(() => {
-      setCursorPos({ x: 74, y: 46 })
-    }, 4000)
+      setCursorPos({ x: 74, y: 48 })
+    }, 3700)
 
-    // Step 5: Cursor clicks Return (4850ms)
+    // Step 5: Cursor clicks Return (4450ms)
     const t5 = setTimeout(() => {
-      triggerClick(74, 46)
+      triggerClick(74, 48)
       setSearchSubmitted(true)
-    }, 4850)
+    }, 4450)
 
-    // Step 6: Micro-windows cascade open in smooth succession (5100ms)
-    const t6 = setTimeout(() => {
-      setWindowsActive(true)
-    }, 5100)
-
-    // Step 7: Telemetry counter increments smoothly & steadily (5200ms - 6600ms)
+    // Step 6: Telemetry counter increments smoothly (4800ms - 6200ms)
     let countVal = 0
     let counterInterval = null
-    const t7 = setTimeout(() => {
+    const t6 = setTimeout(() => {
       counterInterval = setInterval(() => {
         countVal += Math.floor(Math.random() * 5) + 3
         if (countVal >= 100) {
@@ -120,29 +113,29 @@ export default function CinematicMonitorLoader({ onDone }) {
         }
         setCounter(countVal)
       }, 55)
-    }, 5200)
+    }, 4800)
 
-    // Step 8: Cursor glides gracefully down to the [CONNECT WORKSTATION] button (5600ms)
+    // Step 7: Cursor glides gracefully down to the [ENTER PORTFOLIO] button (5300ms)
+    const t7 = setTimeout(() => {
+      setCursorPos({ x: 50, y: 68 })
+    }, 5300)
+
+    // Step 8: Cursor clicks Enter Portfolio (6250ms)
     const t8 = setTimeout(() => {
-      setCursorPos({ x: 50, y: 80 })
-    }, 5600)
-
-    // Step 9: Cursor clicks launch (6600ms)
-    const t9 = setTimeout(() => {
-      triggerClick(50, 80)
+      triggerClick(50, 68)
       setLaunchActive(true)
       setCounter(100)
-    }, 6600)
+    }, 6250)
 
-    // Step 10: Smooth Cinematic Camera Plunge / Screen Breach Zoom (7250ms)
-    const t10 = setTimeout(() => {
+    // Step 9: Smooth Cinematic Camera Plunge / Screen Breach Zoom (6850ms)
+    const t9 = setTimeout(() => {
       setScreenBreach(true)
-    }, 7250)
+    }, 6850)
 
-    // Step 11: Seamlessly finish and reveal portfolio workspace (8200ms)
-    const t11 = setTimeout(() => {
+    // Step 10: Seamlessly finish and reveal portfolio workspace (7750ms)
+    const t10 = setTimeout(() => {
       finish()
-    }, 8200)
+    }, 7750)
 
     return () => {
       clearTimeout(t0)
@@ -152,13 +145,12 @@ export default function CinematicMonitorLoader({ onDone }) {
       if (typeInterval) clearInterval(typeInterval)
       clearTimeout(t4)
       clearTimeout(t5)
-      clearTimeout(t6)
       if (counterInterval) clearInterval(counterInterval)
+      clearTimeout(t6)
       clearTimeout(t7)
       clearTimeout(t8)
       clearTimeout(t9)
       clearTimeout(t10)
-      clearTimeout(t11)
     }
   }, [])
 
@@ -177,7 +169,7 @@ export default function CinematicMonitorLoader({ onDone }) {
 
       {/* Floating Skip Prompt */}
       <div className="cml-skip-pill" onClick={finish}>
-        <span>ESC / CLICK ANYWHERE TO SKIP</span>
+        <span>ESC TO SKIP</span>
         <span className="cml-skip-dot" />
       </div>
 
@@ -214,21 +206,15 @@ export default function CinematicMonitorLoader({ onDone }) {
             {/* Simulated Desktop Content */}
             {monitorPower && (
               <div className="cml-screen-content">
-                {/* Micro Header Bar inside Monitor */}
+                {/* Clean Micro Header Bar */}
                 <header className="cml-os-topbar">
                   <div className="cml-os-top-left">
                     <span className="cml-brand-monogram">AK</span>
-                    <span className="cml-os-name">WORKSTATION_OS // 2026</span>
-                  </div>
-                  <div className="cml-os-top-center">
-                    <span className="cml-fps-badge">
-                      <Activity size={10} className="inline mr-1 text-green-400" />
-                      60.0 FPS · LOW LATENCY
-                    </span>
+                    <span className="cml-os-name">PORTFOLIO_OS</span>
                   </div>
                   <div className="cml-os-top-right">
                     <span className="cml-status-dot" />
-                    <span>BLR · LIVE NODE</span>
+                    <span>DEHRADUN · LIVE</span>
                   </div>
                 </header>
 
@@ -237,10 +223,10 @@ export default function CinematicMonitorLoader({ onDone }) {
                   {/* Spotlight Search Command Palette */}
                   <motion.div
                     className={`cml-search-bar ${searchSubmitted ? 'cml-search-minimized' : ''}`}
-                    initial={{ y: 20, opacity: 0, scale: 0.95 }}
+                    initial={{ y: 0, opacity: 0, scale: 0.95 }}
                     animate={{
-                      y: searchSubmitted ? -90 : 0,
-                      opacity: searchSubmitted ? 0.8 : 1,
+                      y: searchSubmitted ? -65 : 0,
+                      opacity: searchSubmitted ? 0.7 : 1,
                       scale: searchSubmitted ? 0.88 : 1,
                     }}
                     transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
@@ -258,97 +244,32 @@ export default function CinematicMonitorLoader({ onDone }) {
                     </div>
                   </motion.div>
 
-                  {/* Micro-Window 1: Kernel Shell (Top Left) */}
+                  {/* Clean Identity Result Card (No Clutter) */}
                   <AnimatePresence>
-                    {windowsActive && (
+                    {searchSubmitted && (
                       <motion.div
-                        className="cml-micro-win cml-win-terminal"
-                        initial={{ opacity: 0, x: -30, y: -10, scale: 0.9 }}
-                        animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <div className="cml-win-bar">
-                          <span className="cml-dot r" /><span className="cml-dot y" /><span className="cml-dot g" />
-                          <span className="cml-win-title">~/kernel_core.sh</span>
-                        </div>
-                        <div className="cml-win-body">
-                          <p className="cml-log-line text-emerald-400">
-                            <span className="text-zinc-500">➜</span> VLM Engine: Gemma-4 Local
-                          </p>
-                          <p className="cml-log-line text-zinc-300">
-                            <span className="text-zinc-500">➜</span> Zero Cloud OCR Bills: 100% Offline
-                          </p>
-                          <p className="cml-log-line text-amber-300">
-                            <span className="text-zinc-500">➜</span> Benchmarks: 5,000 req/min &lt;300ms
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Micro-Window 2: Telemetry Radar (Top Right) */}
-                  <AnimatePresence>
-                    {windowsActive && (
-                      <motion.div
-                        className="cml-micro-win cml-win-radar"
-                        initial={{ opacity: 0, x: 30, y: -10, scale: 0.9 }}
-                        animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <div className="cml-win-bar">
-                          <span className="cml-dot r" /><span className="cml-dot y" /><span className="cml-dot g" />
-                          <span className="cml-win-title">telemetry_radar.sys</span>
-                        </div>
-                        <div className="cml-win-body cml-radar-body">
-                          <div className="cml-radar-sweep">
-                            <span className="cml-radar-blip b1" />
-                            <span className="cml-radar-blip b2" />
-                            <span className="cml-radar-beam" />
-                          </div>
-                          <div className="cml-radar-stats">
-                            <div>PING: <strong>18ms</strong></div>
-                            <div>STACK: <strong>REACT 19</strong></div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Micro-Window 3: Launch Orchestrator (Center-Bottom) */}
-                  <AnimatePresence>
-                    {windowsActive && (
-                      <motion.div
-                        className={`cml-micro-win cml-win-launch ${launchActive ? 'cml-launch-triggered' : ''}`}
-                        initial={{ opacity: 0, y: 35, scale: 0.9 }}
+                        className="cml-result-card"
+                        initial={{ opacity: 0, y: 22, scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ duration: 0.65, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.55, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        <div className="cml-win-bar">
-                          <span className="cml-dot r" /><span className="cml-dot y" /><span className="cml-dot g" />
-                          <span className="cml-win-title">launch_orchestrator.app</span>
-                          <span className="cml-counter-badge">{counter}%</span>
+                        <div className="cml-card-badge">
+                          <span className="cml-badge-dot" />
+                          <span>IDENTITY VERIFIED</span>
                         </div>
-                        <div className="cml-win-body cml-launch-body">
-                          <div className="cml-chips-row">
-                            <span className="cml-chip">
-                              <Cpu size={10} className="inline mr-1 text-amber-500" />
-                              AI Systems
-                            </span>
-                            <span className="cml-chip">
-                              <ShieldCheck size={10} className="inline mr-1 text-emerald-400" />
-                              Client SaaS
-                            </span>
-                            <span className="cml-chip">
-                              <Sparkles size={10} className="inline mr-1 text-sky-400" />
-                              Vision VLM
-                            </span>
-                          </div>
 
-                          <div className={`cml-boot-btn ${launchActive ? 'cml-boot-clicked' : ''}`}>
-                            <span className="cml-btn-ping" />
-                            <span>{launchActive ? 'INITIALIZING WORKSTATION...' : 'CONNECT WORKSTATION'}</span>
-                            <span className="cml-boot-arrow">→</span>
-                          </div>
+                        <h2 className="cml-card-name">Aditya Keerti</h2>
+                        <p className="cml-card-role">AI Systems & Full-Stack Engineer</p>
+
+                        <div className="cml-card-location">
+                          <MapPin size={11} className="inline mr-1 text-orange-500" />
+                          <span>Dehradun, India</span>
+                        </div>
+
+                        <div className={`cml-boot-btn ${launchActive ? 'cml-boot-clicked' : ''}`}>
+                          <span className="cml-btn-ping" />
+                          <span>{launchActive ? 'ENTERING WORKSTATION...' : 'ENTER PORTFOLIO'}</span>
+                          <span className="cml-boot-arrow">→</span>
                         </div>
                       </motion.div>
                     )}
@@ -388,7 +309,7 @@ export default function CinematicMonitorLoader({ onDone }) {
                 <footer className="cml-os-dock">
                   <span className="cml-dock-pill">
                     <span className="cml-pulse-green" />
-                    AUTONOMOUS SYSTEM LAUNCH SEQUENCE
+                    INITIALIZING
                   </span>
                   <div className="cml-progress-track">
                     <div className="cml-progress-fill" style={{ width: `${counter}%` }} />
@@ -401,7 +322,7 @@ export default function CinematicMonitorLoader({ onDone }) {
 
           {/* Lower Hardware Bezel details */}
           <div className="cml-monitor-bottom-bar">
-            <span className="cml-hardware-logo">STUDIO PRO // 60FPS</span>
+            <span className="cml-hardware-logo">STUDIO DISPLAY</span>
             <div className="cml-power-led-wrap">
               <span className={`cml-power-led ${monitorPower ? 'on' : ''}`} />
             </div>
