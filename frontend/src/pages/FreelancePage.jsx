@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Check } from 'lucide-react'
 import MediaGallery from '../components/MediaGallery'
+import FreelanceStudioLoader from '../components/loader/FreelanceStudioLoader'
 import './FreelancePage.css'
 import about      from '../data/about.json'
 import projects   from '../data/projects.json'
@@ -1116,13 +1117,13 @@ function useSEO({ title, description, keywords, schema }) {
 /* ─── Page ─── */
 export default function FreelancePage() {
   useSEO({
-    title: 'Aditya Keerti — Freelance Software Engineer & AI Architect',
+    title: 'Adityakeerti — Freelance Software Engineer & AI Architect',
     description: 'Specializing in custom AI agents, automated OCR systems, high-throughput backends, and full-stack Next.js web applications. Hire for remote contract work.',
     keywords: 'freelance software engineer, AI agent developer, next.js developer, fastapi freelance, custom OCR pipeline, system architect, fullstack developer, India developer',
     schema: {
       '@context': 'https://schema.org',
       '@type': 'ProfessionalService',
-      'name': 'Aditya Keerti — Freelance Software Engineer & AI Architect',
+      'name': 'Adityakeerti — Freelance Software Engineer & AI Architect',
       'image': 'https://adityakeerti.vercel.app/og-image.jpg',
       'description': 'Freelance software engineer specializing in custom AI agents, OCR pipelines, high-throughput backends, and Next.js applications.',
       'url': 'https://adityakeerti.vercel.app/freelance',
@@ -1145,14 +1146,31 @@ export default function FreelancePage() {
     }
   })
 
-  // Unlock scroll (main portfolio locks it)
+  const [loaderActive, setLoaderActive] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+      if (prefersReduced) return false
+    }
+    return true
+  })
+
+  // Manage body scroll during studio loader
   useEffect(() => {
-    document.body.style.overflow = 'auto'
+    if (loaderActive) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
     return () => { document.body.style.overflow = '' }
-  }, [])
+  }, [loaderActive])
 
   return (
-    <div className="fl-page">
+    <div className={`fl-page ${loaderActive ? 'fl-page--loading' : 'fl-page--ready'}`}>
+      <AnimatePresence>
+        {loaderActive && (
+          <FreelanceStudioLoader onDone={() => setLoaderActive(false)} />
+        )}
+      </AnimatePresence>
       <FreelanceCursor />
       <FreelanceNav />
       <FreelanceHero />

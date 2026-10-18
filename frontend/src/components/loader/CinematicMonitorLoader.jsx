@@ -7,13 +7,13 @@ import './CinematicMonitorLoader.css'
    CINEMATIC MONITOR LOADER — Clean & Focused
    1. Hardware monitor powers on with phosphor flare
    2. Autonomous cursor clicks spotlight search & types query
-   3. Types "who is aditya keerti?"
-   4. Resolves cleanly to Aditya Keerti's identity card (Dehradun, India)
+   3. Types "who is adityakeerti?"
+   4. Resolves cleanly to Adityakeerti's identity card (Dehradun, India)
    5. Cursor clicks [ENTER PORTFOLIO]
    6. Camera plunges smoothly through display glass into portfolio
 ───────────────────────────────────────────────────────────── */
 
-const SEARCH_QUERY = 'who is aditya keerti?'
+const SEARCH_QUERY = 'who is adityakeerti?'
 
 export default function CinematicMonitorLoader({ onDone }) {
   const [monitorPower, setMonitorPower] = useState(false)
@@ -258,7 +258,7 @@ export default function CinematicMonitorLoader({ onDone }) {
                           <span>IDENTITY VERIFIED</span>
                         </div>
 
-                        <h2 className="cml-card-name">Aditya Keerti</h2>
+                        <h2 className="cml-card-name">Adityakeerti</h2>
                         <p className="cml-card-role">AI Systems & Full-Stack Engineer</p>
 
                         <div className="cml-card-location">

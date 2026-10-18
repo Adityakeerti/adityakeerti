@@ -914,7 +914,7 @@ export default function App() {
           </div>
 
           <div className="os-bar-right">
-            <a href="/freelance" className="os-bar-cta-freelance" aria-label="Hire Aditya Keerti for Freelance Projects">
+            <a href="/freelance" className="os-bar-cta-freelance" aria-label="Hire Adityakeerti for Freelance Projects">
               <span className="os-bar-cta-ping-wrap" aria-hidden="true">
                 <span className="os-bar-cta-ping-ring" />
                 <span className="os-bar-cta-ping-core" />

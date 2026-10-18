@@ -72,7 +72,7 @@ const CONTACT_TOPICS = [
     id: 'hello',
     label: 'Say Hello',
     icon: Coffee,
-    subject: 'Connecting with Aditya Keerti',
+    subject: 'Connecting with Adityakeerti',
     placeholder: 'Drop a line, share an interesting paper or tech stack, or just connect...',
     preset: 'Hi Aditya, I really enjoyed your portfolio and engineering projects. Wanted to connect and say hello!',
     accent: '#fbbf24'
@@ -192,7 +192,7 @@ export default function ContactConsole({ about, resumeUrl = '/ADITYA_RESUME.pdf'
     const subject = encodeURIComponent(activeTopicObj.subject)
     const textToSend = message.trim() || activeTopicObj.preset
     const bodyText = encodeURIComponent(
-      `${textToSend}\n\n— Dispatched via Aditya Keerti Portfolio Console (https://adityakeerti.dev)`
+      `${textToSend}\n\n— Dispatched via Adityakeerti Portfolio Console (https://adityakeerti.dev)`
     )
     const mailtoUrl = `mailto:${email}?subject=${subject}&body=${bodyText}`
 
