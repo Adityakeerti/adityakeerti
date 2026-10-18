@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Check } from 'lucide-react'
 import MediaGallery from '../components/MediaGallery'
-import FreelanceStudioLoader from '../components/loader/FreelanceStudioLoader'
 import './FreelancePage.css'
 import about      from '../data/about.json'
 import projects   from '../data/projects.json'
@@ -255,14 +254,14 @@ const CLIENT_WORK = [
 /* ─── Fade-in on scroll ─── */
 function FadeIn({ children, delay = 0, className = '' }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const inView = useInView(ref, { once: true, margin: '-40px' })
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
@@ -294,7 +293,12 @@ function FreelanceNav() {
   }
 
   return (
-    <nav className={`fl-nav${scrolled ? ' fl-nav--scrolled' : ''}`}>
+    <motion.nav
+      className={`fl-nav${scrolled ? ' fl-nav--scrolled' : ''}`}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    >
       <div className="fl-nav-inner">
         <a href="/" className="fl-nav-logo">AK<span>.</span></a>
         <div className="fl-nav-center">
@@ -307,7 +311,7 @@ function FreelanceNav() {
         </div>
         <a href="#contact" onClick={handleScroll('contact')} className="fl-nav-cta">Let's Talk →</a>
       </div>
-    </nav>
+    </motion.nav>
   )
 }
 
@@ -322,41 +326,66 @@ function FreelanceHero() {
   return (
     <section className="fl-hero">
       <div className="fl-container">
-        <FadeIn delay={0.05}>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+        >
           <span className="fl-eyebrow">Available for Freelance · India &amp; Remote</span>
-        </FadeIn>
-        <FadeIn delay={0.15}>
-          <h1 className="fl-hero-h1">
-            I build AI systems,<br />
-            backends &amp; automation<br />
-            <span className="fl-hero-accent">that actually ship.</span>
-          </h1>
-        </FadeIn>
-        <FadeIn delay={0.25}>
-          <p className="fl-hero-sub">
-            Full-Stack Developer &amp; AI Architect · Production MVPs in 2–4 weeks · $0 ongoing API bills ·
-            Reduced document processing from 10 min → 6 sec for real clients.
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.35}>
-          <div className="fl-hero-actions">
-            <a href="#contact" onClick={handleScroll('contact')} className="fl-btn fl-btn--primary">Start a Project →</a>
-            <a href="#demos"   onClick={handleScroll('demos')}   className="fl-btn fl-btn--ghost">Explore Live Demos ↓</a>
-          </div>
-        </FadeIn>
+        </motion.div>
 
-        {/* Client Value & Trust Pillars */}
-        <FadeIn delay={0.45}>
-          <div className="fl-focus-bar">
-            {TRUST_PILLARS.map(f => (
-              <div key={f.kicker} className="fl-focus-item">
-                <span className="fl-focus-kicker">{f.kicker}</span>
-                <span className="fl-focus-headline">{f.headline}</span>
-                <span className="fl-focus-desc">{f.desc}</span>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
+        <motion.h1
+          className="fl-hero-h1"
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+        >
+          I build AI systems,<br />
+          backends &amp; automation<br />
+          <span className="fl-hero-accent">that actually ship.</span>
+        </motion.h1>
+
+        <motion.p
+          className="fl-hero-sub"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.26, ease: [0.16, 1, 0.3, 1] }}
+        >
+          Full-Stack Developer &amp; AI Architect · Production MVPs in 2–4 weeks · $0 ongoing API bills ·
+          Reduced document processing from 10 min → 6 sec for real clients.
+        </motion.p>
+
+        <motion.div
+          className="fl-hero-actions"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <a href="#contact" onClick={handleScroll('contact')} className="fl-btn fl-btn--primary">Start a Project →</a>
+          <a href="#demos"   onClick={handleScroll('demos')}   className="fl-btn fl-btn--ghost">Explore Live Demos ↓</a>
+        </motion.div>
+
+        {/* Client Value & Trust Pillars (Staggered Mount) */}
+        <motion.div
+          className="fl-focus-bar"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.46, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {TRUST_PILLARS.map((f, i) => (
+            <motion.div
+              key={f.kicker}
+              className="fl-focus-item"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.52 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="fl-focus-kicker">{f.kicker}</span>
+              <span className="fl-focus-headline">{f.headline}</span>
+              <span className="fl-focus-desc">{f.desc}</span>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   )
@@ -1146,31 +1175,14 @@ export default function FreelancePage() {
     }
   })
 
-  const [loaderActive, setLoaderActive] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
-      if (prefersReduced) return false
-    }
-    return true
-  })
-
-  // Manage body scroll during studio loader
+  // Ensure scroll is immediately unlocked
   useEffect(() => {
-    if (loaderActive) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
+    document.body.style.overflow = 'auto'
     return () => { document.body.style.overflow = '' }
-  }, [loaderActive])
+  }, [])
 
   return (
-    <div className={`fl-page ${loaderActive ? 'fl-page--loading' : 'fl-page--ready'}`}>
-      <AnimatePresence>
-        {loaderActive && (
-          <FreelanceStudioLoader onDone={() => setLoaderActive(false)} />
-        )}
-      </AnimatePresence>
+    <div className="fl-page">
       <FreelanceCursor />
       <FreelanceNav />
       <FreelanceHero />
