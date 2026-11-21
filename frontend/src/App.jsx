@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MediaGallery from './components/MediaGallery'
+import RootCauseTrace from './components/projects/RootCauseTrace'
 import ContactConsole from './components/contact/ContactConsole'
 import CinematicMonitorLoader from './components/loader/CinematicMonitorLoader'
 
@@ -401,6 +402,26 @@ function ProjectsPanel() {
                   <div className="proj-d-sub">{proj.subtitle} &nbsp;·&nbsp; {proj.date}</div>
                 </div>
 
+                {proj.metrics?.length > 0 && (
+                  <div className="proj-metrics">
+                    {proj.metrics.map((m, k) => (
+                      <motion.div
+                        key={m.label}
+                        className="proj-metric"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.35, delay: 0.1 + k * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <span className="proj-metric-v">{m.value}</span>
+                        <span className="proj-metric-l">{m.label}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+                {proj.note && <p className="proj-note">{proj.note}</p>}
+
+                {proj.visual === 'rootcause' && <RootCauseTrace />}
+
                 {proj.media?.length > 0 && (
                   <div style={{ borderRadius: 6, overflow: 'hidden', border: '1px solid var(--border)', flexShrink: 0 }}>
                     <MediaGallery items={proj.media} alt={proj.title} />
@@ -431,7 +452,7 @@ function ProjectsPanel() {
                 </div>
               </div>
 
-              <div className="proj-action-row">
+              {(proj.github || proj.demo) && <div className="proj-action-row">
                 {proj.github && (
                   <a href={proj.github} target="_blank" rel="noopener noreferrer" className="btn">
                     <GithubIcon /> Source
@@ -442,7 +463,7 @@ function ProjectsPanel() {
                     Live Demo ↗
                   </a>
                 )}
-              </div>
+              </div>}
             </motion.div>
           )}
         </AnimatePresence>

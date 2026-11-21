@@ -1,9 +1,53 @@
 [
     {
+        "id": "citysense",
+        "title": "CitySense",
+        "subtitle": "Civic Root-Cause Diagnosis",
+        "date": "Oct 2026 – Nov 2026",
+        "problem": "A pothole that keeps coming back, a street that goes dark, a jam that starts every evening: each usually has a cause somewhere else, often in another department's system. Departments keep separate data, so each team patches its own symptom and the shared cause, such as a leaking water main, is never found.",
+        "approach": "• Built a multi-service platform that traces recurring civic complaints to underlying infrastructure faults. It takes in sensor feeds and a multilingual agent-assisted app, where a LangGraph planner routes requests to specialist agents for complaint filing, emergency response and hybrid-RAG knowledge retrieval.\n• Validated it on two fault-injection simulations: a synthetic city with water, sewer, waste and streetlight networks, and a traffic digital twin of a 10-junction Dehradun corridor. Shockwave analysis traces traffic jams back to their origin, and counterfactual replays re-run each jam with a candidate cause removed.\n• Wrote a Double DQN agent from scratch in NumPy to decide which suspected pipe, drain or streetlight to inspect first. It learned by imitating a rule-based tracer, then by trial and error. A second RL agent (PyTorch) controls traffic signals within fixed safety limits.\n• LLMs only explain the result in plain language; they never decide the cause. A person confirms the fault and acts on it.",
+        "metrics": [
+            {
+                "value": "89%",
+                "label": "top-cause accuracy over 118 benchmark runs"
+            },
+            {
+                "value": "45 → <4",
+                "label": "wasted repairs per episode"
+            },
+            {
+                "value": "−27%",
+                "label": "average queue vs fixed-time signals"
+            }
+        ],
+        "note": "All results come from simulation: a synthetic city and a traffic digital twin with planted faults.",
+        "outcomes": [
+            "89% top-cause accuracy across 118 traffic benchmark runs (6 fault cases × 3 signal policies × 3 seeds)",
+            "Inspection agent cut wasted repairs from about 45 to under 4 per episode compared with chasing complaint counts",
+            "Signal-control agent reduced average queues by 27% compared with fixed-time signals",
+            "Hindi/English voice agent for citizens to report and track complaints"
+        ],
+        "techStack": [
+            "Python",
+            "PyTorch",
+            "NumPy",
+            "LangGraph",
+            "FastAPI",
+            "PostgreSQL / pgvector",
+            "llama.cpp",
+            "React"
+        ],
+        "github": "",
+        "demo": "",
+        "visual": "rootcause",
+        "media": [],
+        "featured": true
+    },
+    {
         "id": "doc-oc",
         "title": "DOC-OC (V1 → V2)",
         "subtitle": "Universal Academic Document Intelligence & Edge VLM Engine",
-        "date": "Sep 2025 – Present",
+        "date": "Sep 2025 – Oct 2026",
         "problem": "Extracting structured data from diverse, unstandardized Indian board marksheets (CBSE, ICSE, UP, Haryana, etc.) with security watermarks, bilingual headers, and varied layouts is slow (~10 mins/doc) and error-prone. The initial V1 cascade (YOLO + TableTransformer + regex) was brittle across board formatting changes, and cloud OCR APIs incurred high costs ($0.02–$0.05/page) while compromising student privacy.",
         "approach": "Engineered the full progression from a heuristic CV cascade to an offline edge Vision-Language Model (VLM):\n• V1 (CV Cascade): Built a multi-board extraction pipeline with OpenCV, custom YOLOv8 layout detection, Hugging Face Table Transformers, and structure-retaining OCR (LLM Whisperer) with strict fraud-mitigation checks, backed by FastAPI and MySQL.\n• V2 (Multimodal Edge VLM): Completely re-architected into a 100% offline, zero-cloud VLM engine running Gemma-4-E2B locally via llama.cpp (100% GPU offload on RTX 4050 6GB). Implemented C++ GBNF grammar-constrained decoding to deterministically mask illegal token logits and guarantee RFC 8259 JSON compliance. Slashed latency by 4.3× (from ~28–30s to ~6.28s) by disabling internal reasoning traces and applying Lanczos 1600px scaling. Performed ShortGPT layer redundancy profiling (Blocks 14-15) and engineered Pydantic self-healing domain arithmetic validation (Theory + Practical total reconciliation, leading-zero type coercion).",
         "outcomes": [
@@ -34,7 +78,56 @@
             "/projects/DOCOC/landing.png",
             "/projects/DOCOC/result.png"
         ],
-        "featured": true
+        "featured": true,
+        "metrics": [
+            {
+                "value": "4.3×",
+                "label": "faster: 27 s → 6.3 s per page"
+            },
+            {
+                "value": "3.2 GB",
+                "label": "VRAM on a 6 GB RTX 4050"
+            },
+            {
+                "value": "37",
+                "label": "marksheets tested across boards"
+            }
+        ]
+    },
+    {
+        "id": "anandkosh",
+        "title": "Anand Kosh (आनंद कोष)",
+        "subtitle": "Clinical Records & Operations System",
+        "date": "Jul 2026 – Aug 2026",
+        "problem": "A government hospital department clinic tracked patient records, documents, reminders and appointments on paper, which made records slow to find and hard to keep confidential.",
+        "approach": "Built and deployed a clinical records application used by the clinic's operators. Role-based access control separates administrators, medical staff and clinical observers, each with their own permissions for patient records, document uploads, reporting and scheduling. Prisma with Neon PostgreSQL handles persistence, the Google Drive API stores documents, and audit logging tracks system activity.",
+        "outcomes": [
+            "In daily use by operators at a government hospital department clinic",
+            "Manages 50+ patient records with documents, reminders and scheduling",
+            "Role-specific permissions for administrators, medical staff and clinical observers",
+            "Audit log of system activity"
+        ],
+        "techStack": [
+            "TypeScript",
+            "Next.js",
+            "Prisma",
+            "PostgreSQL (Neon)",
+            "Google Drive API"
+        ],
+        "github": "https://github.com/Adityakeerti/anand-kosh",
+        "demo": "http://anandkosh.in",
+        "media": [],
+        "featured": true,
+        "metrics": [
+            {
+                "value": "50+",
+                "label": "patient records managed"
+            },
+            {
+                "value": "3",
+                "label": "roles with separate permissions"
+            }
+        ]
     },
     {
         "id": "credit-limit-rl",
@@ -66,33 +159,6 @@
             "/projects/Advanzia AutoLend/architecture.png",
             "/projects/Advanzia AutoLend/simulation.png"
         ],
-        "featured": true
-    },
-    {
-        "id": "anandkosh",
-        "title": "Anand Kosh (आनंद कोष)",
-        "subtitle": "Clinical Record Digitization & Hospital Management Platform",
-        "date": "2025 – Present",
-        "problem": "Healthcare providers handle hundreds of physical patient files daily, resulting in search bottlenecks, paper degradation, and confidentiality vulnerabilities during clinical operations.",
-        "approach": "Engineered a full-stack clinical management and patient record digitization portal in active hospital production. Architected a 3-tier Role-Based Access Control system (Administrators, Medical Staff, Clinical Observers) with serverless PostgreSQL (Neon), Prisma ORM, and automated medical document archival via Google Drive API.",
-        "outcomes": [
-            "Live in Daily Hospital Production: Actively used by hospital medical staff and clinical observers",
-            "Hundreds of Patient Records Managed: Real-time secure document archival and fast clinical retrieval",
-            "3-Tier RBAC Architecture: Enforced clinical confidentiality with JWT-based auth and bcrypt hashing",
-            "Serverless PostgreSQL Backend: Neon serverless database with automated archival and zero-downtime availability"
-        ],
-        "techStack": [
-            "Next.js",
-            "TypeScript",
-            "Prisma",
-            "Neon PostgreSQL",
-            "Google Drive API",
-            "Render",
-            "Tailwind CSS"
-        ],
-        "github": "https://github.com/Adityakeerti/anand-kosh",
-        "demo": "http://anandkosh.in",
-        "media": [],
         "featured": true
     },
     {

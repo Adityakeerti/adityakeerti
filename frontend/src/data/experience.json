@@ -2,13 +2,23 @@
     {
         "id": "peerprep",
         "company": "Peerprep",
-        "role": "Software Engineering Intern",
+        "role": "Software Engineering Intern (AI/ML)",
         "period": "Mar 2026 – May 2026",
         "type": "Internship",
         "highlights": [
-            "Built an automated ingestion engine using Python to standardize and extract data from unpredictable, multi-format academic documents.",
-            "Implemented strict validation checks, reducing per-record processing time from 10 minutes to ~30 seconds while maintaining 99.98% accuracy on internal validation datasets."
+            "Developed a marksheet extraction pipeline using OpenCV, fine-tuned YOLOv8 for board identification, and Table Transformer for layout detection across different school and college marksheet formats.",
+            "Integrated structure-preserving OCR (LLM Whisperer) to extract information from marksheets with varying layouts and tables.",
+            "Built a React frontend and asynchronous FastAPI/MySQL backend, enabling automated marksheet processing in approximately 30 seconds per document."
         ],
-        "tools": ["Python", "OpenCV", "OCR", "Git", "GitHub"]
+        "tools": [
+            "Python",
+            "OpenCV",
+            "YOLOv8",
+            "Table Transformer",
+            "LLM Whisperer",
+            "FastAPI",
+            "MySQL",
+            "React"
+        ]
     }
 ]

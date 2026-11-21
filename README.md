@@ -2,13 +2,13 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0d0d,50:1a1a2e,100:0d0d0d&height=160&section=header&text=hey%2C+i%27m+aditya+%F0%9F%91%8B&fontSize=38&fontColor=c9a96e&fontAlignY=45&animation=fadeIn" width="100%"/>
 
-*third-year student, occasionally winning hackathons, accidentally deploying to prod*
+*final-year AI/ML student. i build models, and the backends that make them usable.*
 
 [![Portfolio](https://img.shields.io/badge/see_my_work-adityakeerti.vercel.app-c9a96e?style=flat-square&labelColor=0d0d0d)](https://adityakeerti.vercel.app/)
 &nbsp;
 [![LinkedIn](https://img.shields.io/badge/let's_connect-LinkedIn-0a66c2?style=flat-square&logo=linkedin&logoColor=white&labelColor=0d0d0d)](https://linkedin.com/in/adityakeerti)
 &nbsp;
-[![Email](https://img.shields.io/badge/slide_into_my_inbox-Gmail-c9a96e?style=flat-square&logo=gmail&logoColor=white&labelColor=0d0d0d)](mailto:adityacodes404@gmail.com)
+[![Email](https://img.shields.io/badge/say_hello-Gmail-c9a96e?style=flat-square&logo=gmail&logoColor=white&labelColor=0d0d0d)](mailto:adityacodes404@gmail.com)
 
 </div>
 
@@ -16,62 +16,76 @@
 
 ```python
 class Aditya:
-    currently  = "B.Tech CSE (AI/ML) @ GEHU, 2023–present"
+    studying   = "B.Tech CSE (AI/ML) @ Graphic Era Hill University, 2023 – 2027"
     location   = "Dehradun, India 🏔️"
-    obsessed_with = ["making models actually ship", "low-latency everything", "clean abstractions"]
-    not_on_my_resume = ["3am debugging sessions", "googling 'why is redis doing this'"]
-    fun_fact   = "i have deployed to prod more times than i've slept 8 hours"
+    works_on   = ["LLM document extraction", "reinforcement learning", "agentic AI", "Python backends"]
+    stack      = ["PyTorch", "LangGraph", "FastAPI", "llama.cpp", "PostgreSQL"]
+    looking_for = "entry-level AI/ML and software engineering roles"
 ```
 
 ---
 
-## 🔬 research & real work
+## 💼 experience
 
-**Research Contributor @ GEHU** &nbsp;·&nbsp; *under a senior faculty member* &nbsp;`Mar – May 2026`
+**Software Engineering Intern (AI/ML) @ Peerprep** &nbsp;`Mar – May 2026`
 
-built an automated document intelligence system to handle chaotic, multi-format academic files —
-took processing time from **10 minutes → ~30 seconds per record** at **99.98% accuracy**.
-the professor was happy. the server was not.
+- built a marksheet extraction pipeline: OpenCV, a fine-tuned YOLOv8 to identify the board, Table Transformer for layout
+- structure-preserving OCR (LLM Whisperer) for marksheets with messy layouts and tables
+- React frontend + async FastAPI/MySQL backend → about **30 seconds per document**, end to end
 
-`Python` `OpenCV` `OCR` `Git`
-
----
-
-## 🔨 things i built that actually work
-
-### [Resume Rank AI](https://github.com/Adityakeerti) — *finding the needle in a 100k-resume haystack* &nbsp;`May – Jul 2026`
-
-> spoiler: it does it in under a second.
-
-- shot **100,000 resumes** through Matryoshka embeddings → top 2,000 shortlisted in **< 1s** (yes, really)
-- threw a DeBERTa NLI gate at them → trimmed to **top 500** who actually read the job description
-- finished with an ONNX cross-encoder reranker → clean **top 100**, all within a 5-min CPU budget
-
-`PyTorch` `ONNX` `DeBERTa-NLI` `Sentence Transformers` `Multiprocessing`
+`Python` `OpenCV` `YOLOv8` `Table Transformer` `FastAPI` `MySQL` `React`
 
 ---
 
-### [Advanzia AutoLend](https://github.com/Adityakeerti/Credit_Limit_Adjust_RL) — *teaching RL to not give loans to bad vibes* &nbsp;`Jan – Feb 2026`
+## 🔨 things i built
 
-> 5,000+ requests/min. the model has more financial discipline than i do.
+### 🏙️ CitySense — *why does that pothole keep coming back?* &nbsp;`Oct – Nov 2026`
 
-- Dueling Double DQN + Cox Hazard Model to estimate who's about to ghost their EMIs
-- Spring Boot + FastAPI microservices, Redis caching — **sub-300ms** inference latency
-- simulated **10,000+ synthetic users** because you can't use real ones when you're a student 🤷
+> a pothole, a damp wall and a water-pressure dip land in three different departments. they're often the same leaking pipe.
 
-`Java` `Spring Boot` `FastAPI` `PyTorch` `Redis` `PostgreSQL`
+- traces recurring civic complaints back to the infrastructure fault behind them, and names the department that owns it
+- LangGraph planner routes citizen requests to specialist agents: complaint filing, emergency response, hybrid-RAG answers (Hindi/English)
+- tested on two fault-injection simulations: a synthetic city (water, sewer, waste, streetlights) and a traffic twin of a 10-junction Dehradun corridor
+- **89% top-cause accuracy** over 118 benchmark runs, using shockwave analysis + counterfactual replays
+- Double DQN written from scratch in NumPy decides what to inspect first: wasted repairs **~45 → under 4** per episode
+- a second RL agent (PyTorch) runs traffic signals within safety limits: **27% shorter queues** than fixed-time signals
+
+*all numbers are from simulation, not a live city.*
+
+`Python` `PyTorch` `NumPy` `LangGraph` `FastAPI` `PostgreSQL/pgvector` `llama.cpp` `React`
 
 ---
 
-### [DOC-OC](https://github.com/Adityakeerti/DOC-OC) — *marksheets don't stand a chance* &nbsp;`Sep – Oct 2025`
+### 📄 [DOC-OC v2](https://github.com/Adityakeerti/DOC-OC-LLM) — *a whole OCR pipeline, replaced by one local model* &nbsp;`Sep – Oct 2026` &nbsp;·&nbsp; [live demo](https://adityacodes404-doc-oc.hf.space/)
 
-> 99.98% accuracy. the 0.02% keeps me humble.
+> runs on a 6 GB laptop GPU. no cloud, no API bill.
 
-- custom YOLOv8 + HuggingFace Table Transformers → structured data, no manual typing
-- OCR engine with fraud-mitigation baked in, because apparently people do that
-- React + FastAPI portal — **30x faster** (10 mins → 30s per sheet)
+- swapped a multi-stage OCR + CV cascade for a single pass of **Gemma 4 E2B** (Q4, 3.2 GB VRAM) on llama.cpp, picked after benchmarking Qwen2.5-VL-3B and UI-TARS-7B
+- **27 s → 6.3 s per page (4.3×)**: reasoning-token suppression, full GPU offload, FlashAttention, 1600 px input cap
+- JSON schema compiled to a GBNF grammar, so output is always valid; then Pydantic + arithmetic checks fix column shifts
+- tested on 37 marksheets from CBSE, ICSE/ISC and state boards
 
-`Python` `React` `FastAPI` `YOLOv8` `HuggingFace` `OpenCV` `MySQL`
+`Python` `Gemma 4` `llama.cpp` `GBNF` `Pydantic` `PyMuPDF` `FastAPI`
+
+---
+
+### 🏥 [Anand Kosh](https://github.com/Adityakeerti/anand-kosh) — *clinical records for a real clinic* &nbsp;`Jul – Aug 2026`
+
+> used by operators in a government hospital department clinic.
+
+- manages 50+ patient records, documents, reminders and scheduling
+- role-based access for administrators, medical staff and clinical observers
+- Prisma + Neon PostgreSQL, Google Drive API for documents, audit logging
+
+`TypeScript` `Next.js` `Prisma` `PostgreSQL` `Google Drive API`
+
+---
+
+### more
+
+- [**Advanzia AutoLend**](https://github.com/Adityakeerti/Credit_Limit_Adjust_RL): RL credit-limit optimization, Dueling Double DQN + Cox hazard model
+- [**Campus Intel**](https://github.com/Adityakeerti/CampusIntel): campus platform with RAG assistant, marksheet correction flow, phone-camera library scanner
+- [**Resume Rank AI**](https://github.com/Adityakeerti/resumeRankerAi): embeddings → NLI gate → cross-encoder reranker to shortlist resumes on CPU
 
 ---
 
@@ -81,33 +95,29 @@ the professor was happy. the server was not.
 
 <img src="https://skillicons.dev/icons?i=python,java,c&theme=dark" height="42" title="languages"/>
 &nbsp;&nbsp;
-<img src="https://skillicons.dev/icons?i=fastapi,spring,redis,postgres,mysql&theme=dark" height="42" title="backend + databases"/>
+<img src="https://skillicons.dev/icons?i=pytorch,sklearn,opencv&theme=dark" height="42" title="AI/ML"/>
 &nbsp;&nbsp;
-<img src="https://skillicons.dev/icons?i=pytorch,opencv&theme=dark" height="42" title="AI/ML"/>
+<img src="https://skillicons.dev/icons?i=fastapi,postgres,mysql&theme=dark" height="42" title="backend + databases"/>
 &nbsp;&nbsp;
 <img src="https://skillicons.dev/icons?i=react,ts&theme=dark" height="42" title="frontend"/>
 &nbsp;&nbsp;
-<img src="https://skillicons.dev/icons?i=gcp,docker,git,githubactions&theme=dark" height="42" title="cloud + devops"/>
+<img src="https://skillicons.dev/icons?i=gcp,docker,git&theme=dark" height="42" title="cloud + tools"/>
 
 </div>
 
 ---
 
-## 🏆 bragging rights (just a few)
+## 🏆 hackathons
 
-🥇 **won MariTHON** — built an SOF extraction pipeline that got deployed by an actual maritime exchange. with Google Cloud. as a student.
+🥇 **1st place, MariTHON National Hackathon**: Google Cloud Vertex AI pipeline that pulls structured JSON out of maritime documents. the Integrated Maritime Exchange adopted it for their production backend.
 
-🏁 **finalist @ HackTheWinter** — RL credit optimization system. the judges were impressed, the neural net was not nervous.
+🏁 **finalist, HackTheWinter National Hackathon**: RL credit-limit optimization (Dueling Double DQN + Cox Proportional Hazards) over 10,000+ synthetic borrower profiles.
 
-🏛️ **finalist @ India Innovates 2026** — top 500 out of who-knows-how-many. showed up to Bharat Mandapam, New Delhi. didn't embarrass myself.
+🏛️ **finalist, India Innovates 2026**: made the physical finale at Bharat Mandapam, New Delhi (top 500 of 10,000+ teams).
 
 ---
 
 <div align="center">
-
-<img src="https://github-profile-trophy.vercel.app/?username=Adityakeerti&theme=onedark&no-frame=true&no-bg=true&margin-w=6&column=7" width="100%"/>
-
-<br/>
 
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Adityakeerti&bg_color=0d0d0d&color=c9a96e&line=c9a96e&point=e8d5a8&area=true&hide_border=true&custom_title=proof+that+i+actually+code" width="95%"/>
 

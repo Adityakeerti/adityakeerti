@@ -5,59 +5,62 @@
             "skills": [
                 "Python",
                 "Java",
+                "C",
                 "SQL",
-                "TypeScript",
-                "Dart"
+                "TypeScript"
             ]
         },
         {
-            "name": "Backend & Architecture",
+            "name": "AI / ML",
+            "skills": [
+                "PyTorch",
+                "LLMs",
+                "Reinforcement Learning",
+                "Deep Learning",
+                "LangGraph",
+                "Agentic AI",
+                "RAG",
+                "scikit-learn"
+            ]
+        },
+        {
+            "name": "Vision & Docs",
+            "skills": [
+                "OpenCV",
+                "YOLOv8",
+                "Table Transformer",
+                "VLMs",
+                "llama.cpp / GBNF",
+                "Hugging Face"
+            ]
+        },
+        {
+            "name": "Backend & Data",
             "skills": [
                 "FastAPI",
                 "Spring Boot",
                 "REST APIs",
-                "API Security",
-                "System Design"
+                "Pydantic",
+                "PostgreSQL / pgvector",
+                "MySQL"
             ]
         },
         {
-            "name": "Databases",
+            "name": "Cloud & Tools",
             "skills": [
-                "PostgreSQL",
-                "MySQL",
-                "SQLite"
-            ]
-        },
-        {
-            "name": "AI & Processing",
-            "skills": [
-                "PyTorch",
-                "Vision-Language Models (VLMs)",
-                "llama.cpp / GBNF",
-                "OpenCV",
-                "YOLO",
-                "LLM Orchestration",
-                "HuggingFace"
-            ]
-        },
-        {
-            "name": "Cloud & DevOps",
-            "skills": [
-                "Docker",
                 "Google Cloud (Vertex AI)",
+                "Docker",
                 "Git",
-                "GitHub Actions",
-                "CI/CD",
-                "Postman"
+                "GitHub Actions"
             ]
         },
         {
-            "name": "Testing",
+            "name": "Core CS",
             "skills": [
-                "PyTest",
-                "JUnit",
-                "Integration Testing",
-                "API Testing"
+                "DSA",
+                "OOP",
+                "DBMS",
+                "Operating Systems"
             ]
         }
     ]
